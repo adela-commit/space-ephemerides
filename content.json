@@ -1,0 +1,471 @@
+{
+ "schema": 1,
+ "version": "2026-09-19.3",
+ "updated": "2026-09-19",
+ "sources": {
+  "wikipedia": {
+   "name": "Wikipédia (français)",
+   "constellations": [
+    {
+     "t": "Figure d’origine mésopotamienne, d’abord « le Travailleur journalier », épithète de Dumuzi (Tammuz), berger et amant d’Ishtar. Les Grecs y voient Chrysomallos, le bélier volant à la toison d’or, chevauché par Phrixos et Hellé : selon Apollodore, Hermès l’envoie les sauver d’un sacrifice, à la demande de leur mère Néphélé. Cette toison inspirera l’expédition de Jason et des Argonautes.",
+     "u": "https://fr.wikipedia.org/wiki/B%C3%A9lier_(constellation)",
+     "a": "Bélier (constellation)"
+    },
+    {
+     "t": "Constellation très ancienne. En Mésopotamie, c’est le Taureau céleste que le dieu Anu envoie ravager Uruk, à la demande d’Ishtar, dans l’épopée de Gilgamesh. Chez les Grecs, il représente soit Zeus changé en taureau pour enlever Europe, soit le taureau blanc envoyé par Poséidon au roi Minos.",
+     "u": "https://fr.wikipedia.org/wiki/Taureau_(constellation)",
+     "a": "Taureau (constellation)"
+    },
+    {
+     "t": "Selon Ératosthène, ce sont Castor et Pollux, les Dioscures, fils de Léda et frères d’Hélène de Troie. Séduite par Zeus changé en cygne, Léda pondit deux œufs : de l’un, fécondé par son époux Tyndare, naquirent Castor et Clytemnestre, mortels ; de l’autre, Pollux et Hélène, divins. Protecteurs des marins et des athlètes, ils héritent d’une figure mésopotamienne plus ancienne.",
+     "u": "https://fr.wikipedia.org/wiki/G%C3%A9meaux",
+     "a": "Gémeaux"
+    },
+    {
+     "t": "Chez les Grecs, c’est le crabe envoyé par Héra pour gêner Héraclès pendant son combat contre l’Hydre de Lerne ; le héros l’écrase. Selon les versions, Héra le place ensuite au ciel. En Mésopotamie, la figure s’appelait déjà « le Crabe ».",
+     "u": "https://fr.wikipedia.org/wiki/Cancer_(constellation)",
+     "a": "Cancer (constellation)"
+    },
+    {
+     "t": "Le lion de Némée, monstre à la peau invulnérable, est tué par Héraclès lors du premier de ses douze travaux : les flèches rebondissent sur son cuir, le héros l’affronte donc à la massue, puis l’étouffe. Zeus place ensuite le fauve parmi les constellations.",
+     "u": "https://fr.wikipedia.org/wiki/Lion_de_N%C3%A9m%C3%A9e",
+     "a": "Lion de Némée"
+    },
+    {
+     "t": "Figure très ancienne à l’identité incertaine : déesse à l’épi d’orge en Mésopotamie, puis Isis, Déméter, Perséphone… Chez les Grecs, c’est souvent Astrée (ou Thémis), déesse de la Justice, qui aurait quitté la Terre par dégoût de la brutalité des hommes, d’où l’épi et la Balance qui l’accompagnent. Autre version : Érigone, que Zeus place au ciel pour sa piété filiale après la mort de son père Icarios.",
+     "u": "https://fr.wikipedia.org/wiki/Vierge_(constellation)",
+     "a": "Vierge (constellation)"
+    },
+    {
+     "t": "Longtemps considérée comme les pinces du Scorpion, elle devient une constellation à part entière à l’époque romaine. Dans la mythologie classique, c’est la balance d’Astrée, déesse de la Justice, figurée par la Vierge voisine. En Mésopotamie, la balance symbolisait Kittu et Mišāru, ministres du dieu-soleil Šamaš : le Droit et l’Équité.",
+     "u": "https://fr.wikipedia.org/wiki/Balance_(constellation)",
+     "a": "Balance (constellation)"
+    },
+    {
+     "t": "Constellation d’origine mésopotamienne, liée à Išḫara, « la Dame des régions inhabitées ». Chez les Grecs, c’est le scorpion que les dieux (Artémis, Apollon, Héra ou Gaïa selon les sources) envoient contre le chasseur Orion. Les deux sont placés aux extrémités opposées du ciel : quand le Scorpion se lève, Orion se couche.",
+     "u": "https://fr.wikipedia.org/wiki/Scorpion_(constellation)",
+     "a": "Scorpion (constellation)"
+    },
+    {
+     "t": "Le « porteur de serpent » représenterait Asclépios, élève du centaure Chiron et médecin : selon la légende, il aurait tué un serpent, puis vu un autre serpent le ranimer avec des herbes. Le Soleil le traverse du 29 novembre au 18 décembre, mais il ne fait pas partie des douze signes du zodiaque.",
+     "u": "https://fr.wikipedia.org/wiki/Ophiuchus",
+     "a": "Ophiuchus"
+    },
+    {
+     "t": "Il prolonge Pabilsag, archer-centaure ailé de Mésopotamie, à deux visages. Ératosthène y voit Crotos, fils d’Euphémé, à qui les Muses apprirent à tirer à l’arc pour se nourrir des bêtes sauvages ; d’autres traditions grecques y reconnaissent un centaure, sans qu’on s’accorde sur son identité.",
+     "u": "https://fr.wikipedia.org/wiki/Sagittaire_(constellation)",
+     "a": "Sagittaire (constellation)"
+    },
+    {
+     "t": "Depuis la Mésopotamie, c’est un hybride de chèvre et de poisson (« la Carpe-chèvre »), emblème du dieu Enki. Les Grecs y voient parfois Amalthée, la chèvre qui nourrit Zeus enfant, ou Pan (ou Dionysos) fuyant le monstre Typhon : changé en chèvre, il plonge dans l’eau, mais seul l’arrière de son corps devient poisson.",
+     "u": "https://fr.wikipedia.org/wiki/Capricorne_(constellation)",
+     "a": "Capricorne (constellation)"
+    },
+    {
+     "t": "Appelé « le Géant » en Mésopotamie. Le mythe grec le plus courant y voit Ganymède, jeune berger que Zeus, changé en aigle, enlève pour qu’il devienne l’échanson des dieux à la place d’Hébé, ce qui provoque la jalousie d’Héra. Zeus l’élève ensuite au ciel.",
+     "u": "https://fr.wikipedia.org/wiki/Verseau",
+     "a": "Verseau"
+    },
+    {
+     "t": "Création mésopotamienne, liée à des déesses tutélaires du Tigre et de l’Euphrate. Chez les Grecs, ce sont Aphrodite et Éros (ou Thétis et Thérys selon les versions) qui, poursuivis par le monstre Typhon, se transforment en poissons pour s’enfuir dans un fleuve.",
+     "u": "https://fr.wikipedia.org/wiki/Poissons_(constellation)",
+     "a": "Poissons (constellation)"
+    },
+    {
+     "t": "Chasseur géant de la mythologie grecque, réputé pour sa beauté et sa violence. La légende raconte que Zeus le change en constellation. Chez Homère, Sirius est son chien ; chez Hésiode, il poursuit les Pléiades. Dans l’une des versions rapportées par Hygin, il meurt piqué par un scorpion : le Scorpion est alors placé lui aussi au ciel, à l’opposé d’Orion.",
+     "u": "https://fr.wikipedia.org/wiki/Orion_(mythologie)",
+     "a": "Orion (mythologie)"
+    },
+    {
+     "t": "Reine d’Éthiopie, épouse de Céphée et mère d’Andromède, dans le mythe de Persée et d’Andromède. Vaniteuse, elle se vante de sa beauté ; sa fille est exposée à un monstre marin avant d’être sauvée par Persée. Pour punir son orgueil, les dieux la condamnent à tourner autour du pôle Nord, enchaînée à son trône, parfois la tête en bas.",
+     "u": "https://fr.wikipedia.org/wiki/Cassiop%C3%A9e_(constellation)",
+     "a": "Cassiopée (constellation)"
+    },
+    {
+     "t": "Amas d’étoiles du Taureau. Pour les Grecs, ce sont sept sœurs, filles du Titan Atlas et de Pléioné : Astérope, Mérope, Électre, Maïa, Taygète, Célaéno et Alcyone. Dans le mythe d’Orion, elles fuient le chasseur qui les poursuit ; changées en étoiles, elles restent poursuivies par Orion dans le ciel. Leur lever et leur coucher réglaient la moisson, le labour et la navigation. On n’en distingue souvent que six à l’œil nu.",
+     "u": "https://fr.wikipedia.org/wiki/Pl%C3%A9iades_(astronomie)",
+     "a": "Pléiades (astronomie)"
+    },
+    {
+     "t": "Selon Ératosthène, c’est Callisto, nymphe d’Arcadie, fille de Lycaon et compagne d’Artémis. Aimée de Zeus, elle est changée en ourse (par Artémis ou par Héra selon les versions) et met au monde Arcas. Pour les soustraire aux chasseurs, Zeus les transforme en constellations : Callisto en Grande Ourse, Arcas en Petite Ourse, qui tournent sans fin autour du pôle sans jamais se reposer sous la mer.",
+     "u": "https://fr.wikipedia.org/wiki/Grande_Ourse",
+     "a": "Grande Ourse"
+    },
+    {
+     "t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.",
+     "u": "https://fr.wikipedia.org/wiki/Petite_Ourse",
+     "a": "Petite Ourse"
+    }
+   ],
+   "planets": [
+    {
+     "t": "Les Grecs le personnifient en Hélios, Titan fils d’Hypérion et de Théia, frère de Séléné (la Lune) et d’Éos (l’Aurore). Chaque jour, il traverse le ciel sur son char ; son fils mortel Phaéton, qui voulut le conduire, est resté célèbre. À Rome, son équivalent est Sol, et Hélios a peu à peu été assimilé à Apollon.",
+     "l": [
+      "Hélios",
+      "Soleil"
+     ]
+    },
+    {
+     "t": "Séléné, fille des Titans Hypérion et Théia et sœur d’Hélios, personnifie la Lune elle-même. On la lie souvent à Artémis et à Hécate : ensemble, elles forment une triade (pleine lune, croissant, nouvelle lune). Son mythe le plus célèbre est son amour pour le berger Endymion, à qui Zeus accorde de dormir sans fin, éternellement jeune. Les Romains l’appelaient Luna.",
+     "l": [
+      "Séléné",
+      "Lune"
+     ]
+    },
+    {
+     "t": "Chez les Romains, Mercure est le dieu du commerce, assimilé à l’Hermès grec : messager des dieux, protecteur des voyageurs et des voleurs, il conduit aussi les âmes aux Enfers. La planète porte son nom pour la vitesse de son déplacement dans le ciel, et son symbole évoque le caducée d’Hermès. Les Babyloniens y voyaient Nabû, dieu du savoir.",
+     "l": [
+      "Mercure (planète)",
+      "Mercure (mythologie)"
+     ]
+    },
+    {
+     "t": "Déesse romaine de l’amour, de la séduction et de la beauté, assimilée très tôt à l’Aphrodite grecque. Fille d’Ouranos chez Hésiode, elle passe à Rome pour la fille de Jupiter et de Dioné ; elle est la mère de Cupidon, qu’elle a eu avec Mars, et d’Hermaphrodite, avec Mercure. La planète, la plus brillante du ciel, lui doit sans doute son nom.",
+     "l": [
+      "Vénus (planète)",
+      "Vénus (mythologie)"
+     ]
+    },
+    {
+     "t": "Dieu romain de la guerre, identifié à l’Arès grec et membre de la triade précapitoline avec Jupiter et Quirinus ; la légende en fait le père de Romulus et Rémus. Arès, fils de Zeus et d’Héra, combat avec Éris, Déimos (la Terreur) et Phobos (la Crainte) : les deux noms donnés aux lunes de la planète. Sa teinte rouge l’a associée à la guerre.",
+     "l": [
+      "Mars (planète)",
+      "Mars (mythologie)"
+     ]
+    },
+    {
+     "t": "Roi des dieux et dieu du ciel dans la religion romaine ; son nom vient d’un « Père du Ciel » indo-européen et ses attributs sont la foudre et l’aigle. Les Romains l’ont assimilé au Zeus grec, dont il a repris les mythes : fils de Saturne, il le détrône. La plus grosse planète du Système solaire porte le nom du chef du panthéon, et l’Union astronomique internationale nomme ses lunes d’après les amours et les descendants du dieu.",
+     "l": [
+      "Jupiter (planète)",
+      "Jupiter (mythologie)"
+     ]
+    },
+    {
+     "t": "Dieu romain du temps, des semailles et des Saturnales, fêtes du solstice d’hiver, assimilé très tôt au Titan Cronos. Dans le mythe grec, Cronos détrône son père Ouranos ; averti qu’un de ses fils le renversera, il dévore ses enfants, jusqu’à ce que Zeus, sauvé, le détrône à son tour. La planète, la plus lointaine connue des Anciens, porte son nom, et son symbole évoque la faucille du dieu.",
+     "l": [
+      "Saturne (planète)",
+      "Saturne (mythologie)"
+     ]
+    },
+    {
+     "t": "Ouranos, le Ciel, est la divinité primordiale grecque qui, unie à Gaïa (la Terre), engendre la première génération des Titans ; il est le père de Cronos (Saturne) et le grand-père de Zeus (Jupiter). La planète, découverte par William Herschel le 13 mars 1781, fut d’abord baptisée par lui Georgium Sidus ; Johann Bode proposa Uranus, pour rester dans la mythologie comme les autres planètes.",
+     "l": [
+      "Uranus (planète)",
+      "Ouranos (mythologie)"
+     ]
+    },
+    {
+     "t": "Neptune est le dieu romain de la mer, l’équivalent du Poséidon grec. La planète a été trouvée par le calcul : Urbain Le Verrier prédit sa position, et Johann Galle l’observe à Berlin le 23 septembre 1846 (John Couch Adams avait fait de son côté des calculs indépendants). Galle suggéra d’abord le nom de Janus ; celui de Neptune fut finalement retenu, dans la tradition des autres planètes.",
+     "l": [
+      "Neptune (planète)",
+      "Neptune (mythologie)"
+     ]
+    },
+    {
+     "t": "Pluton est le dieu romain des Enfers, équivalent du Hadès grec. Découverte le 18 février 1930 par Clyde Tombaugh, la planète a reçu son nom d’une fillette de onze ans d’Oxford, Venetia Burney, passionnée de mythologie ; il plut aussi parce que ses deux premières lettres sont les initiales de Percival Lowell. Elle est classée planète naine depuis 2006.",
+     "l": [
+      "Pluton (planète naine)",
+      "Hadès"
+     ]
+    }
+   ],
+   "stars": {
+    "Sirius": [
+     "α Canis Majoris",
+     "Grand Chien",
+     "Sirius"
+    ],
+    "Canopus": [
+     "α Carinae",
+     "Carène",
+     "Canopus (étoile)"
+    ],
+    "Alpha Centauri": [
+     "α Centauri",
+     "Centaure",
+     "Alpha Centauri"
+    ],
+    "Arcturus": [
+     "α Boötis",
+     "Bouvier",
+     "Arcturus"
+    ],
+    "Véga": [
+     "α Lyrae",
+     "Lyre",
+     "Véga"
+    ],
+    "Capella": [
+     "α Aurigae",
+     "Cocher",
+     "Capella (étoile)"
+    ],
+    "Rigel": [
+     "β Orionis",
+     "Orion",
+     "Rigel"
+    ],
+    "Procyon": [
+     "α Canis Minoris",
+     "Petit Chien",
+     "Procyon"
+    ],
+    "Achernar": [
+     "α Eridani",
+     "Éridan",
+     "Achernar"
+    ],
+    "Bételgeuse": [
+     "α Orionis",
+     "Orion",
+     "Bételgeuse"
+    ],
+    "Altaïr": [
+     "α Aquilae",
+     "Aigle",
+     "Altaïr"
+    ],
+    "Aldébaran": [
+     "α Tauri",
+     "Taureau",
+     "Aldébaran"
+    ],
+    "Spica": [
+     "α Virginis",
+     "Vierge",
+     "Spica"
+    ],
+    "Antarès": [
+     "α Scorpii",
+     "Scorpion",
+     "Antarès"
+    ],
+    "Pollux": [
+     "β Geminorum",
+     "Gémeaux",
+     "Pollux (étoile)"
+    ],
+    "Fomalhaut": [
+     "α Piscis Austrini",
+     "Poisson austral",
+     "Fomalhaut"
+    ],
+    "Deneb": [
+     "α Cygni",
+     "Cygne",
+     "Deneb"
+    ],
+    "Régulus": [
+     "α Leonis",
+     "Lion",
+     "Regulus"
+    ],
+    "Castor": [
+     "α Geminorum",
+     "Gémeaux",
+     "Castor (étoile)"
+    ],
+    "Bellatrix": [
+     "γ Orionis",
+     "Orion",
+     "Bellatrix"
+    ],
+    "Alnilam": [
+     "ε Orionis",
+     "Orion",
+     "Alnilam"
+    ],
+    "Alnitak": [
+     "ζ Orionis",
+     "Orion",
+     "Alnitak"
+    ],
+    "Mintaka": [
+     "δ Orionis",
+     "Orion",
+     "Mintaka"
+    ],
+    "Meissa": [
+     "λ Orionis",
+     "Orion",
+     "Meissa"
+    ],
+    "Saiph": [
+     "κ Orionis",
+     "Orion",
+     "Saiph"
+    ],
+    "Alioth": [
+     "ε Ursae Majoris",
+     "Grande Ourse",
+     "Alioth"
+    ],
+    "Dubhe": [
+     "α Ursae Majoris",
+     "Grande Ourse",
+     "Dubhe"
+    ],
+    "Alkaid": [
+     "η Ursae Majoris",
+     "Grande Ourse",
+     "Alkaid"
+    ],
+    "Mizar": [
+     "ζ Ursae Majoris",
+     "Grande Ourse",
+     "Mizar"
+    ],
+    "Merak": [
+     "β Ursae Majoris",
+     "Grande Ourse",
+     "Merak"
+    ],
+    "Phecda": [
+     "γ Ursae Majoris",
+     "Grande Ourse",
+     "Phecda"
+    ],
+    "Megrez": [
+     "δ Ursae Majoris",
+     "Grande Ourse",
+     "Megrez"
+    ],
+    "Polaris": [
+     "α Ursae Minoris",
+     "Petite Ourse",
+     "Étoile polaire"
+    ],
+    "Kochab": [
+     "β Ursae Minoris",
+     "Petite Ourse",
+     "Kochab"
+    ],
+    "Pherkad": [
+     "γ Ursae Minoris",
+     "Petite Ourse",
+     "Pherkad"
+    ],
+    "Yildun": [
+     "δ Ursae Minoris",
+     "Petite Ourse",
+     "Yildun"
+    ],
+    "Mirfak": [
+     "α Persei",
+     "Persée",
+     "Mirfak"
+    ],
+    "Schedar": [
+     "α Cassiopeiae",
+     "Cassiopée",
+     "Schedar"
+    ],
+    "Caph": [
+     "β Cassiopeiae",
+     "Cassiopée",
+     "Caph"
+    ],
+    "Gamma Cassiopeiae": [
+     "γ Cassiopeiae",
+     "Cassiopée",
+     "Gamma Cassiopeiae"
+    ],
+    "Ruchbah": [
+     "δ Cassiopeiae",
+     "Cassiopée",
+     "Ruchbah"
+    ],
+    "Segin": [
+     "ε Cassiopeiae",
+     "Cassiopée",
+     "Segin"
+    ],
+    "Hamal": [
+     "α Arietis",
+     "Bélier",
+     "Hamal"
+    ],
+    "Elnath": [
+     "β Tauri",
+     "Taureau",
+     "Elnath"
+    ],
+    "Alhena": [
+     "γ Geminorum",
+     "Gémeaux",
+     "Alhena"
+    ],
+    "Porrima": [
+     "γ Virginis",
+     "Vierge",
+     "Porrima"
+    ],
+    "Vindemiatrix": [
+     "ε Virginis",
+     "Vierge",
+     "Vindemiatrix"
+    ],
+    "Shaula": [
+     "λ Scorpii",
+     "Scorpion",
+     "Shaula"
+    ],
+    "Kaus Australis": [
+     "ε Sagittarii",
+     "Sagittaire",
+     "Kaus Australis"
+    ],
+    "Nunki": [
+     "σ Sagittarii",
+     "Sagittaire",
+     "Nunki"
+    ],
+    "Alrescha": [
+     "α Piscium",
+     "Poissons",
+     "Alrescha"
+    ],
+    "Rasalhague": [
+     "α Ophiuchi",
+     "Ophiuchus",
+     "Rasalhague"
+    ],
+    "Alcyone": [
+     "η Tauri",
+     "Pléiades",
+     "Alcyone"
+    ],
+    "Atlas": [
+     "27 Tauri",
+     "Pléiades",
+     "Atlas (étoile)"
+    ],
+    "Electra": [
+     "17 Tauri",
+     "Pléiades",
+     "Électre (étoile)"
+    ],
+    "Maia": [
+     "20 Tauri",
+     "Pléiades",
+     "Maïa (étoile)"
+    ],
+    "Merope": [
+     "23 Tauri",
+     "Pléiades",
+     "Mérope (étoile)"
+    ],
+    "Taygeta": [
+     "19 Tauri",
+     "Pléiades",
+     "Taygète (étoile)"
+    ],
+    "Pleione": [
+     "28 Tauri",
+     "Pléiades",
+     "Pléione (étoile)"
+    ]
+   }
+  }
+ }
+}

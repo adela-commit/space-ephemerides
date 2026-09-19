@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Space Ephemerides</title>
+<meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ephemerides">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+:root{
+  --bg:#FAFAFA;
+  --ink:#1C1C1E;
+  --muted:#8B8B90;
+  --line:#DCDCE0;
+  --accent:#C0283D;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121316;
+    --ink:#EDEDEF;
+    --muted:#85858C;
+    --line:#2C2D32;
+    --accent:#FF7A8A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121316;
+  --ink:#EDEDEF;
+  --muted:#85858C;
+  --line:#2C2D32;
+  --accent:#FF7A8A;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  font-size:15px;
+  line-height:1.45;
+}
+.wrap{
+  max-width:1080px;
+  margin:0 auto;
+  padding:32px 20px 56px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 340px;
+  grid-template-areas:"wheel head" "wheel ctrl" "wheel list";
+  grid-template-rows:auto auto 1fr;
+  column-gap:56px;
+  row-gap:20px;
+}
+.head{grid-area:head}
+.wheelbox{grid-area:wheel;align-self:start}
+.ctrl{grid-area:ctrl;display:flex;flex-direction:column;gap:20px}
+.listbox{grid-area:list}
+@media (max-width:860px){
+  .wrap{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"head" "wheel" "ctrl" "list";
+    grid-template-rows:auto;
+    row-gap:20px;
+    padding-top:24px;
+  }
+}
+h1{
+  margin:0 0 4px;
+  font-size:14px;
+  font-weight:400;
+  color:var(--muted);
+}
+.date{
+  margin:0;
+  font-size:clamp(26px,4vw,34px);
+  font-weight:500;
+  letter-spacing:-0.015em;
+  line-height:1.15;
+}
+.sub{margin:6px 0 0;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.sym{font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols","Noto Sans Symbols 2","DejaVu Sans",system-ui,sans-serif}
+.ln{fill:none;stroke:var(--line);stroke-width:1}
+.ring{fill:none;stroke:var(--line);stroke-width:1;opacity:.6}
+.tick{fill:none;stroke:var(--muted);stroke-width:1;opacity:.55}
+.sign{fill:var(--muted);font-size:22px;text-anchor:middle;dominant-baseline:central}
+.cd{fill:var(--muted);font-size:16px;text-anchor:middle;dominant-baseline:central}
+.halo{fill:var(--bg)}
+.pl{fill:var(--ink);font-size:19px;text-anchor:middle;dominant-baseline:central}
+.retro .pl{fill:var(--accent)}
+.tr{fill:none;stroke:var(--ink);stroke-width:1.2;opacity:.5;stroke-linecap:round;stroke-linejoin:round}
+.earth{fill:var(--ink)}
+.ecl{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:2 5;opacity:.85}
+.st{fill:var(--ink);opacity:.8}
+.stl{fill:var(--muted);font-size:11px;dominant-baseline:central;pointer-events:all;cursor:help}
+.stl.on{fill:var(--ink)}
+.hs{fill:transparent;pointer-events:all;cursor:help}
+.st.on,.fs.on{stroke:var(--ink);stroke-width:1.6}
+.halo.on{stroke:var(--ink);stroke-width:1.2}
+.list li{cursor:help}
+.list li.on{background:rgba(127,127,127,.12)}
+.cn{fill:var(--muted);font-size:10.5px;text-anchor:middle;dominant-baseline:central}
+.cn2{fill:var(--ink);opacity:.6;font-size:12px;text-anchor:middle;dominant-baseline:central}
+.ctick{fill:none;stroke:var(--muted);stroke-width:1;opacity:.7}
+.fig{fill:none;stroke:var(--ink);stroke-width:1;opacity:.28}
+.fs{fill:var(--ink);opacity:.7}
+#sky{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.tl.w{min-width:9em}
+.hint{margin:0;font-size:12px;line-height:1.5;color:var(--muted)}
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:12px;align-items:center;justify-content:space-between;max-width:480px;margin:0 auto;padding:10px 14px;background:var(--bg);color:var(--ink);border:1px solid var(--ink);border-radius:8px;font-size:13px}
+.hit{fill:transparent;pointer-events:all;cursor:help}
+.hit.on{fill:var(--ink);fill-opacity:.1}
+.hit2{fill:none;stroke:transparent;stroke-width:22;stroke-linecap:round;stroke-linejoin:round;pointer-events:stroke;cursor:help}
+.hit2.on{stroke:var(--ink);stroke-opacity:.1}
+.fig.on{opacity:.8;stroke-width:1.6}
+.cn2{pointer-events:all;cursor:help}
+.cn2.on{opacity:1}
+#sky .st,#sky .fs,#sky .ecl,#sky .ctick,#sky .fig,#sky g{pointer-events:none}
+#tip{position:fixed;z-index:20;left:0;top:0;width:max-content;max-width:min(320px,calc(100vw - 24px));padding:12px 14px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.14);font-size:13px;line-height:1.5;pointer-events:none}
+#tip.pin{pointer-events:auto}
+#tip h3{margin:0 0 2px;font-size:15px;font-weight:500}
+#tip .src{margin:0 0 8px;font-size:11px;color:var(--muted)}
+#tip p{margin:0}
+#tip .lk{margin-top:8px;font-size:12px}
+#tip a{color:var(--ink)}
+
+button,select,input[type="date"]{
+  font:inherit;
+  font-size:13px;
+  color:var(--ink);
+  background:transparent;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:6px 10px;
+  min-height:32px;
+}
+button{cursor:pointer}
+button:hover,select:hover,input[type="date"]:hover{border-color:var(--muted)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+button[aria-pressed="true"]{border-color:var(--ink)}
+select option{color:#1C1C1E;background:#FFFFFF}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.hz{display:flex;flex-direction:column;gap:20px}
+.grp{display:flex;flex-direction:column;gap:8px}
+.grp > select{width:100%}
+.gt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12px;font-weight:500;color:var(--muted)}
+.gt label{cursor:default}
+.gv{color:var(--ink);font-size:13px;font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mn{fill:var(--muted);font-size:10px;text-anchor:middle;dominant-baseline:central}
+@media (min-width:861px){.wheelbox{position:sticky;top:16px}}
+.tl{font-size:14px;font-variant-numeric:tabular-nums;min-width:3.2em}
+input[type="range"]{width:100%;margin:2px 0;accent-color:var(--ink)}
+input[type="date"]{color-scheme:light dark}
+
+.list{list-style:none;margin:0;padding:0}
+.list li{
+  display:grid;
+  grid-template-columns:26px 1fr auto 18px;
+  gap:8px;
+  align-items:baseline;
+  padding:9px 0;
+  border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.list li:first-child{border-top:1px solid var(--line)}
+.list .g{font-size:18px;line-height:1}
+.list .v{font-variant-numeric:tabular-nums}
+.list .r{color:var(--accent);text-align:right}
+.note{margin:16px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+.about{margin:16px 0 0;font-size:12px;line-height:1.55;color:var(--muted)}
+.about summary{cursor:pointer;color:var(--ink);font-size:13px}
+.about p{margin:8px 0 0}
+.about a{color:var(--ink)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <h1 id="title">Space Ephemerides · Ciel vu depuis la Terre</h1>
+    <p class="date" id="dateText" aria-live="polite"></p>
+    <p class="sub" id="sub"></p>
+  </header>
+
+  <div class="wheelbox">
+    <svg id="wheel" viewBox="0 0 640 640" role="img" aria-label="Roue zodiacale montrant la position des planètes" hidden></svg>
+    <svg id="sky" viewBox="0 0 640 640" role="img" aria-label="Ciel vu depuis la Terre : hauteur et direction du Soleil, de la Lune, des planètes et de quelques étoiles"></svg>
+  </div>
+
+  <section class="ctrl" aria-label="Commandes">
+    <div class="grp">
+      <div class="gt"><span>Vue</span></div>
+      <div class="row" id="views">
+        <button type="button" data-view="sky" aria-pressed="true">Horizon</button>
+        <button type="button" data-view="wheel" aria-pressed="false">Roue zodiacale</button>
+      </div>
+    </div>
+
+    <div class="hz" id="hz">
+      <div class="grp">
+        <div class="gt"><label for="place">Lieu</label></div>
+        <select id="place"></select>
+      </div>
+      <div class="grp">
+        <div class="gt"><label for="timeSlider">Heure locale</label><span class="gv" id="timeLabel">22:00</span></div>
+        <input type="range" id="timeSlider" min="0" max="1435" step="5" value="1320">
+      </div>
+      <div class="grp">
+        <div class="gt"><label for="hdg">Orientation (direction en haut de la carte)</label><span class="gv" id="hdgLabel">0° N</span></div>
+        <input type="range" id="hdg" min="0" max="359" step="1" value="0">
+        <div class="row">
+          <button type="button" id="north">Nord en haut</button>
+          <button type="button" id="compass" aria-pressed="false">Boussole de l’appareil</button>
+        </div>
+        <p class="hint" id="compassMsg" hidden></p>
+        <p class="hint">Vous pouvez aussi faire glisser la carte pour la tourner.</p>
+      </div>
+      <div class="grp">
+        <div class="gt"><label for="zoom">Zoom</label><span class="gv" id="zoomLabel">×1</span></div>
+        <input type="range" id="zoom" min="100" max="600" step="5" value="100">
+        <div class="row">
+          <button type="button" id="zoomOut" aria-label="Zoom arrière">−</button>
+          <button type="button" id="zoomIn" aria-label="Zoom avant">+</button>
+          <button type="button" id="zoomReset">Recentrer</button>
+        </div>
+        <p class="hint">Molette, pincement du pavé tactile ou de l’écran pour zoomer ; Maj + glisser (souris) ou deux doigts (écran tactile) pour déplacer la vue.</p>
+      </div>
+      <div class="grp">
+        <div class="gt"><span>Fiches : constellations, étoiles, planètes</span></div>
+        <div class="row">
+          <button type="button" id="figToggle" aria-pressed="true">Figures</button>
+          <select id="mythSrc" aria-label="Source des fiches (mythes et étoiles)">
+            <option value="wikipedia" selected>Fiches : Wikipédia</option>
+            <option value="none">Fiches : aucune</option>
+          </select>
+        </div>
+        <p class="hint">Survolez une constellation, une étoile nommée ou une planète (sur la carte ou dans la liste) pour lire sa fiche ; cliquez ou touchez pour l’épingler et ouvrir les articles Wikipédia.</p>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="gt"><label for="dateInput">Date</label></div>
+      <input type="range" id="slider" min="0" max="1" step="1" aria-label="Date, de 1900 à 2100">
+      <div class="row">
+        <input type="date" id="dateInput" min="1900-01-01" max="2100-12-31">
+        <button type="button" id="today">Aujourd’hui</button>
+      </div>
+      <div class="row" id="steps">
+        <button type="button" data-y="-1" aria-label="Reculer d’un an">−1 an</button>
+        <button type="button" data-m="-1" aria-label="Reculer d’un mois">−1 mois</button>
+        <button type="button" data-d="-1" aria-label="Reculer d’un jour">−1 jour</button>
+        <button type="button" data-d="1" aria-label="Avancer d’un jour">+1 jour</button>
+        <button type="button" data-m="1" aria-label="Avancer d’un mois">+1 mois</button>
+        <button type="button" data-y="1" aria-label="Avancer d’un an">+1 an</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="gt"><span>Défilement du temps</span></div>
+      <div class="row">
+        <button type="button" id="play" aria-pressed="false">Lecture</button>
+        <select id="speed" aria-label="Vitesse de défilement">
+          <option value="1">1 jour par seconde</option>
+          <option value="10">10 jours par seconde</option>
+          <option value="30.44" selected>1 mois par seconde</option>
+          <option value="365.25">1 an par seconde</option>
+          <option value="3652.5">10 ans par seconde</option>
+        </select>
+        <select id="trace" aria-label="Traces" hidden>
+          <option value="0">Sans traces</option>
+          <option value="30">Traces : 30 jours</option>
+          <option value="365.25" selected>Traces : 1 an</option>
+          <option value="4383">Traces : 12 ans</option>
+        </select>
+      </div>
+    </div>
+    <div class="grp" id="offGrp" hidden>
+      <div class="gt"><span>Hors connexion et mises à jour</span></div>
+      <p class="hint" id="offMsg">Contenu intégré à l’application.</p>
+      <div class="row"><button type="button" id="checkUpd">Rechercher des mises à jour</button></div>
+    </div>
+  </section>
+
+  <section class="listbox">
+    <ul class="list" id="list"></ul>
+    <p class="note" id="noteWheel" hidden>Zodiaque tropical ; positions géocentriques à midi (temps universel), calculées à partir d’éléments orbitaux simplifiés, de 1900 à 2100. Écart usuel : une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton. Le symbole ℞ et la couleur signalent un mouvement rétrograde. Sur la roue, chaque planète occupe son propre cercle ; la Terre est au centre.</p>
+    <p class="note" id="noteMyth">Les mythes sont des résumés rédigés à partir d’articles de Wikipédia (texte sous licence CC BY-SA), intégrés à la page : elle ne peut pas interroger Wikipédia en direct. Chaque fiche renvoie vers l’article d’origine. Pour les étoiles et les planètes, les liens passent par la recherche de Wikipédia, qui ouvre directement l’article lorsque son titre existe.</p>
+    <p class="note" id="noteSky">Le zénith est au centre et l’horizon en bordure. La carte se lit comme un plan posé à plat : le haut correspond à la direction du regard, la gauche et la droite à votre gauche et votre droite (par défaut, nord en haut et est à droite). Le bouton Boussole utilise les capteurs de l’appareil (position portrait, appareil à plat ou dressé) : il indique le nord magnétique, sans correction de déclinaison, et peut être indisponible selon le navigateur ou l’intégration de la page. L’heure est celle du lieu, heure d’été comprise ; le défilement du temps fait avancer la date à heure constante. Le trait pointillé est l’écliptique, découpé en constellations zodiacales par de petits traits (limites de l’Union astronomique internationale ; treize avec Ophiuchus), dont les noms sont inscrits à côté. Les étoiles repères sont une trentaine ; les constellations zodiacales, ainsi qu’Orion, Cassiopée, les Pléiades, la Grande Ourse et la Petite Ourse, sont reliées par des traits schématiques entre leurs principales étoiles (bouton Figures). La réfraction atmosphérique est ignorée ; la parallaxe de la Lune n’est corrigée qu’en hauteur.</p>
+    <details class="about" id="about">
+      <summary>À propos et crédits</summary>
+      <p><strong>À propos.</strong> Space Ephemerides est une carte du ciel vue depuis la Terre : positions du Soleil, de la Lune et des planètes, étoiles repères, constellations et leurs mythes. Projet personnel, non professionnel. Tous les calculs sont faits sur votre appareil.</p>
+      <p><strong>Licences.</strong> Le code est publié sans licence : tous droits réservés, à titre personnel. Les fiches (mythes des constellations et des planètes, informations sur les étoiles) sont des résumés reformulés et abrégés à partir d’articles de Wikipédia en français, disponibles sous licence Creative Commons Attribution – Partage dans les mêmes conditions (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA</a>). Ils sont redistribués sous la même licence. Chaque fiche épinglée renvoie vers l’article d’origine, dont l’historique donne la liste des auteurs.</p>
+      <p><strong>Sources des calculs et des données.</strong> Positions du Soleil, de la Lune et des planètes : éléments orbitaux simplifiés de Paul Schlyter (« How to compute planetary positions ») ; pour Pluton, éléments orbitaux moyens approchés. Limites des constellations zodiacales : longitudes écliptiques des passages du Soleil aux limites de l’Union astronomique internationale, relevées par Guy Ottewell (Universal Workshop) et corrigées de la précession. Coordonnées des étoiles : valeurs saisies à la main, non issues d’un catalogue, puis contrôlées visuellement.</p>
+      <p><strong>Précision.</strong> Les positions sont approchées : écart usuel d’une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton ; la réfraction atmosphérique est ignorée. Les figures des constellations sont schématiques. Cette carte n’est pas destinée à la navigation ni aux observations de précision.</p>
+    </details>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+<div class="bar" id="updBar" role="status" hidden><span>Une nouvelle version de l’application est disponible.</span><button type="button" id="updGo">Recharger</button></div>
+
+<script>
+/* ENGINE START */
+const RAD = Math.PI / 180;
+const rev = x => x - Math.floor(x / 360) * 360;
+const sn = x => Math.sin(x * RAD);
+const cs = x => Math.cos(x * RAD);
+
+function kepler(Mdeg, e) {
+  const M = rev(Mdeg) * RAD;
+  let E = M + e * Math.sin(M) * (1 + e * Math.cos(M));
+  for (let k = 0; k < 30; k++) {
+    const dE = (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+    E -= dE;
+    if (Math.abs(dE) < 1e-10) break;
+  }
+  return E;
+}
+
+function orbit(el) {
+  const E = kepler(el.M, el.e);
+  const xv = el.a * (Math.cos(E) - el.e);
+  const yv = el.a * Math.sqrt(1 - el.e * el.e) * Math.sin(E);
+  const v = Math.atan2(yv, xv) / RAD;
+  const r = Math.hypot(xv, yv);
+  const vw = v + el.w;
+  return {
+    x: r * (cs(el.N) * cs(vw) - sn(el.N) * sn(vw) * cs(el.i)),
+    y: r * (sn(el.N) * cs(vw) + cs(el.N) * sn(vw) * cs(el.i)),
+    z: r * sn(vw) * sn(el.i),
+    r: r
+  };
+}
+
+function turn(p, dl) {
+  const c = cs(dl), s = sn(dl);
+  return { x: p.x * c - p.y * s, y: p.x * s + p.y * c, z: p.z, r: p.r };
+}
+
+const EL = {
+  mercury: d => ({ N: 48.3313 + 3.24587e-5 * d, i: 7.0047 + 5.00e-8 * d, w: 29.1241 + 1.01444e-5 * d, a: 0.387098, e: 0.205635 + 5.59e-10 * d, M: 168.6562 + 4.0923344368 * d }),
+  venus:   d => ({ N: 76.6799 + 2.46590e-5 * d, i: 3.3946 + 2.75e-8 * d, w: 54.8910 + 1.38374e-5 * d, a: 0.723330, e: 0.006773 - 1.302e-9 * d, M: 48.0052 + 1.6021302244 * d }),
+  mars:    d => ({ N: 49.5574 + 2.11081e-5 * d, i: 1.8497 - 1.78e-8 * d, w: 286.5016 + 2.92961e-5 * d, a: 1.523688, e: 0.093405 + 2.516e-9 * d, M: 18.6021 + 0.5240207766 * d }),
+  jupiter: d => ({ N: 100.4542 + 2.76854e-5 * d, i: 1.3030 - 1.557e-7 * d, w: 273.8777 + 1.64505e-5 * d, a: 5.20256, e: 0.048498 + 4.469e-9 * d, M: 19.8950 + 0.0830853001 * d }),
+  saturn:  d => ({ N: 113.6634 + 2.38980e-5 * d, i: 2.4886 - 1.081e-7 * d, w: 339.3939 + 2.97661e-5 * d, a: 9.55475, e: 0.055546 - 9.499e-9 * d, M: 316.9670 + 0.0334442282 * d }),
+  uranus:  d => ({ N: 74.0005 + 1.3978e-5 * d, i: 0.7733 + 1.9e-8 * d, w: 96.6612 + 3.0565e-5 * d, a: 19.18171 - 1.55e-8 * d, e: 0.047318 + 7.45e-9 * d, M: 142.5905 + 0.011725806 * d }),
+  neptune: d => ({ N: 131.7806 + 3.0173e-5 * d, i: 1.7700 - 2.55e-7 * d, w: 272.8461 - 6.027e-6 * d, a: 30.05826 + 3.313e-8 * d, e: 0.008606 + 2.15e-9 * d, M: 260.2471 + 0.005995147 * d }),
+  pluto:   d => ({ N: 110.30347 + 1.3969713 * (d - 1.5) / 36525, i: 17.14001, w: 113.76329, a: 39.48168677, e: 0.24880766, M: 14.862 + 0.0039756 * (d - 1.5) })
+};
+
+function moonPos(d) {
+  const N = 125.1228 - 0.0529538083 * d;
+  const w = 318.0634 + 0.1643573223 * d;
+  const M = 115.3654 + 13.0649929509 * d;
+  const p = orbit({ N, i: 5.1454, w, a: 60.2666, e: 0.054900, M });
+  let lon = Math.atan2(p.y, p.x) / RAD;
+  let lat = Math.atan2(p.z, Math.hypot(p.x, p.y)) / RAD;
+  const Ms = 356.0470 + 0.9856002585 * d;
+  const ws = 282.9404 + 4.70935e-5 * d;
+  const Ls = Ms + ws, Lm = M + w + N;
+  const D = Lm - Ls, F = Lm - N;
+  lon += -1.274 * sn(M - 2 * D) + 0.658 * sn(2 * D) - 0.186 * sn(Ms)
+       - 0.059 * sn(2 * M - 2 * D) - 0.057 * sn(M - 2 * D + Ms) + 0.053 * sn(M + 2 * D)
+       + 0.046 * sn(2 * D - Ms) + 0.041 * sn(M - Ms) - 0.035 * sn(D)
+       - 0.031 * sn(M + Ms) - 0.015 * sn(2 * F - 2 * D) + 0.011 * sn(M - 4 * D);
+  lat += -0.173 * sn(F - 2 * D) - 0.055 * sn(M - F - 2 * D) - 0.046 * sn(M + F - 2 * D)
+       + 0.033 * sn(F + 2 * D) + 0.017 * sn(2 * M + F);
+  return { lon: rev(lon), lat: lat, r: p.r };
+}
+
+function planetPos(name, d, sun) {
+  let p = orbit(EL[name](d));
+  const Mj = 19.8950 + 0.0830853001 * d;
+  const Msa = 316.9670 + 0.0334442282 * d;
+  const Mu = 142.5905 + 0.011725806 * d;
+  let dl = 0;
+  if (name === 'jupiter') {
+    dl = -0.332 * sn(2 * Mj - 5 * Msa - 67.6) - 0.056 * sn(2 * Mj - 2 * Msa + 21)
+       + 0.042 * sn(3 * Mj - 5 * Msa + 21) - 0.036 * sn(Mj - 2 * Msa)
+       + 0.022 * cs(Mj - Msa) + 0.023 * sn(2 * Mj - 3 * Msa + 52) - 0.016 * sn(Mj - 5 * Msa - 69);
+  } else if (name === 'saturn') {
+    dl = 0.812 * sn(2 * Mj - 5 * Msa - 67.6) - 0.229 * cs(2 * Mj - 4 * Msa - 2)
+       + 0.119 * sn(Mj - 2 * Msa - 3) + 0.046 * sn(2 * Mj - 6 * Msa - 69) + 0.014 * sn(Mj - 3 * Msa + 32);
+  } else if (name === 'uranus') {
+    dl = 0.040 * sn(Msa - 2 * Mu + 6) + 0.035 * sn(Msa - 3 * Mu + 33) - 0.015 * sn(Mj - Mu + 20);
+  }
+  if (dl) p = turn(p, dl);
+  const xg = p.x + sun.x, yg = p.y + sun.y;
+  return {
+    lon: rev(Math.atan2(yg, xg) / RAD),
+    lat: Math.atan2(p.z, Math.hypot(xg, yg)) / RAD,
+    r: 0
+  };
+}
+
+const ORDER = ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto'];
+
+function allPos(jd) {
+  const d = jd - 2451543.5;
+  const sun = orbit({ N: 0, i: 0, w: 282.9404 + 4.70935e-5 * d, a: 1, e: 0.016709 - 1.151e-9 * d, M: 356.0470 + 0.9856002585 * d });
+  const pos = ORDER.map(k => {
+    if (k === 'sun') return { lon: rev(Math.atan2(sun.y, sun.x) / RAD), lat: 0, r: sun.r };
+    if (k === 'moon') return moonPos(d);
+    return planetPos(k, d, sun);
+  });
+  return { pos: pos, obl: 23.4393 - 3.563e-7 * d };
+}
+
+function allLons(jd) {
+  return allPos(jd).pos.map(p => p.lon);
+}
+
+/* Coordonnées écliptiques -> hauteur et azimut (azimut compté depuis le nord vers l'est) */
+function horiz(lon, lat, obl, lst, phi) {
+  const xe = cs(lat) * cs(lon), ye = cs(lat) * sn(lon), ze = sn(lat);
+  const yq = ye * cs(obl) - ze * sn(obl);
+  const zq = ye * sn(obl) + ze * cs(obl);
+  const ra = Math.atan2(yq, xe) / RAD;
+  const dec = Math.asin(Math.max(-1, Math.min(1, zq))) / RAD;
+  const H = lst - ra;
+  const sa = sn(phi) * sn(dec) + cs(phi) * cs(dec) * cs(H);
+  const alt = Math.asin(Math.max(-1, Math.min(1, sa))) / RAD;
+  const east = -cs(dec) * sn(H);
+  const north = sn(dec) * cs(phi) - cs(dec) * cs(H) * sn(phi);
+  return { alt: alt, az: rev(Math.atan2(east, north) / RAD) };
+}
+
+const gmst = jd => rev(280.46061837 + 360.98564736629 * (jd - 2451545.0));
+
+/* Étoiles repères : nom, ascension droite (h m s) et déclinaison (signe, ° ' ") J2000, magnitude */
+const STARS_RAW = [
+  ['Sirius', 6, 45, 8.9, -1, 16, 42, 58, -1.46],
+  ['Canopus', 6, 23, 57.1, -1, 52, 41, 44, -0.74],
+  ['Alpha Centauri', 14, 39, 36.5, -1, 60, 50, 2, -0.27],
+  ['Arcturus', 14, 15, 39.7, 1, 19, 10, 57, -0.05],
+  ['Véga', 18, 36, 56.3, 1, 38, 47, 1, 0.03],
+  ['Capella', 5, 16, 41.4, 1, 45, 59, 53, 0.08],
+  ['Rigel', 5, 14, 32.3, -1, 8, 12, 6, 0.13],
+  ['Procyon', 7, 39, 18.1, 1, 5, 13, 30, 0.34],
+  ['Achernar', 1, 37, 42.8, -1, 57, 14, 12, 0.46],
+  ['Bételgeuse', 5, 55, 10.3, 1, 7, 24, 25, 0.5],
+  ['Altaïr', 19, 50, 47.0, 1, 8, 52, 6, 0.77],
+  ['Aldébaran', 4, 35, 55.2, 1, 16, 30, 33, 0.85],
+  ['Spica', 13, 25, 11.6, -1, 11, 9, 41, 0.97],
+  ['Antarès', 16, 29, 24.5, -1, 26, 25, 55, 1.06],
+  ['Pollux', 7, 45, 18.9, 1, 28, 1, 34, 1.14],
+  ['Fomalhaut', 22, 57, 39.0, -1, 29, 37, 20, 1.16],
+  ['Deneb', 20, 41, 25.9, 1, 45, 16, 49, 1.25],
+  ['Régulus', 10, 8, 22.3, 1, 11, 58, 2, 1.35],
+  ['Castor', 7, 34, 36.0, 1, 31, 53, 18, 1.58],
+  ['Bellatrix', 5, 25, 7.9, 1, 6, 20, 59, 1.64],
+  ['Alnilam', 5, 36, 12.8, -1, 1, 12, 7, 1.69],
+  ['Alnitak', 5, 40, 45.5, -1, 1, 56, 34, 1.74],
+  ['Alioth', 12, 54, 1.7, 1, 55, 57, 35, 1.76],
+  ['Dubhe', 11, 3, 43.7, 1, 61, 45, 3, 1.79],
+  ['Mirfak', 3, 24, 19.4, 1, 49, 51, 40, 1.79],
+  ['Alkaid', 13, 47, 32.4, 1, 49, 18, 48, 1.86],
+  ['Polaris', 2, 31, 49.1, 1, 89, 15, 51, 1.98],
+  ['Mizar', 13, 23, 55.5, 1, 54, 55, 31, 2.04],
+  ['Mintaka', 5, 32, 0.4, -1, 0, 17, 57, 2.23],
+  ['Schedar', 0, 40, 30.4, 1, 56, 32, 14, 2.23],
+  ['Caph', 0, 9, 10.7, 1, 59, 8, 59, 2.27],
+  ['Gamma Cassiopeiae', 0, 56, 42.5, 1, 60, 43, 0, 2.47],
+  ['Merak', 11, 1, 50.5, 1, 56, 22, 57, 2.37],
+  ['Phecda', 11, 53, 49.8, 1, 53, 41, 41, 2.44],
+  ['Ruchbah', 1, 25, 48.9, 1, 60, 14, 7, 2.68],
+  ['Megrez', 12, 15, 25.6, 1, 57, 1, 57, 3.31]
+];
+
+/* Conversion J2000 équatorial -> écliptique (la précession est ajoutée ensuite à la longitude) */
+const STARS = STARS_RAW.map(s => {
+  const ra = 15 * (s[1] + s[2] / 60 + s[3] / 3600);
+  const dec = s[4] * (s[5] + s[6] / 60 + s[7] / 3600);
+  const eps = 23.4392911;
+  const xq = cs(dec) * cs(ra), yq = cs(dec) * sn(ra), zq = sn(dec);
+  const xe = xq, ye = yq * cs(eps) + zq * sn(eps), ze = -yq * sn(eps) + zq * cs(eps);
+  return {
+    name: s[0],
+    lon0: rev(Math.atan2(ye, xe) / RAD),
+    lat: Math.asin(ze) / RAD,
+    mag: s[8]
+  };
+});
+const precession = jd => 1.3969713 * (jd - 2451545.0) / 36525;
+
+/* Figures des constellations zodiacales : étoiles [AD°, Dec° (J2000), magnitude, nom, 1 si déjà parmi les repères] et segments [indices] */
+const FIG_RAW = [
+ { n:"Bélier", s:[[31.7933,23.4625,2.0,"Hamal",0],[28.6600,20.8081,2.64,"",0],[28.3825,19.2961,3.86,"",0],[42.4958,27.2606,3.63,"",0]],
+   l:[[3, 0], [0, 1], [1, 2]] },
+ { n:"Taureau", s:[[68.9800,16.5092,0.85,"Aldébaran",1],[81.5729,28.6075,1.65,"Elnath",0],[84.4113,21.1425,3.0,"",0],[64.9483,15.6278,3.65,"",0],[67.1654,15.8708,3.4,"",0],[67.1542,19.1806,3.53,"",0],[60.1700,12.4903,3.47,"",0],[56.8713,24.1053,2.87,"Alcyone",0]],
+   l:[[3, 4], [4, 0], [3, 5], [5, 1], [0, 2], [3, 6]] },
+ { n:"Gémeaux", s:[[113.6500,31.8883,1.58,"Castor",1],[116.3287,28.0261,1.14,"Pollux",1],[99.4279,16.3992,1.93,"Alhena",0],[100.9829,25.1311,3.0,"",0],[95.7400,22.5136,2.88,"",0],[93.7196,22.5067,3.3,"",0],[110.0308,21.9822,3.5,"",0],[106.0271,20.5703,3.9,"",0],[101.3225,12.8956,3.36,"",0]],
+   l:[[0, 3], [3, 4], [4, 5], [1, 6], [6, 8], [3, 7], [7, 2], [6, 7]] },
+ { n:"Cancer", s:[[134.6217,11.8578,4.25,"",0],[124.1288,9.1856,3.5,"",0],[131.1712,18.1542,3.94,"",0],[130.8217,21.4686,4.66,"",0],[131.6742,28.7600,4.0,"",0]],
+   l:[[0, 2], [1, 2], [2, 3], [3, 4]] },
+ { n:"Lion", s:[[152.0929,11.9672,1.35,"Régulus",1],[177.2650,14.5719,2.14,"Denebola",0],[154.9933,19.8417,2.0,"",0],[168.5271,20.5236,2.56,"",0],[168.5600,15.4294,3.3,"",0],[154.1725,23.4172,3.4,"",0],[148.1908,26.0069,3.9,"",0],[146.4629,23.7742,2.98,"",0],[151.8329,16.7628,3.5,"",0]],
+   l:[[0, 8], [8, 2], [2, 5], [5, 6], [6, 7], [2, 3], [3, 1], [3, 4], [4, 1], [4, 0]] },
+ { n:"Vierge", s:[[201.2983,-11.1614,0.97,"Spica",1],[190.4150,-1.4494,2.74,"Porrima",0],[195.5442,10.9592,2.83,"Vindemiatrix",0],[177.6738,1.7647,3.6,"",0],[203.6733,-0.5958,3.37,"",0],[184.9767,-0.6667,3.89,"",0],[193.9008,3.3975,3.38,"",0],[214.0037,-6.0006,4.08,"",0]],
+   l:[[2, 6], [6, 1], [1, 5], [5, 3], [1, 4], [4, 0], [4, 7]] },
+ { n:"Balance", s:[[229.2517,-9.3831,2.61,"",0],[222.7196,-16.0417,2.75,"",0],[233.8817,-14.7897,3.91,"",0],[226.0175,-25.2819,3.29,"",0],[234.2558,-28.1303,3.6,"",0],[234.6642,-29.7778,3.66,"",0]],
+   l:[[1, 0], [0, 2], [1, 3], [2, 4], [4, 5]] },
+ { n:"Scorpion", s:[[247.3521,-26.4319,1.06,"Antarès",1],[241.3592,-19.8053,2.62,"",0],[240.0833,-22.6217,2.32,"",0],[239.7129,-26.1139,2.89,"",0],[245.2971,-25.5928,2.89,"",0],[248.9704,-28.2161,2.82,"",0],[252.5408,-34.2933,2.29,"",0],[252.9675,-38.0472,3.0,"",0],[253.6462,-42.3611,3.6,"",0],[258.0375,-43.2392,3.33,"",0],[264.3296,-42.9978,1.87,"",0],[266.8963,-40.1269,3.0,"",0],[265.6221,-39.0300,2.41,"",0],[263.4021,-37.1039,1.62,"Shaula",0],[262.6908,-37.2958,2.7,"",0]],
+   l:[[1, 2], [2, 3], [2, 4], [4, 0], [0, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14]] },
+ { n:"Sagittaire", s:[[276.0429,-34.3847,1.85,"Kaus Australis",0],[275.2483,-29.8281,2.7,"",0],[276.9925,-25.4217,2.81,"",0],[283.8163,-26.2967,2.02,"Nunki",0],[285.6529,-29.8800,2.6,"",0],[271.4521,-30.4242,2.99,"",0],[281.4154,-26.9908,3.17,"",0],[286.7350,-27.6706,3.32,"",0],[287.4408,-21.0236,2.89,"",0]],
+   l:[[5, 1], [1, 2], [2, 6], [6, 3], [3, 7], [7, 4], [4, 0], [0, 1], [6, 4], [2, 8]] },
+ { n:"Capricorne", s:[[326.7600,-16.1272,2.85,"",0],[305.2529,-14.7814,3.05,"",0],[304.5137,-12.5447,3.57,"",0],[325.0229,-16.6622,3.68,"",0],[311.5237,-25.2708,4.1,"",0],[312.9554,-26.9189,4.1,"",0],[316.4871,-17.2328,4.07,"",0],[321.6667,-22.4114,3.74,"",0]],
+   l:[[2, 1], [1, 6], [6, 3], [3, 0], [0, 7], [7, 5], [5, 4], [4, 1]] },
+ { n:"Verseau", s:[[322.8896,-5.5711,2.91,"",0],[331.4458,-0.3197,2.96,"",0],[335.4142,-1.3872,3.84,"",0],[343.6625,-15.8208,3.27,"",0],[337.2071,-0.0200,3.65,"",0],[338.8388,-0.1172,4.0,"",0],[336.3192,1.3775,4.66,"",0],[311.9192,-9.4958,3.77,"",0],[334.2092,-7.7828,4.16,"",0],[343.1538,-7.5797,3.74,"",0]],
+   l:[[7, 0], [0, 1], [1, 2], [2, 4], [4, 5], [4, 6], [6, 2], [5, 8], [8, 9], [9, 3]] },
+ { n:"Poissons", s:[[30.5117,2.7636,3.82,"Alrescha",0],[22.8708,15.3458,3.62,"",0],[349.2912,3.2822,3.69,"",0],[345.9692,3.8200,4.5,"",0],[15.7367,7.8903,4.28,"",0],[12.1704,7.5850,4.44,"",0],[359.8279,6.8644,4.01,"",0],[354.9875,5.6264,4.13,"",0],[351.9917,6.3789,4.28,"",0],[26.3483,9.1578,4.26,"",0],[22.5463,6.1439,4.84,"",0]],
+   l:[[0, 10], [10, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 2], [2, 3], [0, 9], [9, 1]] },
+ { n:"Ophiuchus", s:[[263.7337,12.5600,2.08,"Rasalhague",0],[265.8683,4.5672,2.77,"",0],[257.5946,-15.7250,2.43,"",0],[243.5863,-3.6944,2.74,"",0],[244.5804,-4.6925,3.24,"",0],[249.2896,-10.5672,2.56,"",0],[254.4171,9.3750,3.2,"",0],[247.7283,1.9839,3.82,"",0],[269.7567,-9.7736,3.3,"",0],[266.8963,2.7072,3.75,"",0]],
+   l:[[0, 1], [1, 9], [9, 8], [8, 2], [2, 5], [5, 4], [4, 3], [3, 7], [7, 6], [6, 0]] }
+];
+function eqToEcl(ra, dec) {
+  const eps = 23.4392911;
+  const xq = cs(dec) * cs(ra), yq = cs(dec) * sn(ra), zq = sn(dec);
+  const ye = yq * cs(eps) + zq * sn(eps), ze = -yq * sn(eps) + zq * cs(eps);
+  return { lon0: rev(Math.atan2(ye, xq) / RAD), lat: Math.asin(ze) / RAD };
+}
+const FIGS = FIG_RAW.map(f => ({
+  n: f.n,
+  l: f.l,
+  s: f.s.map(t => Object.assign(eqToEcl(t[0], t[1]), { mag: t[2], name: t[3], dup: t[4] === 1 }))
+}));
+
+/* Figures d'autres constellations et amas : mêmes conventions que FIG_RAW */
+const XFIG_RAW = [
+ { n:"Orion", s:[[88.7929,7.4069,0.5,"Bételgeuse",1],[81.2829,6.3497,1.64,"Bellatrix",1],[83.7846,9.9342,3.54,"Meissa",0],[85.1896,-1.9428,1.74,"Alnitak",1],[84.0533,-1.2019,1.69,"Alnilam",1],[83.0017,-0.2992,2.23,"Mintaka",1],[86.9392,-9.6697,2.06,"Saiph",0],[78.6346,-8.2017,0.13,"Rigel",1]],
+   l:[[2, 0], [2, 1], [0, 3], [1, 5], [3, 4], [4, 5], [3, 6], [5, 7]] },
+ { n:"Cassiopée", s:[[2.2946,59.1497,2.27,"Caph",1],[10.1267,56.5372,2.23,"Schedar",1],[14.1771,60.7167,2.47,"Gamma Cassiopeiae",1],[21.4537,60.2353,2.68,"Ruchbah",1],[28.5987,63.6703,3.37,"Segin",0]],
+   l:[[0, 1], [1, 2], [2, 3], [3, 4]] },
+ { n:"Pléiades", s:[[56.8713,24.1053,2.87,"Alcyone",1],[57.2904,24.0533,3.62,"Atlas",0],[56.2188,24.1133,3.7,"Electra",0],[56.4567,24.3678,3.87,"Maia",0],[56.5817,23.9483,4.18,"Merope",0],[56.3021,24.4672,4.3,"Taygeta",0],[57.2967,24.1367,5.05,"Pleione",0]],
+   l:[] },
+ { n:"Grande Ourse", s:[[165.9321,61.7508,1.79,"Dubhe",1],[165.4604,56.3825,2.37,"Merak",1],[178.4575,53.6947,2.44,"Phecda",1],[183.8567,57.0325,3.31,"Megrez",1],[193.5071,55.9597,1.76,"Alioth",1],[200.9812,54.9253,2.04,"Mizar",1],[206.8850,49.3133,1.86,"Alkaid",1]],
+   l:[[0, 1], [1, 2], [2, 3], [3, 0], [3, 4], [4, 5], [5, 6]] },
+ { n:"Petite Ourse", s:[[37.9546,89.2642,1.98,"Polaris",1],[263.0542,86.5864,4.36,"Yildun",0],[251.4925,82.0372,4.21,"",0],[236.0146,77.7944,4.29,"",0],[244.3762,75.7553,4.95,"",0],[230.1821,71.8339,3.05,"Pherkad",0],[222.6763,74.1556,2.08,"Kochab",0]],
+   l:[[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 3]] }
+];
+const XFIGS = XFIG_RAW.map(f => ({
+  n: f.n,
+  l: f.l,
+  s: f.s.map(t => Object.assign(eqToEcl(t[0], t[1]), { mag: t[2], name: t[3], dup: t[4] === 1 }))
+}));
+/* ENGINE END */
+
+(function () {
+  const BODIES = [
+    { n: 'Soleil',  g: '\u2609\uFE0E', ring: 3 },
+    { n: 'Lune',    g: '\u263D\uFE0E', ring: 0 },
+    { n: 'Mercure', g: '\u263F\uFE0E', ring: 1 },
+    { n: 'Vénus',   g: '\u2640\uFE0E', ring: 2 },
+    { n: 'Mars',    g: '\u2642\uFE0E', ring: 4 },
+    { n: 'Jupiter', g: '\u2643\uFE0E', ring: 5 },
+    { n: 'Saturne', g: '\u2644\uFE0E', ring: 6 },
+    { n: 'Uranus',  g: '\u2645\uFE0E', ring: 7 },
+    { n: 'Neptune', g: '\u2646\uFE0E', ring: 8 },
+    { n: 'Pluton',  g: '\u2647\uFE0E', ring: 9 }
+  ];
+  const SIGNS = [
+    ['Bélier', '\u2648'], ['Taureau', '\u2649'], ['Gémeaux', '\u264A'], ['Cancer', '\u264B'],
+    ['Lion', '\u264C'], ['Vierge', '\u264D'], ['Balance', '\u264E'], ['Scorpion', '\u264F'],
+    ['Sagittaire', '\u2650'], ['Capricorne', '\u2651'], ['Verseau', '\u2652'], ['Poissons', '\u2653']
+  ].map(s => [s[0], s[1] + '\uFE0E']);
+
+  const PLACES = [
+    { n: 'Paris', lat: 48.8566, lon: 2.3522, tz: 'Europe/Paris' },
+    { n: 'Berlin', lat: 52.5200, lon: 13.4050, tz: 'Europe/Berlin' },
+    { n: 'Montréal', lat: 45.5017, lon: -73.5673, tz: 'America/Toronto' },
+    { n: 'New York', lat: 40.7128, lon: -74.0060, tz: 'America/New_York' },
+    { n: 'Los Angeles', lat: 34.0522, lon: -118.2437, tz: 'America/Los_Angeles' },
+    { n: 'Dakar', lat: 14.7167, lon: -17.4677, tz: 'Africa/Dakar' },
+    { n: 'Le Cap', lat: -33.9249, lon: 18.4241, tz: 'Africa/Johannesburg' },
+    { n: 'Saint-Denis (La Réunion)', lat: -20.8823, lon: 55.4504, tz: 'Indian/Reunion' },
+    { n: 'Tokyo', lat: 35.6762, lon: 139.6503, tz: 'Asia/Tokyo' },
+    { n: 'Sydney', lat: -33.8688, lon: 151.2093, tz: 'Australia/Sydney' },
+    { n: 'Papeete', lat: -17.5516, lon: -149.5585, tz: 'Pacific/Tahiti' }
+  ];
+
+  /* Début de chaque constellation zodiacale le long de l'écliptique (longitudes de 2020, degrés).
+     Les limites UAI sont fixes par rapport aux étoiles : leur longitude dérive avec la précession. */
+  const CONST = [
+    ['Bélier', 29.11], ['Taureau', 53.49], ['Gémeaux', 90.46], ['Cancer', 118.28], ['Lion', 138.21],
+    ['Vierge', 174.18], ['Balance', 217.83], ['Scorpion', 241.16], ['Ophiuchus', 248.06],
+    ['Sagittaire', 266.63], ['Capricorne', 299.74], ['Verseau', 327.91], ['Poissons', 351.60]
+  ];
+  const constShift = jd => precession(jd) - 1.3969713 * 0.2;
+  const constNext = i => (i === CONST.length - 1 ? CONST[0][1] + 360 : CONST[i + 1][1]);
+
+  /* Les figures sont rangées dans l'ordre de CONST (Ophiuchus se place avant le Sagittaire) :
+     tout tableau indexé par constellation (mythes, zones sensibles, surbrillance) reste ainsi cohérent. */
+  FIGS.sort((a, b) => CONST.findIndex(c => c[0] === a.n) - CONST.findIndex(c => c[0] === b.n));
+
+  /* Contenu par défaut, intégré pour fonctionner sans connexion. Il est remplacé par content.json
+     lorsque ce fichier est disponible (voir LISEZMOI.md). */
+  const DEFAULT_CONTENT = {"schema": 1, "version": "2026-09-19.3", "updated": "2026-09-19", "sources": {"wikipedia": {"name": "Wikipédia (français)", "constellations": [{"t": "Figure d’origine mésopotamienne, d’abord « le Travailleur journalier », épithète de Dumuzi (Tammuz), berger et amant d’Ishtar. Les Grecs y voient Chrysomallos, le bélier volant à la toison d’or, chevauché par Phrixos et Hellé : selon Apollodore, Hermès l’envoie les sauver d’un sacrifice, à la demande de leur mère Néphélé. Cette toison inspirera l’expédition de Jason et des Argonautes.", "u": "https://fr.wikipedia.org/wiki/B%C3%A9lier_(constellation)", "a": "Bélier (constellation)"}, {"t": "Constellation très ancienne. En Mésopotamie, c’est le Taureau céleste que le dieu Anu envoie ravager Uruk, à la demande d’Ishtar, dans l’épopée de Gilgamesh. Chez les Grecs, il représente soit Zeus changé en taureau pour enlever Europe, soit le taureau blanc envoyé par Poséidon au roi Minos.", "u": "https://fr.wikipedia.org/wiki/Taureau_(constellation)", "a": "Taureau (constellation)"}, {"t": "Selon Ératosthène, ce sont Castor et Pollux, les Dioscures, fils de Léda et frères d’Hélène de Troie. Séduite par Zeus changé en cygne, Léda pondit deux œufs : de l’un, fécondé par son époux Tyndare, naquirent Castor et Clytemnestre, mortels ; de l’autre, Pollux et Hélène, divins. Protecteurs des marins et des athlètes, ils héritent d’une figure mésopotamienne plus ancienne.", "u": "https://fr.wikipedia.org/wiki/G%C3%A9meaux", "a": "Gémeaux"}, {"t": "Chez les Grecs, c’est le crabe envoyé par Héra pour gêner Héraclès pendant son combat contre l’Hydre de Lerne ; le héros l’écrase. Selon les versions, Héra le place ensuite au ciel. En Mésopotamie, la figure s’appelait déjà « le Crabe ».", "u": "https://fr.wikipedia.org/wiki/Cancer_(constellation)", "a": "Cancer (constellation)"}, {"t": "Le lion de Némée, monstre à la peau invulnérable, est tué par Héraclès lors du premier de ses douze travaux : les flèches rebondissent sur son cuir, le héros l’affronte donc à la massue, puis l’étouffe. Zeus place ensuite le fauve parmi les constellations.", "u": "https://fr.wikipedia.org/wiki/Lion_de_N%C3%A9m%C3%A9e", "a": "Lion de Némée"}, {"t": "Figure très ancienne à l’identité incertaine : déesse à l’épi d’orge en Mésopotamie, puis Isis, Déméter, Perséphone… Chez les Grecs, c’est souvent Astrée (ou Thémis), déesse de la Justice, qui aurait quitté la Terre par dégoût de la brutalité des hommes, d’où l’épi et la Balance qui l’accompagnent. Autre version : Érigone, que Zeus place au ciel pour sa piété filiale après la mort de son père Icarios.", "u": "https://fr.wikipedia.org/wiki/Vierge_(constellation)", "a": "Vierge (constellation)"}, {"t": "Longtemps considérée comme les pinces du Scorpion, elle devient une constellation à part entière à l’époque romaine. Dans la mythologie classique, c’est la balance d’Astrée, déesse de la Justice, figurée par la Vierge voisine. En Mésopotamie, la balance symbolisait Kittu et Mišāru, ministres du dieu-soleil Šamaš : le Droit et l’Équité.", "u": "https://fr.wikipedia.org/wiki/Balance_(constellation)", "a": "Balance (constellation)"}, {"t": "Constellation d’origine mésopotamienne, liée à Išḫara, « la Dame des régions inhabitées ». Chez les Grecs, c’est le scorpion que les dieux (Artémis, Apollon, Héra ou Gaïa selon les sources) envoient contre le chasseur Orion. Les deux sont placés aux extrémités opposées du ciel : quand le Scorpion se lève, Orion se couche.", "u": "https://fr.wikipedia.org/wiki/Scorpion_(constellation)", "a": "Scorpion (constellation)"}, {"t": "Le « porteur de serpent » représenterait Asclépios, élève du centaure Chiron et médecin : selon la légende, il aurait tué un serpent, puis vu un autre serpent le ranimer avec des herbes. Le Soleil le traverse du 29 novembre au 18 décembre, mais il ne fait pas partie des douze signes du zodiaque.", "u": "https://fr.wikipedia.org/wiki/Ophiuchus", "a": "Ophiuchus"}, {"t": "Il prolonge Pabilsag, archer-centaure ailé de Mésopotamie, à deux visages. Ératosthène y voit Crotos, fils d’Euphémé, à qui les Muses apprirent à tirer à l’arc pour se nourrir des bêtes sauvages ; d’autres traditions grecques y reconnaissent un centaure, sans qu’on s’accorde sur son identité.", "u": "https://fr.wikipedia.org/wiki/Sagittaire_(constellation)", "a": "Sagittaire (constellation)"}, {"t": "Depuis la Mésopotamie, c’est un hybride de chèvre et de poisson (« la Carpe-chèvre »), emblème du dieu Enki. Les Grecs y voient parfois Amalthée, la chèvre qui nourrit Zeus enfant, ou Pan (ou Dionysos) fuyant le monstre Typhon : changé en chèvre, il plonge dans l’eau, mais seul l’arrière de son corps devient poisson.", "u": "https://fr.wikipedia.org/wiki/Capricorne_(constellation)", "a": "Capricorne (constellation)"}, {"t": "Appelé « le Géant » en Mésopotamie. Le mythe grec le plus courant y voit Ganymède, jeune berger que Zeus, changé en aigle, enlève pour qu’il devienne l’échanson des dieux à la place d’Hébé, ce qui provoque la jalousie d’Héra. Zeus l’élève ensuite au ciel.", "u": "https://fr.wikipedia.org/wiki/Verseau", "a": "Verseau"}, {"t": "Création mésopotamienne, liée à des déesses tutélaires du Tigre et de l’Euphrate. Chez les Grecs, ce sont Aphrodite et Éros (ou Thétis et Thérys selon les versions) qui, poursuivis par le monstre Typhon, se transforment en poissons pour s’enfuir dans un fleuve.", "u": "https://fr.wikipedia.org/wiki/Poissons_(constellation)", "a": "Poissons (constellation)"}, {"t": "Chasseur géant de la mythologie grecque, réputé pour sa beauté et sa violence. La légende raconte que Zeus le change en constellation. Chez Homère, Sirius est son chien ; chez Hésiode, il poursuit les Pléiades. Dans l’une des versions rapportées par Hygin, il meurt piqué par un scorpion : le Scorpion est alors placé lui aussi au ciel, à l’opposé d’Orion.", "u": "https://fr.wikipedia.org/wiki/Orion_(mythologie)", "a": "Orion (mythologie)"}, {"t": "Reine d’Éthiopie, épouse de Céphée et mère d’Andromède, dans le mythe de Persée et d’Andromède. Vaniteuse, elle se vante de sa beauté ; sa fille est exposée à un monstre marin avant d’être sauvée par Persée. Pour punir son orgueil, les dieux la condamnent à tourner autour du pôle Nord, enchaînée à son trône, parfois la tête en bas.", "u": "https://fr.wikipedia.org/wiki/Cassiop%C3%A9e_(constellation)", "a": "Cassiopée (constellation)"}, {"t": "Amas d’étoiles du Taureau. Pour les Grecs, ce sont sept sœurs, filles du Titan Atlas et de Pléioné : Astérope, Mérope, Électre, Maïa, Taygète, Célaéno et Alcyone. Dans le mythe d’Orion, elles fuient le chasseur qui les poursuit ; changées en étoiles, elles restent poursuivies par Orion dans le ciel. Leur lever et leur coucher réglaient la moisson, le labour et la navigation. On n’en distingue souvent que six à l’œil nu.", "u": "https://fr.wikipedia.org/wiki/Pl%C3%A9iades_(astronomie)", "a": "Pléiades (astronomie)"}, {"t": "Selon Ératosthène, c’est Callisto, nymphe d’Arcadie, fille de Lycaon et compagne d’Artémis. Aimée de Zeus, elle est changée en ourse (par Artémis ou par Héra selon les versions) et met au monde Arcas. Pour les soustraire aux chasseurs, Zeus les transforme en constellations : Callisto en Grande Ourse, Arcas en Petite Ourse, qui tournent sans fin autour du pôle sans jamais se reposer sous la mer.", "u": "https://fr.wikipedia.org/wiki/Grande_Ourse", "a": "Grande Ourse"}, {"t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.", "u": "https://fr.wikipedia.org/wiki/Petite_Ourse", "a": "Petite Ourse"}], "planets": [{"t": "Les Grecs le personnifient en Hélios, Titan fils d’Hypérion et de Théia, frère de Séléné (la Lune) et d’Éos (l’Aurore). Chaque jour, il traverse le ciel sur son char ; son fils mortel Phaéton, qui voulut le conduire, est resté célèbre. À Rome, son équivalent est Sol, et Hélios a peu à peu été assimilé à Apollon.", "l": ["Hélios", "Soleil"]}, {"t": "Séléné, fille des Titans Hypérion et Théia et sœur d’Hélios, personnifie la Lune elle-même. On la lie souvent à Artémis et à Hécate : ensemble, elles forment une triade (pleine lune, croissant, nouvelle lune). Son mythe le plus célèbre est son amour pour le berger Endymion, à qui Zeus accorde de dormir sans fin, éternellement jeune. Les Romains l’appelaient Luna.", "l": ["Séléné", "Lune"]}, {"t": "Chez les Romains, Mercure est le dieu du commerce, assimilé à l’Hermès grec : messager des dieux, protecteur des voyageurs et des voleurs, il conduit aussi les âmes aux Enfers. La planète porte son nom pour la vitesse de son déplacement dans le ciel, et son symbole évoque le caducée d’Hermès. Les Babyloniens y voyaient Nabû, dieu du savoir.", "l": ["Mercure (planète)", "Mercure (mythologie)"]}, {"t": "Déesse romaine de l’amour, de la séduction et de la beauté, assimilée très tôt à l’Aphrodite grecque. Fille d’Ouranos chez Hésiode, elle passe à Rome pour la fille de Jupiter et de Dioné ; elle est la mère de Cupidon, qu’elle a eu avec Mars, et d’Hermaphrodite, avec Mercure. La planète, la plus brillante du ciel, lui doit sans doute son nom.", "l": ["Vénus (planète)", "Vénus (mythologie)"]}, {"t": "Dieu romain de la guerre, identifié à l’Arès grec et membre de la triade précapitoline avec Jupiter et Quirinus ; la légende en fait le père de Romulus et Rémus. Arès, fils de Zeus et d’Héra, combat avec Éris, Déimos (la Terreur) et Phobos (la Crainte) : les deux noms donnés aux lunes de la planète. Sa teinte rouge l’a associée à la guerre.", "l": ["Mars (planète)", "Mars (mythologie)"]}, {"t": "Roi des dieux et dieu du ciel dans la religion romaine ; son nom vient d’un « Père du Ciel » indo-européen et ses attributs sont la foudre et l’aigle. Les Romains l’ont assimilé au Zeus grec, dont il a repris les mythes : fils de Saturne, il le détrône. La plus grosse planète du Système solaire porte le nom du chef du panthéon, et l’Union astronomique internationale nomme ses lunes d’après les amours et les descendants du dieu.", "l": ["Jupiter (planète)", "Jupiter (mythologie)"]}, {"t": "Dieu romain du temps, des semailles et des Saturnales, fêtes du solstice d’hiver, assimilé très tôt au Titan Cronos. Dans le mythe grec, Cronos détrône son père Ouranos ; averti qu’un de ses fils le renversera, il dévore ses enfants, jusqu’à ce que Zeus, sauvé, le détrône à son tour. La planète, la plus lointaine connue des Anciens, porte son nom, et son symbole évoque la faucille du dieu.", "l": ["Saturne (planète)", "Saturne (mythologie)"]}, {"t": "Ouranos, le Ciel, est la divinité primordiale grecque qui, unie à Gaïa (la Terre), engendre la première génération des Titans ; il est le père de Cronos (Saturne) et le grand-père de Zeus (Jupiter). La planète, découverte par William Herschel le 13 mars 1781, fut d’abord baptisée par lui Georgium Sidus ; Johann Bode proposa Uranus, pour rester dans la mythologie comme les autres planètes.", "l": ["Uranus (planète)", "Ouranos (mythologie)"]}, {"t": "Neptune est le dieu romain de la mer, l’équivalent du Poséidon grec. La planète a été trouvée par le calcul : Urbain Le Verrier prédit sa position, et Johann Galle l’observe à Berlin le 23 septembre 1846 (John Couch Adams avait fait de son côté des calculs indépendants). Galle suggéra d’abord le nom de Janus ; celui de Neptune fut finalement retenu, dans la tradition des autres planètes.", "l": ["Neptune (planète)", "Neptune (mythologie)"]}, {"t": "Pluton est le dieu romain des Enfers, équivalent du Hadès grec. Découverte le 18 février 1930 par Clyde Tombaugh, la planète a reçu son nom d’une fillette de onze ans d’Oxford, Venetia Burney, passionnée de mythologie ; il plut aussi parce que ses deux premières lettres sont les initiales de Percival Lowell. Elle est classée planète naine depuis 2006.", "l": ["Pluton (planète naine)", "Hadès"]}], "stars": {"Sirius": ["α Canis Majoris", "Grand Chien", "Sirius"], "Canopus": ["α Carinae", "Carène", "Canopus (étoile)"], "Alpha Centauri": ["α Centauri", "Centaure", "Alpha Centauri"], "Arcturus": ["α Boötis", "Bouvier", "Arcturus"], "Véga": ["α Lyrae", "Lyre", "Véga"], "Capella": ["α Aurigae", "Cocher", "Capella (étoile)"], "Rigel": ["β Orionis", "Orion", "Rigel"], "Procyon": ["α Canis Minoris", "Petit Chien", "Procyon"], "Achernar": ["α Eridani", "Éridan", "Achernar"], "Bételgeuse": ["α Orionis", "Orion", "Bételgeuse"], "Altaïr": ["α Aquilae", "Aigle", "Altaïr"], "Aldébaran": ["α Tauri", "Taureau", "Aldébaran"], "Spica": ["α Virginis", "Vierge", "Spica"], "Antarès": ["α Scorpii", "Scorpion", "Antarès"], "Pollux": ["β Geminorum", "Gémeaux", "Pollux (étoile)"], "Fomalhaut": ["α Piscis Austrini", "Poisson austral", "Fomalhaut"], "Deneb": ["α Cygni", "Cygne", "Deneb"], "Régulus": ["α Leonis", "Lion", "Regulus"], "Castor": ["α Geminorum", "Gémeaux", "Castor (étoile)"], "Bellatrix": ["γ Orionis", "Orion", "Bellatrix"], "Alnilam": ["ε Orionis", "Orion", "Alnilam"], "Alnitak": ["ζ Orionis", "Orion", "Alnitak"], "Mintaka": ["δ Orionis", "Orion", "Mintaka"], "Meissa": ["λ Orionis", "Orion", "Meissa"], "Saiph": ["κ Orionis", "Orion", "Saiph"], "Alioth": ["ε Ursae Majoris", "Grande Ourse", "Alioth"], "Dubhe": ["α Ursae Majoris", "Grande Ourse", "Dubhe"], "Alkaid": ["η Ursae Majoris", "Grande Ourse", "Alkaid"], "Mizar": ["ζ Ursae Majoris", "Grande Ourse", "Mizar"], "Merak": ["β Ursae Majoris", "Grande Ourse", "Merak"], "Phecda": ["γ Ursae Majoris", "Grande Ourse", "Phecda"], "Megrez": ["δ Ursae Majoris", "Grande Ourse", "Megrez"], "Polaris": ["α Ursae Minoris", "Petite Ourse", "Étoile polaire"], "Kochab": ["β Ursae Minoris", "Petite Ourse", "Kochab"], "Pherkad": ["γ Ursae Minoris", "Petite Ourse", "Pherkad"], "Yildun": ["δ Ursae Minoris", "Petite Ourse", "Yildun"], "Mirfak": ["α Persei", "Persée", "Mirfak"], "Schedar": ["α Cassiopeiae", "Cassiopée", "Schedar"], "Caph": ["β Cassiopeiae", "Cassiopée", "Caph"], "Gamma Cassiopeiae": ["γ Cassiopeiae", "Cassiopée", "Gamma Cassiopeiae"], "Ruchbah": ["δ Cassiopeiae", "Cassiopée", "Ruchbah"], "Segin": ["ε Cassiopeiae", "Cassiopée", "Segin"], "Hamal": ["α Arietis", "Bélier", "Hamal"], "Elnath": ["β Tauri", "Taureau", "Elnath"], "Alhena": ["γ Geminorum", "Gémeaux", "Alhena"], "Porrima": ["γ Virginis", "Vierge", "Porrima"], "Vindemiatrix": ["ε Virginis", "Vierge", "Vindemiatrix"], "Shaula": ["λ Scorpii", "Scorpion", "Shaula"], "Kaus Australis": ["ε Sagittarii", "Sagittaire", "Kaus Australis"], "Nunki": ["σ Sagittarii", "Sagittaire", "Nunki"], "Alrescha": ["α Piscium", "Poissons", "Alrescha"], "Rasalhague": ["α Ophiuchi", "Ophiuchus", "Rasalhague"], "Alcyone": ["η Tauri", "Pléiades", "Alcyone"], "Atlas": ["27 Tauri", "Pléiades", "Atlas (étoile)"], "Electra": ["17 Tauri", "Pléiades", "Électre (étoile)"], "Maia": ["20 Tauri", "Pléiades", "Maïa (étoile)"], "Merope": ["23 Tauri", "Pléiades", "Mérope (étoile)"], "Taygeta": ["19 Tauri", "Pléiades", "Taygète (étoile)"], "Pleione": ["28 Tauri", "Pléiades", "Pléione (étoile)"]}}}};
+  let content = DEFAULT_CONTENT;
+
+  /* Étoiles pouvant être survolées : la liste est figée par le code ; les textes viennent du contenu. */
+  const STAR_INFO = DEFAULT_CONTENT.sources.wikipedia.stars;
+  const NAMES = CONST.map(c => c[0]).concat(XFIGS.map(f => f.n));
+  const ALLFIGS = FIGS.concat(XFIGS);
+  const STAR_MAG = {};
+  STARS.forEach(t => { STAR_MAG[t.name] = t.mag; });
+  ALLFIGS.forEach(f => f.s.forEach(t => { if (t.name && STAR_MAG[t.name] === undefined) STAR_MAG[t.name] = t.mag; }));
+
+
+  const jdFromYMD = (y, m, d) => Date.UTC(y, m, d, 12) / 864e5 + 2440587.5;
+  const JD_MIN = jdFromYMD(1900, 0, 1);
+  const JD_MAX = jdFromYMD(2100, 11, 31);
+  const clamp = v => Math.min(JD_MAX, Math.max(JD_MIN, v));
+  const dateOf = jd => new Date((Math.floor(jd + 0.5) - 2440588) * 864e5);
+  const pad = n => String(n).padStart(2, '0');
+  const iso = dt => dt.getUTCFullYear() + '-' + pad(dt.getUTCMonth() + 1) + '-' + pad(dt.getUTCDate());
+  const fmt = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+  const now = new Date();
+  const state = {
+    jd: clamp(jdFromYMD(now.getFullYear(), now.getMonth(), now.getDate())),
+    playing: false,
+    speed: 30.44,
+    trace: 365.25,
+    view: 'sky',
+    place: 0,
+    minutes: 22 * 60,
+    heading: 0,
+    compass: false,
+    figures: true,
+    zoom: 1,
+    panX: 0,
+    panY: 0,
+    myth: 'wikipedia'
+  };
+
+  /* ---------- Fiches : info-bulle au survol, fiche épinglée au clic ---------- */
+  const tip = document.getElementById('tip');
+  const hiTargets = new Map();
+  const addTarget = (key, el) => {
+    if (!hiTargets.has(key)) hiTargets.set(key, []);
+    hiTargets.get(key).push(el);
+  };
+  let hoverC = null;
+  let pinC = null;
+  let dragging = false;
+
+  const numFr = v => String(v).replace('.', ',').replace('-', '−');
+  const wikiGo = t => 'https://fr.wikipedia.org/w/index.php?title=Sp%C3%A9cial:Recherche&go=Go&search=' + encodeURIComponent(t);
+  function setHi(key, on) { (hiTargets.get(key) || []).forEach(el => el.classList.toggle('on', on)); }
+  function placeTip(x, y) {
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    let l = x + 16, t = y + 16;
+    if (l + w > window.innerWidth - 8) l = x - w - 16;
+    if (l < 8) l = 8;
+    if (t + h > window.innerHeight - 8) t = y - h - 16;
+    if (t < 8) t = 8;
+    tip.style.left = l + 'px';
+    tip.style.top = t + 'px';
+  }
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const safeUrl = u => (/^https?:\/\//i.test(String(u)) ? String(u) : '#');
+  const linkHTML = (label, url) => '<a href="' + esc(safeUrl(url)) + '" target="_blank" rel="noopener noreferrer">' + esc(label) + '</a>';
+  function tipHTML(key, pinned) {
+    const sc = content.sources[state.myth];
+    if (typeof key === 'number') {
+      const m = sc.constellations && sc.constellations[key];
+      if (!m) return '<h3>' + esc(NAMES[key]) + '</h3><p class="src">' + esc(sc.name) + '</p><p>Pas de fiche pour cette constellation dans cette source.</p>';
+      return '<h3>' + esc(NAMES[key]) + '</h3><p class="src">Mythe · ' + esc(sc.name) + '</p><p>' + esc(m.t) + '</p>' +
+        (pinned && m.u ? '<p class="lk">' + linkHTML(m.a ? 'Article « ' + m.a + ' »' : 'Lire la source', m.u) + '</p>' : '');
+    }
+    if (/^p\d+$/.test(key)) {
+      const i = Number(key.slice(1));
+      const m = sc.planets && sc.planets[i];
+      if (!m) return '<h3>' + esc(BODIES[i].n) + '</h3><p class="src">' + esc(sc.name) + '</p><p>Pas de fiche pour cet astre dans cette source.</p>';
+      const links = (m.l || []).map(x => (typeof x === 'string' ? linkHTML('Article « ' + x + ' »', wikiGo(x)) : linkHTML(x.label || 'Lire la source', x.url)));
+      return '<h3>' + esc(BODIES[i].n) + '</h3><p class="src">Mythe · ' + esc(sc.name) + '</p><p>' + esc(m.t) + '</p>' +
+        (pinned ? '<p class="lk">' + links.join('<br>') + '</p>' : '<p class="src" style="margin-top:6px">Cliquez pour afficher les liens.</p>');
+    }
+    const inf = (sc.stars && sc.stars[key]) || STAR_INFO[key];
+    return '<h3>' + esc(key) + '</h3><p class="src">Étoile · ' + esc(inf[0]) + ' · ' + esc(inf[1]) + '</p>' +
+      '<p>Magnitude apparente ' + esc(numFr(STAR_MAG[key])) + '.</p>' +
+      (pinned
+        ? '<p class="lk">' + linkHTML('Article « ' + inf[2] + ' » sur Wikipédia', wikiGo(inf[2])) + '</p>'
+        : '<p class="src" style="margin-top:6px">Cliquez pour ouvrir l’article Wikipédia.</p>');
+  }
+  function showTip(key, x, y, pinned) {
+    if (state.myth === 'none' || !content.sources[state.myth]) return;
+    tip.innerHTML = tipHTML(key, pinned);
+    tip.classList.toggle('pin', pinned);
+    tip.hidden = false;
+    placeTip(x, y);
+  }
+  function hideTip() {
+    if (pinC !== null) return;
+    if (hoverC !== null) { setHi(hoverC, false); hoverC = null; }
+    tip.hidden = true;
+  }
+  function unpin() {
+    if (pinC !== null) { setHi(pinC, false); pinC = null; }
+    tip.classList.remove('pin');
+    tip.hidden = true;
+  }
+  function bindHit(el, key) {
+    el.addEventListener('pointerenter', e => {
+      if (state.myth === 'none' || pinC !== null || dragging) return;
+      hoverC = key;
+      setHi(key, true);
+      showTip(key, e.clientX, e.clientY, false);
+    });
+    el.addEventListener('pointermove', e => {
+      if (hoverC === key && pinC === null && !dragging) placeTip(e.clientX, e.clientY);
+    });
+    el.addEventListener('pointerleave', () => {
+      if (pinC !== null || hoverC !== key) return;
+      setHi(key, false);
+      hoverC = null;
+      tip.hidden = true;
+    });
+    el.addEventListener('click', e => {
+      if (state.myth === 'none') return;
+      e.stopPropagation();
+      if (pinC === key) { unpin(); return; }
+      unpin();
+      if (hoverC !== null) { setHi(hoverC, false); hoverC = null; }
+      pinC = key;
+      setHi(key, true);
+      showTip(key, e.clientX, e.clientY, true);
+    });
+  }
+  document.addEventListener('click', e => { if (pinC !== null && !tip.contains(e.target)) unpin(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { unpin(); hideTip(); } });
+
+  /* ---------- Fuseaux horaires ---------- */
+  function tzOffset(ms, tz) {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric'
+    }).formatToParts(new Date(ms));
+    const o = {};
+    parts.forEach(x => { if (x.type !== 'literal') o[x.type] = Number(x.value); });
+    if (o.hour === 24) o.hour = 0;
+    return (Date.UTC(o.year, o.month - 1, o.day, o.hour, o.minute, o.second) - Math.floor(ms / 1000) * 1000) / 60000;
+  }
+  function localToJD(y, m, d, minutes, tz) {
+    const guess = Date.UTC(y, m, d, 0, minutes);
+    let ut = guess - tzOffset(guess, tz) * 60000;
+    ut = guess - tzOffset(ut, tz) * 60000;
+    return ut / 864e5 + 2440587.5;
+  }
+  const memo = { key: '', off: 0 };
+  function instantJD() {
+    const N = Math.floor(state.jd + 0.5);
+    const key = N + '|' + state.place + '|' + state.minutes;
+    if (memo.key !== key) {
+      const dt = dateOf(N);
+      memo.off = localToJD(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate(), state.minutes, PLACES[state.place].tz) - N;
+      memo.key = key;
+    }
+    return N + memo.off;
+  }
+
+  /* ---------- Outils SVG ---------- */
+  const NS = 'http://www.w3.org/2000/svg';
+  const C = 320;
+  function make(svg, name, attrs, parent) {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e);
+    return e;
+  }
+  const f1 = n => n.toFixed(1);
+
+  /* ---------- Roue zodiacale ---------- */
+  const wheel = document.getElementById('wheel');
+  const pt = (lon, r) => {
+    const a = (180 + lon) * RAD;
+    return [C + r * Math.cos(a), C - r * Math.sin(a)];
+  };
+
+  make(wheel, 'circle', { cx: C, cy: C, r: 300, class: 'ln' });
+  make(wheel, 'circle', { cx: C, cy: C, r: 250, class: 'ln' });
+  for (let k = 0; k < 10; k++) make(wheel, 'circle', { cx: C, cy: C, r: 55 + 19 * k, class: 'ring' });
+
+  let dSign = '';
+  for (let s = 0; s < 12; s++) {
+    const a = pt(30 * s, 250), b = pt(30 * s, 300);
+    dSign += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+  }
+  make(wheel, 'path', { d: dSign, class: 'ln' });
+
+  let dTick = '';
+  for (let g = 0; g < 360; g += 5) {
+    const len = g % 10 === 0 ? 8 : 4;
+    const a = pt(g, 250), b = pt(g, 250 - len);
+    dTick += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+  }
+  make(wheel, 'path', { d: dTick, class: 'tick' });
+
+  for (let s = 0; s < 12; s++) {
+    const p = pt(30 * s + 15, 275);
+    const t = make(wheel, 'text', { x: f1(p[0]), y: f1(p[1]), class: 'sign sym' });
+    t.textContent = SIGNS[s][1];
+  }
+  make(wheel, 'circle', { cx: C, cy: C, r: 3, class: 'earth' });
+
+
+  const traces = BODIES.map(() => make(wheel, 'path', { d: '', class: 'tr' }));
+  const groups = BODIES.map((b, i) => {
+    const g = make(wheel, 'g', {});
+    const halo = make(wheel, 'circle', { cx: 0, cy: 0, r: 11, class: 'halo' }, g);
+    const t = make(wheel, 'text', { x: 0, y: 0, class: 'pl sym' }, g);
+    t.textContent = b.g;
+    const hit = make(wheel, 'circle', { cx: 0, cy: 0, r: 14, class: 'hs' }, g);
+    addTarget('p' + i, halo);
+    bindHit(hit, 'p' + i);
+    return g;
+  });
+
+  /* ---------- Vue de l'horizon ---------- */
+  const sky = document.getElementById('sky');
+  const R = 290;
+  const proj = (alt, az) => {
+    const r = (90 - alt) / 90 * R * state.zoom, a = (az - state.heading) * RAD;
+    return [C + state.panX + r * Math.sin(a), C + state.panY - r * Math.cos(a)];
+  };
+
+  const hCirc = make(sky, 'circle', { cx: C, cy: C, r: R, class: 'ln' });
+  const rA = make(sky, 'circle', { cx: C, cy: C, r: R * 2 / 3, class: 'ring' });
+  const rB = make(sky, 'circle', { cx: C, cy: C, r: R / 3, class: 'ring' });
+  const rose = make(sky, 'path', { d: '', class: 'ring' });
+  const cardinals = [['N', 0], ['E', 90], ['S', 180], ['O', 270]].map(c => {
+    const t = make(sky, 'text', { x: 0, y: 0, class: 'cd' });
+    t.textContent = c[0];
+    return { t: t, az: c[1] };
+  });
+  make(sky, 'path', { d: 'M' + (C - 7) + ' ' + (C - R + 16) + 'L' + (C + 7) + ' ' + (C - R + 16) + 'L' + C + ' ' + (C - R + 4) + 'Z', class: 'earth', opacity: '0.6' });
+
+  /* Petite boussole en haut à droite, utile lorsque la vue est zoomée */
+  const miniG = make(sky, 'g', { display: 'none' });
+  make(sky, 'circle', { cx: 604, cy: 38, r: 17, class: 'ln' }, miniG);
+  const miniN = make(sky, 'text', { x: 604, y: 28, class: 'mn' }, miniG);
+  miniN.textContent = 'N';
+
+  function updateFrame() {
+    const k = state.zoom, cx = C + state.panX, cy = C + state.panY, Rk = R * k;
+    hCirc.setAttribute('cx', f1(cx)); hCirc.setAttribute('cy', f1(cy)); hCirc.setAttribute('r', f1(Rk));
+    rA.setAttribute('cx', f1(cx)); rA.setAttribute('cy', f1(cy)); rA.setAttribute('r', f1(Rk * 2 / 3));
+    rB.setAttribute('cx', f1(cx)); rB.setAttribute('cy', f1(cy)); rB.setAttribute('r', f1(Rk / 3));
+    rose.setAttribute('d', 'M' + f1(cx - Rk) + ' ' + f1(cy) + 'L' + f1(cx + Rk) + ' ' + f1(cy) + 'M' + f1(cx) + ' ' + f1(cy - Rk) + 'L' + f1(cx) + ' ' + f1(cy + Rk));
+    rose.setAttribute('transform', 'rotate(' + f1(-state.heading) + ' ' + f1(cx) + ' ' + f1(cy) + ')');
+    cardinals.forEach(c => {
+      const a = (c.az - state.heading) * RAD;
+      const x = cx + (Rk + 17) * Math.sin(a), y = cy - (Rk + 17) * Math.cos(a);
+      const ok = x >= 8 && x <= 632 && y >= 10 && y <= 630;
+      c.t.setAttribute('x', f1(x));
+      c.t.setAttribute('y', f1(y));
+      c.t.setAttribute('display', ok ? 'inline' : 'none');
+    });
+    const a0 = -state.heading * RAD;
+    miniN.setAttribute('x', f1(604 + 9 * Math.sin(a0)));
+    miniN.setAttribute('y', f1(38 - 9 * Math.cos(a0)));
+    miniG.setAttribute('display', k > 1.05 ? 'inline' : 'none');
+  }
+
+  const eclPath = make(sky, 'path', { d: '', class: 'ecl' });
+  const conTicks = make(sky, 'path', { d: '', class: 'ctick' });
+  const eclHits = CONST.map((c, i) => {
+    const h = make(sky, 'path', { d: '', class: 'hit2' });
+    addTarget(i, h);
+    bindHit(h, i);
+    return h;
+  });
+  const conLabels = CONST.map((c, i) => {
+    const t = make(sky, 'text', { x: 0, y: 0, class: 'cn2', display: 'none' });
+    t.textContent = c[0];
+    addTarget(i, t);
+    bindHit(t, i);
+    return t;
+  });
+  const figPaths = ALLFIGS.map((f, i) => {
+    const p = make(sky, 'path', { d: '', class: 'fig' });
+    addTarget(i, p);
+    return p;
+  });
+  const figHits = ALLFIGS.map((f, i) => {
+    const h = make(sky, 'path', { d: '', class: 'hit2' });
+    bindHit(h, i);
+    return h;
+  });
+  const xLabels = XFIGS.map((f, j) => {
+    const key = CONST.length + j;
+    const t = make(sky, 'text', { x: 0, y: 0, class: 'cn2', display: 'none' });
+    t.textContent = f.n;
+    addTarget(key, t);
+    bindHit(t, key);
+    return t;
+  });
+  const starHit = name => {
+    if (!STAR_INFO[name]) return null;
+    const h = make(sky, 'circle', { cx: 0, cy: 0, r: 9, class: 'hs', display: 'none' });
+    bindHit(h, name);
+    return h;
+  };
+  const starLabel = (name, dotEl) => {
+    const label = make(sky, 'text', { x: 0, y: 0, class: 'stl', display: 'none' });
+    label.textContent = name;
+    if (STAR_INFO[name]) { addTarget(name, label); bindHit(label, name); }
+    return label;
+  };
+  const figDots = ALLFIGS.map(f => f.s.map(st => {
+    if (st.dup) return null;
+    const r = Math.max(1.1, 3.2 - 0.8 * st.mag);
+    const dot = make(sky, 'circle', { cx: 0, cy: 0, r: r.toFixed(2), class: 'fs', display: 'none' });
+    if (st.name) addTarget(st.name, dot);
+    const label = (st.name && st.mag <= 2.1) ? starLabel(st.name) : null;
+    return { dot: dot, label: label, r: r, name: st.name, hit: st.name ? starHit(st.name) : null };
+  }));
+  const starDots = STARS.map(s => {
+    const r = Math.max(1.3, 3.6 - 0.9 * s.mag);
+    const dot = make(sky, 'circle', { cx: 0, cy: 0, r: r.toFixed(2), class: 'st', display: 'none' });
+    addTarget(s.name, dot);
+    const label = (s.mag < 1.4 || s.name === 'Polaris') ? starLabel(s.name) : null;
+    return { dot: dot, label: label, r: r, hit: starHit(s.name) };
+  });
+  const skyGroups = BODIES.map((b, i) => {
+    const g = make(sky, 'g', { display: 'none' });
+    const halo = make(sky, 'circle', { cx: 0, cy: 0, r: 11, class: 'halo' }, g);
+    const t = make(sky, 'text', { x: 0, y: 0, class: 'pl sym' }, g);
+    t.textContent = b.g;
+    const hit = make(sky, 'circle', { cx: 0, cy: 0, r: 14, class: 'hs' }, g);
+    addTarget('p' + i, halo);
+    bindHit(hit, 'p' + i);
+    return g;
+  });
+
+  /* ---------- Liste ---------- */
+  const list = document.getElementById('list');
+  const rows = BODIES.map((b, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="g sym"></span><span class="n"></span><span class="v"></span><span class="r"></span>';
+    li.querySelector('.g').textContent = b.g;
+    li.querySelector('.n').textContent = b.n;
+    list.appendChild(li);
+    addTarget('p' + i, li);
+    bindHit(li, 'p' + i);
+    return { v: li.querySelector('.v'), r: li.querySelector('.r') };
+  });
+
+  /* ---------- Éléments de commande ---------- */
+  const dateText = document.getElementById('dateText');
+  const dateInput = document.getElementById('dateInput');
+  const slider = document.getElementById('slider');
+  const sub = document.getElementById('sub');
+  const title = document.getElementById('title');
+  const placeSel = document.getElementById('place');
+  const timeSlider = document.getElementById('timeSlider');
+  const timeLabel = document.getElementById('timeLabel');
+  const hdg = document.getElementById('hdg');
+  const zoomSlider = document.getElementById('zoom');
+  const zoomLabel = document.getElementById('zoomLabel');
+  const hdgLabel = document.getElementById('hdgLabel');
+  const northBtn = document.getElementById('north');
+  const compassBtn = document.getElementById('compass');
+  const compassMsg = document.getElementById('compassMsg');
+  slider.max = Math.round(JD_MAX - JD_MIN);
+  PLACES.forEach((p, i) => {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = p.n;
+    placeSel.appendChild(o);
+  });
+
+  const diff = (a, b) => ((a - b + 540) % 360) - 180;
+  const compass = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
+  const cp = az => compass[Math.round(az / 45) % 8];
+  const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+
+  function twilight(alt) {
+    if (alt > -0.83) return 'jour';
+    if (alt > -6) return 'crépuscule civil';
+    if (alt > -12) return 'crépuscule nautique';
+    if (alt > -18) return 'crépuscule astronomique';
+    return 'nuit';
+  }
+
+  /* ---------- Rendu de la roue ---------- */
+  function renderWheel() {
+    const jd = state.jd;
+    const lons = allLons(jd);
+    const ahead = allLons(jd + 0.5);
+    const back = allLons(jd - 0.5);
+
+    BODIES.forEach((b, i) => {
+      const r = 55 + 19 * b.ring;
+      const p = pt(lons[i], r);
+      groups[i].setAttribute('transform', 'translate(' + f1(p[0]) + ' ' + f1(p[1]) + ')');
+      const retro = i > 1 && diff(ahead[i], back[i]) < 0;
+      groups[i].setAttribute('class', retro ? 'retro' : '');
+
+      const within = lons[i] % 30;
+      const deg = Math.floor(within);
+      const min = Math.floor((within - deg) * 60);
+      rows[i].v.textContent = deg + '°' + pad(min) + '′ ' + SIGNS[Math.floor(lons[i] / 30)][0];
+      rows[i].r.textContent = retro ? '℞' : '';
+    });
+
+    if (state.trace > 0) {
+      const N = 90;
+      const paths = BODIES.map(() => '');
+      for (let k = 0; k <= N; k++) {
+        const L = k === N ? lons : allLons(jd - state.trace * (1 - k / N));
+        for (let i = 0; i < BODIES.length; i++) {
+          if (i === 1) continue;
+          const p = pt(L[i], 55 + 19 * BODIES[i].ring);
+          paths[i] += (k === 0 ? 'M' : 'L') + f1(p[0]) + ' ' + f1(p[1]);
+        }
+      }
+      traces.forEach((t, i) => t.setAttribute('d', paths[i]));
+    } else {
+      traces.forEach(t => t.setAttribute('d', ''));
+    }
+  }
+
+  /* ---------- Rendu de l'horizon ---------- */
+  function renderSky() {
+    const place = PLACES[state.place];
+    const jd = instantJD();
+    const all = allPos(jd);
+    const lst = gmst(jd) + place.lon;
+    const phi = place.lat;
+
+    updateFrame();
+    const hd = Math.round(state.heading) % 360;
+    hdgLabel.textContent = hd + '° ' + cp(state.heading);
+    hdg.value = hd;
+    zoomLabel.textContent = '×' + state.zoom.toFixed(1).replace('.', ',');
+    zoomSlider.value = Math.round(state.zoom * 100);
+
+    let sunAlt = -90;
+    BODIES.forEach((b, i) => {
+      const q = all.pos[i];
+      const h = horiz(q.lon, q.lat, all.obl, lst, phi);
+      if (i === 1) h.alt -= (Math.asin(1 / q.r) / RAD) * cs(h.alt);
+      if (i === 0) sunAlt = h.alt;
+      if (h.alt >= 0) {
+        const p = proj(h.alt, h.az);
+        skyGroups[i].setAttribute('transform', 'translate(' + f1(p[0]) + ' ' + f1(p[1]) + ')');
+        skyGroups[i].setAttribute('display', 'inline');
+        rows[i].v.textContent = Math.round(h.alt) + '° · ' + cp(h.az) + ' ' + Math.round(h.az) + '°';
+      } else {
+        skyGroups[i].setAttribute('display', 'none');
+        rows[i].v.textContent = 'sous l’horizon';
+      }
+      rows[i].r.textContent = '';
+    });
+
+    const prec = precession(jd);
+    const inView = q => q[0] >= 6 && q[0] <= 634 && q[1] >= 6 && q[1] <= 634;
+    const placeHit = (hit, p, on) => {
+      if (!hit) return;
+      if (on) {
+        hit.setAttribute('cx', f1(p[0]));
+        hit.setAttribute('cy', f1(p[1]));
+        hit.setAttribute('display', 'inline');
+      } else {
+        hit.setAttribute('display', 'none');
+      }
+    };
+    STARS.forEach((s, i) => {
+      const h = horiz(rev(s.lon0 + prec), s.lat, all.obl, lst, phi);
+      const sd = starDots[i];
+      if (h.alt >= 0) {
+        const p = proj(h.alt, h.az);
+        sd.dot.setAttribute('cx', f1(p[0]));
+        sd.dot.setAttribute('cy', f1(p[1]));
+        sd.dot.setAttribute('display', 'inline');
+        placeHit(sd.hit, p, true);
+        if (sd.label) {
+          const w = s.name.length * 6.2;
+          const left = p[0] + sd.r + 4 + w > 634;
+          sd.label.setAttribute('x', f1(left ? p[0] - sd.r - 4 : p[0] + sd.r + 4));
+          sd.label.setAttribute('text-anchor', left ? 'end' : 'start');
+          sd.label.setAttribute('y', f1(p[1]));
+          sd.label.setAttribute('display', 'inline');
+        }
+      } else {
+        sd.dot.setAttribute('display', 'none');
+        placeHit(sd.hit, null, false);
+        if (sd.label) sd.label.setAttribute('display', 'none');
+      }
+    });
+
+    ALLFIGS.forEach((f, fi) => {
+      let df = '', dh = '';
+      const pos = f.s.map(st => {
+        if (!state.figures) return null;
+        const h = horiz(rev(st.lon0 + prec), st.lat, all.obl, lst, phi);
+        return h.alt >= 0 ? proj(h.alt, h.az) : null;
+      });
+      f.l.forEach(seg => {
+        const a = pos[seg[0]], b = pos[seg[1]];
+        if (a && b) df += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+      });
+      dh = df;
+      pos.forEach(q => { if (q) dh += 'M' + f1(q[0]) + ' ' + f1(q[1]) + 'L' + f1(q[0] + 0.01) + ' ' + f1(q[1]); });
+      f.s.forEach((st, si) => {
+        const fd = figDots[fi][si];
+        if (!fd) return;
+        const p = pos[si];
+        placeHit(fd.hit, p, !!p);
+        if (p) {
+          fd.dot.setAttribute('cx', f1(p[0]));
+          fd.dot.setAttribute('cy', f1(p[1]));
+          fd.dot.setAttribute('display', 'inline');
+          if (fd.label) {
+            const left = p[0] + fd.r + 4 + fd.name.length * 6.2 > 634;
+            fd.label.setAttribute('x', f1(left ? p[0] - fd.r - 4 : p[0] + fd.r + 4));
+            fd.label.setAttribute('text-anchor', left ? 'end' : 'start');
+            fd.label.setAttribute('y', f1(p[1]));
+            fd.label.setAttribute('display', 'inline');
+          }
+        } else {
+          fd.dot.setAttribute('display', 'none');
+          if (fd.label) fd.label.setAttribute('display', 'none');
+        }
+      });
+      figPaths[fi].setAttribute('d', df);
+      figHits[fi].setAttribute('d', dh);
+      if (fi >= CONST.length) {
+        /* le nom des autres constellations se place juste au-dessus de leur figure */
+        const lab = xLabels[fi - CONST.length];
+        const vis = pos.filter(q => q && inView(q));
+        if (vis.length) {
+          lab.setAttribute('x', f1(vis.reduce((a, q) => a + q[0], 0) / vis.length));
+          lab.setAttribute('y', f1(Math.min.apply(null, vis.map(q => q[1])) - 12));
+          lab.setAttribute('display', 'inline');
+        } else {
+          lab.setAttribute('display', 'none');
+        }
+      }
+    });
+
+    let d = '';
+    let pen = false;
+    for (let lon = 0; lon <= 360; lon += 3) {
+      const h = horiz(lon, 0, all.obl, lst, phi);
+      if (h.alt >= 0) {
+        const p = proj(h.alt, h.az);
+        d += (pen ? 'L' : 'M') + f1(p[0]) + ' ' + f1(p[1]);
+        pen = true;
+      } else {
+        pen = false;
+      }
+    }
+    eclPath.setAttribute('d', d);
+
+    let dc = '';
+    const shift = constShift(jd);
+    CONST.forEach((c, i) => {
+      const lab = conLabels[i];
+      const s0 = c[1] + shift, s1 = constNext(i) + shift;
+      const steps = Math.max(4, Math.ceil((s1 - s0) / 1.5));
+      let de = '', pen2 = false;
+      const vis = [];
+      for (let k = 0; k <= steps; k++) {
+        const lo = s0 + (s1 - s0) * k / steps;
+        const hh = horiz(lo, 0, all.obl, lst, phi);
+        if (hh.alt >= 0) {
+          const q = proj(hh.alt, hh.az);
+          de += (pen2 ? 'L' : 'M') + f1(q[0]) + ' ' + f1(q[1]);
+          pen2 = true;
+          if (inView(q)) vis.push(lo);
+        } else {
+          pen2 = false;
+        }
+      }
+      eclHits[i].setAttribute('d', de);
+      const h1 = horiz(s0, -5, all.obl, lst, phi), h2 = horiz(s0, 5, all.obl, lst, phi);
+      if (h1.alt >= 0 && h2.alt >= 0) {
+        const a = proj(h1.alt, h1.az), b = proj(h2.alt, h2.az);
+        dc += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+      }
+      if (vis.length) {
+        /* le nom se place au milieu de la partie visible de la constellation, juste au nord de l'écliptique */
+        const lm = vis[Math.floor(vis.length / 2)];
+        let hm = horiz(lm, 6, all.obl, lst, phi);
+        let p = hm.alt >= 0 ? proj(hm.alt, hm.az) : null;
+        if (!p || !inView(p)) {
+          hm = horiz(lm, 0, all.obl, lst, phi);
+          p = proj(hm.alt, hm.az);
+        }
+        lab.setAttribute('x', f1(p[0]));
+        lab.setAttribute('y', f1(p[1]));
+        lab.setAttribute('display', 'inline');
+      } else {
+        lab.setAttribute('display', 'none');
+      }
+    });
+    conTicks.setAttribute('d', dc);
+
+    sub.textContent = hhmm(state.minutes) + ' à ' + place.n + ', ' + twilight(sunAlt);
+    timeLabel.textContent = hhmm(state.minutes);
+  }
+
+  function render() {
+    if (state.view === 'wheel') renderWheel(); else renderSky();
+    const dt = dateOf(state.jd);
+    dateText.textContent = fmt.format(dt);
+    dateInput.value = iso(dt);
+    slider.value = Math.round(state.jd - JD_MIN);
+  }
+
+  function setView(v) {
+    unpin();
+    hideTip();
+    state.view = v;
+    const isWheel = v === 'wheel';
+    wheel.toggleAttribute('hidden', !isWheel);
+    sky.toggleAttribute('hidden', isWheel);
+    document.getElementById('hz').hidden = isWheel;
+    document.getElementById('trace').hidden = !isWheel;
+    document.getElementById('noteWheel').hidden = !isWheel;
+    document.getElementById('noteSky').hidden = isWheel;
+    document.getElementById('noteMyth').hidden = isWheel;
+    sub.hidden = isWheel;
+    if (isWheel && state.compass) compassOff();
+    title.textContent = 'Space Ephemerides · ' + (isWheel ? 'Roue zodiacale' : 'Ciel vu depuis la Terre');
+    document.querySelectorAll('#views button').forEach(b => {
+      b.setAttribute('aria-pressed', b.dataset.view === v ? 'true' : 'false');
+    });
+    render();
+  }
+
+  /* ---------- Commandes ---------- */
+  function setJD(v) {
+    state.jd = clamp(v);
+    render();
+  }
+
+  document.getElementById('views').addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b && b.dataset.view) setView(b.dataset.view);
+  });
+
+  document.getElementById('figToggle').addEventListener('click', e => {
+    state.figures = !state.figures;
+    e.currentTarget.setAttribute('aria-pressed', state.figures ? 'true' : 'false');
+    render();
+  });
+
+  document.getElementById('mythSrc').addEventListener('change', e => {
+    state.myth = e.target.value;
+    unpin();
+    hideTip();
+  });
+
+  placeSel.addEventListener('change', () => { state.place = Number(placeSel.value); render(); });
+  timeSlider.addEventListener('input', () => {
+    state.minutes = Number(timeSlider.value);
+    render();
+  });
+
+  /* Cap : curseur, bouton, glisser sur la carte */
+  function setHeading(h) {
+    state.heading = rev(h);
+    render();
+  }
+  hdg.addEventListener('input', () => setHeading(Number(hdg.value)));
+  northBtn.addEventListener('click', () => setHeading(0));
+
+  const toSvg = (x, y) => {
+    const r = sky.getBoundingClientRect();
+    const k = 640 / r.width;
+    return [(x - r.left) * k, (y - r.top) * k];
+  };
+  function clampPan() {
+    const m = Math.max(0, state.zoom - 1) * R;
+    state.panX = Math.max(-m, Math.min(m, state.panX));
+    state.panY = Math.max(-m, Math.min(m, state.panY));
+  }
+  /* Zoom autour d'un point de l'écran (par défaut le centre de la carte) */
+  function setZoom(k2, sx, sy) {
+    k2 = Math.max(1, Math.min(6, k2));
+    if (sx === undefined) { sx = C; sy = C; }
+    const f = k2 / state.zoom;
+    state.panX = (sx - C) - f * (sx - C - state.panX);
+    state.panY = (sy - C) - f * (sy - C - state.panY);
+    state.zoom = k2;
+    clampPan();
+    render();
+  }
+  zoomSlider.addEventListener('input', () => setZoom(Number(zoomSlider.value) / 100));
+  document.getElementById('zoomIn').addEventListener('click', () => setZoom(state.zoom * 1.25));
+  document.getElementById('zoomOut').addEventListener('click', () => setZoom(state.zoom / 1.25));
+  document.getElementById('zoomReset').addEventListener('click', () => {
+    state.zoom = 1; state.panX = 0; state.panY = 0;
+    render();
+  });
+
+  /* Molette et pincement du pavé tactile (ctrl + molette dans Chrome et Firefox) */
+  sky.addEventListener('wheel', e => {
+    e.preventDefault();
+    const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+    const f = Math.exp(-dy * (e.ctrlKey ? 0.01 : 0.0015));
+    const q = toSvg(e.clientX, e.clientY);
+    setZoom(state.zoom * f, q[0], q[1]);
+  }, { passive: false });
+  /* Pincement du pavé tactile dans Safari (ordinateur) */
+  let gStart = 1;
+  sky.addEventListener('gesturestart', e => { e.preventDefault(); gStart = state.zoom; });
+  sky.addEventListener('gesturechange', e => {
+    e.preventDefault();
+    if (pts.size >= 2) return;
+    const q = toSvg(e.clientX, e.clientY);
+    setZoom(gStart * e.scale, q[0], q[1]);
+  });
+
+  /* Pointeurs : glisser = tourner ; Maj + glisser = déplacer ; deux doigts = zoom et déplacement */
+  let drag = null;
+  const pts = new Map();
+  let pinch = null;
+  let pinchLock = false;
+  const phiOf = e => {
+    const r = sky.getBoundingClientRect();
+    const k = r.width / 640;
+    const cx = r.left + (C + state.panX) * k, cy = r.top + (C + state.panY) * k;
+    return Math.atan2(e.clientX - cx, -(e.clientY - cy)) / RAD;
+  };
+  const capture = id => { try { sky.setPointerCapture(id); } catch (err) { /* pointeur inconnu */ } };
+  function startPinch() {
+    const a = [...pts.values()];
+    drag = null;
+    dragging = true;
+    pinchLock = true;
+    hideTip();
+    pinch = {
+      d0: Math.hypot(a[0][0] - a[1][0], a[0][1] - a[1][1]) || 1,
+      k0: state.zoom,
+      mid0: toSvg((a[0][0] + a[1][0]) / 2, (a[0][1] + a[1][1]) / 2),
+      px: state.panX,
+      py: state.panY
+    };
+    pts.forEach((v, id) => capture(id));
+  }
+  sky.addEventListener('pointerdown', e => {
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pts.size === 2) { startPinch(); return; }
+    if (pts.size > 2 || pinchLock) return;
+    if (e.pointerType === 'mouse' && (e.shiftKey || e.button === 1)) {
+      drag = { mode: 'pan', x: e.clientX, y: e.clientY, px: state.panX, py: state.panY, id: e.pointerId, moved: false };
+    } else if (!state.compass) {
+      drag = { mode: 'rot', phi: phiOf(e), h: state.heading, x: e.clientX, y: e.clientY, id: e.pointerId, moved: false };
+    }
+  });
+  sky.addEventListener('pointermove', e => {
+    if (pts.has(e.pointerId)) pts.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pinch && pts.size >= 2) {
+      const a = [...pts.values()];
+      const d = Math.hypot(a[0][0] - a[1][0], a[0][1] - a[1][1]);
+      const m = toSvg((a[0][0] + a[1][0]) / 2, (a[0][1] + a[1][1]) / 2);
+      const k2 = Math.max(1, Math.min(6, pinch.k0 * d / pinch.d0));
+      const f = k2 / pinch.k0;
+      state.panX = (m[0] - C) - f * (pinch.mid0[0] - C - pinch.px);
+      state.panY = (m[1] - C) - f * (pinch.mid0[1] - C - pinch.py);
+      state.zoom = k2;
+      clampPan();
+      render();
+      return;
+    }
+    if (pinchLock || !drag || drag.id !== e.pointerId) return;
+    if (!drag.moved) {
+      if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 5) return;
+      drag.moved = true;
+      dragging = true;
+      capture(drag.id);
+      hideTip();
+    }
+    if (drag.mode === 'pan') {
+      const k = 640 / sky.getBoundingClientRect().width;
+      state.panX = drag.px + (e.clientX - drag.x) * k;
+      state.panY = drag.py + (e.clientY - drag.y) * k;
+      clampPan();
+      render();
+    } else {
+      setHeading(drag.h + drag.phi - phiOf(e));
+    }
+  });
+  const endPtr = e => {
+    pts.delete(e.pointerId);
+    if (drag && drag.id === e.pointerId) drag = null;
+    if (pts.size < 2) pinch = null;
+    if (pts.size === 0) { pinchLock = false; dragging = false; }
+  };
+  sky.addEventListener('pointerup', endPtr);
+  sky.addEventListener('pointercancel', endPtr);
+
+  /* Boussole de l'appareil */
+  let smooth = null;
+  let rafPending = false;
+  let compassTimer = null;
+  let gotSignal = false;
+
+  function headingFrom(e) {
+    if (typeof e.webkitCompassHeading === 'number' && !isNaN(e.webkitCompassHeading)) return e.webkitCompassHeading;
+    if (!e.absolute || e.alpha === null || e.alpha === undefined) return null;
+    const a = e.alpha, b = e.beta || 0, g = e.gamma || 0;
+    const tilt = Math.acos(Math.max(-1, Math.min(1, cs(b) * cs(g)))) / RAD;
+    if (tilt < 45) return rev(360 - a);
+    const vx = -cs(a) * sn(g) - sn(a) * sn(b) * cs(g);
+    const vy = -sn(a) * sn(g) + cs(a) * sn(b) * cs(g);
+    return rev(Math.atan2(vx, vy) / RAD);
+  }
+  function onOrientation(e) {
+    const h = headingFrom(e);
+    if (h === null) return;
+    if (!gotSignal) {
+      gotSignal = true;
+      clearTimeout(compassTimer);
+      compassMsg.textContent = 'Boussole active : le haut de la carte suit la direction de l’appareil.';
+    }
+    smooth = smooth === null ? h : rev(smooth + 0.25 * diff(h, smooth));
+    state.heading = smooth;
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(() => { rafPending = false; render(); });
+    }
+  }
+  function applyCompassUI() {
+    compassBtn.setAttribute('aria-pressed', state.compass ? 'true' : 'false');
+    hdg.disabled = state.compass;
+    northBtn.disabled = state.compass;
+    sky.style.cursor = state.compass ? 'default' : 'grab';
+  }
+  function compassOff() {
+    clearTimeout(compassTimer);
+    window.removeEventListener('deviceorientationabsolute', onOrientation, true);
+    window.removeEventListener('deviceorientation', onOrientation, true);
+    state.compass = false;
+    applyCompassUI();
+    compassMsg.hidden = true;
+  }
+  async function compassOn() {
+    compassMsg.hidden = false;
+    compassMsg.textContent = 'Recherche du signal de la boussole…';
+    let res = 'granted';
+    try {
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        res = await DeviceOrientationEvent.requestPermission();
+      }
+    } catch (err) {
+      const framed = window.self !== window.top;
+      compassMsg.textContent = framed
+        ? 'Accès aux capteurs bloqué : cette page est intégrée dans une autre page qui ne les autorise pas (' + err.name + ').'
+        : 'Accès aux capteurs impossible (' + err.name + (err.message ? ' : ' + err.message : '') + ').';
+      return;
+    }
+    if (res !== 'granted') {
+      compassMsg.textContent = 'Autorisation refusée par le système. Fermez complètement Safari, rouvrez la page, puis acceptez la demande.';
+      return;
+    }
+    smooth = null;
+    gotSignal = false;
+    state.compass = true;
+    applyCompassUI();
+    window.addEventListener('deviceorientationabsolute', onOrientation, true);
+    window.addEventListener('deviceorientation', onOrientation, true);
+    compassTimer = setTimeout(() => {
+      compassOff();
+      compassMsg.hidden = false;
+      compassMsg.textContent = 'Aucun signal reçu : capteur absent, ou accès bloqué par le navigateur ou l’intégration de la page.';
+    }, 3000);
+  }
+  compassBtn.addEventListener('click', () => { if (state.compass) compassOff(); else compassOn(); });
+
+  slider.addEventListener('input', () => setJD(JD_MIN + Number(slider.value)));
+
+  dateInput.addEventListener('change', () => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateInput.value);
+    if (!m) { render(); return; }
+    setJD(jdFromYMD(+m[1], +m[2] - 1, +m[3]));
+  });
+
+  document.getElementById('today').addEventListener('click', () => {
+    const n = new Date();
+    setJD(jdFromYMD(n.getFullYear(), n.getMonth(), n.getDate()));
+  });
+
+  document.getElementById('steps').addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const dt = dateOf(state.jd);
+    const y = dt.getUTCFullYear() + Number(b.dataset.y || 0);
+    const m = dt.getUTCMonth() + Number(b.dataset.m || 0);
+    const d = dt.getUTCDate() + Number(b.dataset.d || 0);
+    setJD(jdFromYMD(y, m, d));
+  });
+
+  document.getElementById('speed').addEventListener('change', e => { state.speed = Number(e.target.value); });
+  document.getElementById('trace').addEventListener('change', e => { state.trace = Number(e.target.value); render(); });
+
+  const playBtn = document.getElementById('play');
+  let last = null;
+  function frame(ts) {
+    if (!state.playing) return;
+    if (last !== null) state.jd += state.speed * (ts - last) / 1000;
+    last = ts;
+    if (state.jd >= JD_MAX) { state.jd = JD_MAX; stop(); }
+    render();
+    if (state.playing) requestAnimationFrame(frame);
+  }
+  function stop() {
+    state.playing = false;
+    last = null;
+    playBtn.textContent = 'Lecture';
+    playBtn.setAttribute('aria-pressed', 'false');
+    state.jd = clamp(Math.round(state.jd));
+  }
+  playBtn.addEventListener('click', () => {
+    if (state.playing) { stop(); render(); return; }
+    if (state.jd >= JD_MAX) state.jd = JD_MIN;
+    state.playing = true;
+    playBtn.textContent = 'Pause';
+    playBtn.setAttribute('aria-pressed', 'true');
+    requestAnimationFrame(frame);
+  });
+
+  /* ---------- Hors connexion : contenu mis à jour et service worker ---------- */
+  const APP_VERSION = '2026-09-19.3';
+  const hosted = /^https?:$/.test(location.protocol);
+  const offGrp = document.getElementById('offGrp');
+  const offMsg = document.getElementById('offMsg');
+  const checkBtn = document.getElementById('checkUpd');
+  const mythSel = document.getElementById('mythSrc');
+  const updBar = document.getElementById('updBar');
+  offGrp.hidden = !hosted;
+
+  const validContent = d => {
+    if (!d || typeof d !== 'object' || typeof d.version !== 'string' || !d.sources || typeof d.sources !== 'object') return false;
+    const ids = Object.keys(d.sources);
+    if (!ids.length) return false;
+    return ids.every(id => {
+      const sc = d.sources[id];
+      if (!sc || typeof sc.name !== 'string') return false;
+      if (sc.constellations && (!Array.isArray(sc.constellations) || sc.constellations.length > NAMES.length || !sc.constellations.every(m => !m || typeof m.t === 'string'))) return false;
+      if (sc.planets && (!Array.isArray(sc.planets) || sc.planets.length > BODIES.length || !sc.planets.every(m => !m || typeof m.t === 'string'))) return false;
+      if (sc.stars && (typeof sc.stars !== 'object' || !Object.keys(sc.stars).every(k => Array.isArray(sc.stars[k]) && sc.stars[k].length >= 3))) return false;
+      return true;
+    });
+  };
+  function rebuildSourceSelect() {
+    const cur = state.myth;
+    mythSel.innerHTML = '';
+    Object.keys(content.sources).forEach(id => {
+      const o = document.createElement('option');
+      o.value = id;
+      o.textContent = 'Fiches : ' + content.sources[id].name;
+      mythSel.appendChild(o);
+    });
+    const none = document.createElement('option');
+    none.value = 'none';
+    none.textContent = 'Fiches : aucune';
+    mythSel.appendChild(none);
+    state.myth = (cur === 'none' || content.sources[cur]) ? cur : Object.keys(content.sources)[0];
+    mythSel.value = state.myth;
+  }
+  const hhmmNow = () => new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const setOff = t => { offMsg.textContent = 'Application ' + APP_VERSION + '. ' + t; };
+  async function loadContent() {
+    if (!hosted) return;
+    try {
+      const r = await fetch('content.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('http');
+      const d = await r.json();
+      if (!validContent(d)) throw new Error('format');
+      const changed = d.version !== content.version;
+      const cached = r.headers.get('X-Served-From') === 'cache';
+      content = d;
+      rebuildSourceSelect();
+      unpin();
+      hideTip();
+      const when = d.updated ? ' (' + d.updated + ')' : '';
+      setOff(cached
+        ? (navigator.onLine ? 'Le serveur n’a pas renvoyé de contenu valide : contenu enregistré sur l’appareil, version ' : 'Hors connexion : contenu enregistré sur l’appareil, version ') + d.version + when + '.'
+        : (changed ? 'Contenu mis à jour : version ' + d.version + when + '.' : 'Contenu à jour : version ' + d.version + when + '.') + ' Vérifié à ' + hhmmNow() + '.');
+    } catch (err) {
+      setOff('Contenu intégré, version ' + content.version + '. Aucune mise à jour récupérée (connexion indisponible ou fichier absent).');
+    }
+  }
+  checkBtn.addEventListener('click', async () => {
+    setOff('Recherche de mises à jour…');
+    if ('serviceWorker' in navigator) {
+      try {
+        const reg = await navigator.serviceWorker.getRegistration();
+        if (reg) await reg.update();
+      } catch (err) { /* sans conséquence */ }
+    }
+    await loadContent();
+  });
+  window.addEventListener('online', loadContent);
+
+  function showUpdate(worker) {
+    updBar.hidden = false;
+    document.getElementById('updGo').onclick = () => worker.postMessage('SKIP_WAITING');
+  }
+  if (hosted && 'serviceWorker' in navigator) {
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      const watch = w => w.addEventListener('statechange', () => {
+        if (w.state === 'installed' && navigator.serviceWorker.controller) showUpdate(w);
+      });
+      if (reg.waiting && navigator.serviceWorker.controller) showUpdate(reg.waiting);
+      reg.addEventListener('updatefound', () => watch(reg.installing));
+    }).catch(() => { /* enregistrement impossible : l'application reste utilisable en ligne */ });
+    let reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || reloading) return;
+      reloading = true;
+      location.reload();
+    });
+  }
+  loadContent();
+
+  setView('sky');
+})();
+</script>
+</body>
+</html>
