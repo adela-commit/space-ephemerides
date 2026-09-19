@@ -154,6 +154,10 @@ select option{color:#1C1C1E;background:#FFFFFF}
 .gt label{cursor:default}
 .gv{color:var(--ink);font-size:13px;font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
 .mn{fill:var(--muted);font-size:10px;text-anchor:middle;dominant-baseline:central}
+.hl{fill:none;stroke:var(--line);stroke-width:1}
+.hla{fill:none;stroke:var(--muted);stroke-width:1.4;opacity:.8}
+.hab{fill:var(--ink);font-size:13px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.hn{fill:var(--muted);font-size:10px;text-anchor:middle;dominant-baseline:central}
 @media (min-width:861px){.wheelbox{position:sticky;top:16px}}
 .tl{font-size:14px;font-variant-numeric:tabular-nums;min-width:3.2em}
 input[type="range"]{width:100%;margin:2px 0;accent-color:var(--ink)}
@@ -189,7 +193,7 @@ input[type="date"]{color-scheme:light dark}
   </header>
 
   <div class="wheelbox">
-    <svg id="wheel" viewBox="0 0 640 640" role="img" aria-label="Roue zodiacale montrant la position des planètes" hidden></svg>
+    <svg id="wheel" viewBox="-30 -30 700 700" role="img" aria-label="Roue zodiacale montrant la position des planètes" hidden></svg>
     <svg id="sky" viewBox="0 0 640 640" role="img" aria-label="Ciel vu depuis la Terre : hauteur et direction du Soleil, de la Lune, des planètes et de quelques étoiles"></svg>
   </div>
 
@@ -202,46 +206,14 @@ input[type="date"]{color-scheme:light dark}
       </div>
     </div>
 
-    <div class="hz" id="hz">
-      <div class="grp">
-        <div class="gt"><label for="place">Lieu</label></div>
-        <select id="place"></select>
-      </div>
-      <div class="grp">
-        <div class="gt"><label for="timeSlider">Heure locale</label><span class="gv" id="timeLabel">22:00</span></div>
-        <input type="range" id="timeSlider" min="0" max="1435" step="5" value="1320">
-      </div>
-      <div class="grp">
-        <div class="gt"><label for="hdg">Orientation (direction en haut de la carte)</label><span class="gv" id="hdgLabel">0° N</span></div>
-        <input type="range" id="hdg" min="0" max="359" step="1" value="0">
-        <div class="row">
-          <button type="button" id="north">Nord en haut</button>
-          <button type="button" id="compass" aria-pressed="false">Boussole de l’appareil</button>
-        </div>
-        <p class="hint" id="compassMsg" hidden></p>
-        <p class="hint">Vous pouvez aussi faire glisser la carte pour la tourner.</p>
-      </div>
-      <div class="grp">
-        <div class="gt"><label for="zoom">Zoom</label><span class="gv" id="zoomLabel">×1</span></div>
-        <input type="range" id="zoom" min="100" max="600" step="5" value="100">
-        <div class="row">
-          <button type="button" id="zoomOut" aria-label="Zoom arrière">−</button>
-          <button type="button" id="zoomIn" aria-label="Zoom avant">+</button>
-          <button type="button" id="zoomReset">Recentrer</button>
-        </div>
-        <p class="hint">Molette, pincement du pavé tactile ou de l’écran pour zoomer ; Maj + glisser (souris) ou deux doigts (écran tactile) pour déplacer la vue.</p>
-      </div>
-      <div class="grp">
-        <div class="gt"><span>Fiches : constellations, étoiles, planètes</span></div>
-        <div class="row">
-          <button type="button" id="figToggle" aria-pressed="true">Figures</button>
-          <select id="mythSrc" aria-label="Source des fiches (mythes et étoiles)">
-            <option value="wikipedia" selected>Fiches : Wikipédia</option>
-            <option value="none">Fiches : aucune</option>
-          </select>
-        </div>
-        <p class="hint">Survolez une constellation, une étoile nommée ou une planète (sur la carte ou dans la liste) pour lire sa fiche ; cliquez ou touchez pour l’épingler et ouvrir les articles Wikipédia.</p>
-      </div>
+    <div class="grp">
+      <div class="gt"><label for="place">Lieu</label></div>
+      <select id="place"></select>
+    </div>
+
+    <div class="grp">
+      <div class="gt"><label for="timeSlider">Heure locale</label><span class="gv" id="timeLabel">22:00</span></div>
+      <input type="range" id="timeSlider" min="0" max="1435" step="5" value="1320">
     </div>
 
     <div class="grp">
@@ -280,6 +252,52 @@ input[type="date"]{color-scheme:light dark}
         </select>
       </div>
     </div>
+
+    <div class="grp whg" hidden>
+      <div class="gt"><label for="housesSel">Maisons astrologiques</label></div>
+      <select id="housesSel">
+        <option value="placidus" selected>Placidus</option>
+        <option value="whole">Signes entiers</option>
+        <option value="equal">Maisons égales</option>
+        <option value="porphyry">Porphyre</option>
+        <option value="none">Aucune</option>
+      </select>
+      <p class="hint">Calculées pour le lieu et l’heure choisis. AS : Ascendant, MC : Milieu du Ciel, DS : Descendant, FC : Fond du Ciel. Chaque planète de la liste indique sa maison.</p>
+    </div>
+
+    <div class="grp hzg">
+      <div class="gt"><label for="hdg">Orientation (direction en haut de la carte)</label><span class="gv" id="hdgLabel">0° N</span></div>
+      <input type="range" id="hdg" min="0" max="359" step="1" value="0">
+      <div class="row">
+        <button type="button" id="north">Nord en haut</button>
+        <button type="button" id="compass" aria-pressed="false">Boussole de l’appareil</button>
+      </div>
+      <p class="hint" id="compassMsg" hidden></p>
+      <p class="hint">Vous pouvez aussi faire glisser la carte pour la tourner.</p>
+    </div>
+
+    <div class="grp hzg">
+      <div class="gt"><label for="zoom">Zoom</label><span class="gv" id="zoomLabel">×1</span></div>
+      <input type="range" id="zoom" min="100" max="600" step="5" value="100">
+      <div class="row">
+        <button type="button" id="zoomOut" aria-label="Zoom arrière">−</button>
+        <button type="button" id="zoomIn" aria-label="Zoom avant">+</button>
+        <button type="button" id="zoomReset">Recentrer</button>
+      </div>
+      <p class="hint">Molette, pincement du pavé tactile ou de l’écran pour zoomer ; Maj + glisser (souris) ou deux doigts (écran tactile) pour déplacer la vue.</p>
+    </div>
+
+    <div class="grp hzg">
+      <div class="gt"><span>Fiches : constellations, étoiles, planètes</span></div>
+      <div class="row">
+        <button type="button" id="figToggle" aria-pressed="true">Figures</button>
+        <select id="mythSrc" aria-label="Source des fiches (mythes et étoiles)">
+          <option value="wikipedia" selected>Fiches : Wikipédia</option>
+          <option value="none">Fiches : aucune</option>
+        </select>
+      </div>
+      <p class="hint">Survolez une constellation, une étoile nommée ou une planète (sur la carte ou dans la liste) pour lire sa fiche ; cliquez ou touchez pour l’épingler et ouvrir les articles Wikipédia.</p>
+    </div>
     <div class="grp" id="offGrp" hidden>
       <div class="gt"><span>Hors connexion et mises à jour</span></div>
       <p class="hint" id="offMsg">Contenu intégré à l’application.</p>
@@ -289,14 +307,14 @@ input[type="date"]{color-scheme:light dark}
 
   <section class="listbox">
     <ul class="list" id="list"></ul>
-    <p class="note" id="noteWheel" hidden>Zodiaque tropical ; positions géocentriques à midi (temps universel), calculées à partir d’éléments orbitaux simplifiés, de 1900 à 2100. Écart usuel : une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton. Le symbole ℞ et la couleur signalent un mouvement rétrograde. Sur la roue, chaque planète occupe son propre cercle ; la Terre est au centre.</p>
+    <p class="note" id="noteWheel" hidden>Zodiaque tropical ; positions géocentriques à l’heure locale et au lieu choisis, calculées à partir d’éléments orbitaux simplifiés, de 1900 à 2100. Écart usuel : une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton. Le symbole ℞ et la couleur signalent un mouvement rétrograde. Sur la roue, chaque planète occupe son propre cercle ; la Terre est au centre. Les maisons astrologiques dépendent du lieu et de l’heure : l’Ascendant (AS) est le degré du zodiaque qui se lève à l’est, le Milieu du Ciel (MC) celui qui culmine au sud. Le système Placidus n’est pas défini aux latitudes polaires : l’application bascule alors sur Porphyre.</p>
     <p class="note" id="noteMyth">Les mythes sont des résumés rédigés à partir d’articles de Wikipédia (texte sous licence CC BY-SA), intégrés à la page : elle ne peut pas interroger Wikipédia en direct. Chaque fiche renvoie vers l’article d’origine. Pour les étoiles et les planètes, les liens passent par la recherche de Wikipédia, qui ouvre directement l’article lorsque son titre existe.</p>
     <p class="note" id="noteSky">Le zénith est au centre et l’horizon en bordure. La carte se lit comme un plan posé à plat : le haut correspond à la direction du regard, la gauche et la droite à votre gauche et votre droite (par défaut, nord en haut et est à droite). Le bouton Boussole utilise les capteurs de l’appareil (position portrait, appareil à plat ou dressé) : il indique le nord magnétique, sans correction de déclinaison, et peut être indisponible selon le navigateur ou l’intégration de la page. L’heure est celle du lieu, heure d’été comprise ; le défilement du temps fait avancer la date à heure constante. Le trait pointillé est l’écliptique, découpé en constellations zodiacales par de petits traits (limites de l’Union astronomique internationale ; treize avec Ophiuchus), dont les noms sont inscrits à côté. Les étoiles repères sont une trentaine ; les constellations zodiacales, ainsi qu’Orion, Cassiopée, les Pléiades, la Grande Ourse et la Petite Ourse, sont reliées par des traits schématiques entre leurs principales étoiles (bouton Figures). La réfraction atmosphérique est ignorée ; la parallaxe de la Lune n’est corrigée qu’en hauteur.</p>
     <details class="about" id="about">
       <summary>À propos et crédits</summary>
       <p><strong>À propos.</strong> Space Ephemerides est une carte du ciel vue depuis la Terre : positions du Soleil, de la Lune et des planètes, étoiles repères, constellations et leurs mythes. Projet personnel, non professionnel. Tous les calculs sont faits sur votre appareil.</p>
       <p><strong>Licences.</strong> Le code est publié sans licence : tous droits réservés, à titre personnel. Les fiches (mythes des constellations et des planètes, informations sur les étoiles) sont des résumés reformulés et abrégés à partir d’articles de Wikipédia en français, disponibles sous licence Creative Commons Attribution – Partage dans les mêmes conditions (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA</a>). Ils sont redistribués sous la même licence. Chaque fiche épinglée renvoie vers l’article d’origine, dont l’historique donne la liste des auteurs.</p>
-      <p><strong>Sources des calculs et des données.</strong> Positions du Soleil, de la Lune et des planètes : éléments orbitaux simplifiés de Paul Schlyter (« How to compute planetary positions ») ; pour Pluton, éléments orbitaux moyens approchés. Limites des constellations zodiacales : longitudes écliptiques des passages du Soleil aux limites de l’Union astronomique internationale, relevées par Guy Ottewell (Universal Workshop) et corrigées de la précession. Coordonnées des étoiles : valeurs saisies à la main, non issues d’un catalogue, puis contrôlées visuellement.</p>
+      <p><strong>Sources des calculs et des données.</strong> Positions du Soleil, de la Lune et des planètes : éléments orbitaux simplifiés de Paul Schlyter (« How to compute planetary positions ») ; pour Pluton, éléments orbitaux moyens approchés. Limites des constellations zodiacales : longitudes écliptiques des passages du Soleil aux limites de l’Union astronomique internationale, relevées par Guy Ottewell (Universal Workshop) et corrigées de la précession. Maisons astrologiques : formules classiques de l’Ascendant, du Milieu du Ciel et des systèmes Placidus (par itération), Porphyre, signes entiers et maisons égales, appliquées au temps sidéral et à l’obliquité calculés par l’application. Coordonnées des étoiles : valeurs saisies à la main, non issues d’un catalogue, puis contrôlées visuellement.</p>
       <p><strong>Précision.</strong> Les positions sont approchées : écart usuel d’une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton ; la réfraction atmosphérique est ignorée. Les figures des constellations sont schématiques. Cette carte n’est pas destinée à la navigation ni aux observations de précision.</p>
     </details>
   </section>
@@ -548,6 +566,64 @@ const XFIGS = XFIG_RAW.map(f => ({
   l: f.l,
   s: f.s.map(t => Object.assign(eqToEcl(t[0], t[1]), { mag: t[2], name: t[3], dup: t[4] === 1 }))
 }));
+
+/* Maisons astrologiques. ramc : ascension droite du milieu du ciel (degrés) ; obl : obliquité ; phi : latitude.
+   Renvoie l'Ascendant, le Milieu du Ciel et les 12 pointes (maison 1 à 12) en longitudes écliptiques. */
+function houseCusps(ramc, obl, phi, system) {
+  const tanPhi = Math.tan(phi * RAD);
+  const mc = rev(Math.atan2(sn(ramc), cs(ramc) * cs(obl)) / RAD);
+  const asc = rev(Math.atan2(cs(ramc), -(sn(ramc) * cs(obl) + tanPhi * sn(obl))) / RAD);
+  const ic = rev(mc + 180);
+  const porphyry = () => {
+    const A = rev(asc - mc), B = rev(ic - asc);
+    return { c11: rev(mc + A / 3), c12: rev(mc + 2 * A / 3), c2: rev(asc + B / 3), c3: rev(asc + 2 * B / 3) };
+  };
+  const lonFromRA = ra => rev(Math.atan2(sn(ra), cs(ra) * cs(obl)) / RAD);
+  const decl = lon => Math.asin(sn(obl) * sn(lon)) / RAD;
+  const placidus = () => {
+    const one = (start, fn) => {
+      let ra = ramc + start;
+      for (let n = 0; n < 60; n++) {
+        const d = decl(lonFromRA(ra));
+        const x = -tanPhi * Math.tan(d * RAD);
+        if (!(Math.abs(x) < 0.99999)) return null;
+        const dsa = Math.acos(x) / RAD, nsa = 180 - dsa;
+        const next = ramc + fn(dsa, nsa);
+        if (Math.abs(next - ra) < 1e-7) { ra = next; break; }
+        ra = next;
+      }
+      return lonFromRA(ra);
+    };
+    const c11 = one(30, dsa => dsa / 3);
+    const c12 = one(60, dsa => 2 * dsa / 3);
+    const c2 = one(120, (dsa, nsa) => dsa + nsa / 3);
+    const c3 = one(150, (dsa, nsa) => dsa + 2 * nsa / 3);
+    return (c11 === null || c12 === null || c2 === null || c3 === null) ? null : { c11, c12, c2, c3 };
+  };
+  let used = system, q = null;
+  if (system === 'placidus') { q = placidus(); if (!q) { q = porphyry(); used = 'porphyry'; } }
+  else if (system === 'porphyry') q = porphyry();
+  let cusps;
+  if (q) {
+    cusps = [asc, q.c2, q.c3, ic, rev(q.c11 + 180), rev(q.c12 + 180), rev(asc + 180), rev(q.c2 + 180), rev(q.c3 + 180), mc, q.c11, q.c12];
+  } else if (system === 'whole') {
+    const base = Math.floor(asc / 30) * 30;
+    cusps = Array.from({ length: 12 }, (_, i) => rev(base + 30 * i));
+  } else {
+    cusps = Array.from({ length: 12 }, (_, i) => rev(asc + 30 * i));
+    used = 'equal';
+  }
+  return { asc: asc, mc: mc, cusps: cusps, system: used };
+}
+function houseOf(lon, cusps) {
+  for (let i = 0; i < 12; i++) {
+    const a = cusps[i], b = cusps[(i + 1) % 12];
+    let span = rev(b - a);
+    if (span === 0) span = 360;
+    if (rev(lon - a) < span) return i + 1;
+  }
+  return 1;
+}
 /* ENGINE END */
 
 (function () {
@@ -572,6 +648,7 @@ const XFIGS = XFIG_RAW.map(f => ({
   const PLACES = [
     { n: 'Paris', lat: 48.8566, lon: 2.3522, tz: 'Europe/Paris' },
     { n: 'Berlin', lat: 52.5200, lon: 13.4050, tz: 'Europe/Berlin' },
+    { n: 'Minorque', lat: 39.8885, lon: 4.2658, tz: 'Europe/Madrid' },
     { n: 'Montréal', lat: 45.5017, lon: -73.5673, tz: 'America/Toronto' },
     { n: 'New York', lat: 40.7128, lon: -74.0060, tz: 'America/New_York' },
     { n: 'Los Angeles', lat: 34.0522, lon: -118.2437, tz: 'America/Los_Angeles' },
@@ -599,7 +676,7 @@ const XFIGS = XFIG_RAW.map(f => ({
 
   /* Contenu par défaut, intégré pour fonctionner sans connexion. Il est remplacé par content.json
      lorsque ce fichier est disponible (voir LISEZMOI.md). */
-  const DEFAULT_CONTENT = {"schema": 1, "version": "2026-09-19.3", "updated": "2026-09-19", "sources": {"wikipedia": {"name": "Wikipédia (français)", "constellations": [{"t": "Figure d’origine mésopotamienne, d’abord « le Travailleur journalier », épithète de Dumuzi (Tammuz), berger et amant d’Ishtar. Les Grecs y voient Chrysomallos, le bélier volant à la toison d’or, chevauché par Phrixos et Hellé : selon Apollodore, Hermès l’envoie les sauver d’un sacrifice, à la demande de leur mère Néphélé. Cette toison inspirera l’expédition de Jason et des Argonautes.", "u": "https://fr.wikipedia.org/wiki/B%C3%A9lier_(constellation)", "a": "Bélier (constellation)"}, {"t": "Constellation très ancienne. En Mésopotamie, c’est le Taureau céleste que le dieu Anu envoie ravager Uruk, à la demande d’Ishtar, dans l’épopée de Gilgamesh. Chez les Grecs, il représente soit Zeus changé en taureau pour enlever Europe, soit le taureau blanc envoyé par Poséidon au roi Minos.", "u": "https://fr.wikipedia.org/wiki/Taureau_(constellation)", "a": "Taureau (constellation)"}, {"t": "Selon Ératosthène, ce sont Castor et Pollux, les Dioscures, fils de Léda et frères d’Hélène de Troie. Séduite par Zeus changé en cygne, Léda pondit deux œufs : de l’un, fécondé par son époux Tyndare, naquirent Castor et Clytemnestre, mortels ; de l’autre, Pollux et Hélène, divins. Protecteurs des marins et des athlètes, ils héritent d’une figure mésopotamienne plus ancienne.", "u": "https://fr.wikipedia.org/wiki/G%C3%A9meaux", "a": "Gémeaux"}, {"t": "Chez les Grecs, c’est le crabe envoyé par Héra pour gêner Héraclès pendant son combat contre l’Hydre de Lerne ; le héros l’écrase. Selon les versions, Héra le place ensuite au ciel. En Mésopotamie, la figure s’appelait déjà « le Crabe ».", "u": "https://fr.wikipedia.org/wiki/Cancer_(constellation)", "a": "Cancer (constellation)"}, {"t": "Le lion de Némée, monstre à la peau invulnérable, est tué par Héraclès lors du premier de ses douze travaux : les flèches rebondissent sur son cuir, le héros l’affronte donc à la massue, puis l’étouffe. Zeus place ensuite le fauve parmi les constellations.", "u": "https://fr.wikipedia.org/wiki/Lion_de_N%C3%A9m%C3%A9e", "a": "Lion de Némée"}, {"t": "Figure très ancienne à l’identité incertaine : déesse à l’épi d’orge en Mésopotamie, puis Isis, Déméter, Perséphone… Chez les Grecs, c’est souvent Astrée (ou Thémis), déesse de la Justice, qui aurait quitté la Terre par dégoût de la brutalité des hommes, d’où l’épi et la Balance qui l’accompagnent. Autre version : Érigone, que Zeus place au ciel pour sa piété filiale après la mort de son père Icarios.", "u": "https://fr.wikipedia.org/wiki/Vierge_(constellation)", "a": "Vierge (constellation)"}, {"t": "Longtemps considérée comme les pinces du Scorpion, elle devient une constellation à part entière à l’époque romaine. Dans la mythologie classique, c’est la balance d’Astrée, déesse de la Justice, figurée par la Vierge voisine. En Mésopotamie, la balance symbolisait Kittu et Mišāru, ministres du dieu-soleil Šamaš : le Droit et l’Équité.", "u": "https://fr.wikipedia.org/wiki/Balance_(constellation)", "a": "Balance (constellation)"}, {"t": "Constellation d’origine mésopotamienne, liée à Išḫara, « la Dame des régions inhabitées ». Chez les Grecs, c’est le scorpion que les dieux (Artémis, Apollon, Héra ou Gaïa selon les sources) envoient contre le chasseur Orion. Les deux sont placés aux extrémités opposées du ciel : quand le Scorpion se lève, Orion se couche.", "u": "https://fr.wikipedia.org/wiki/Scorpion_(constellation)", "a": "Scorpion (constellation)"}, {"t": "Le « porteur de serpent » représenterait Asclépios, élève du centaure Chiron et médecin : selon la légende, il aurait tué un serpent, puis vu un autre serpent le ranimer avec des herbes. Le Soleil le traverse du 29 novembre au 18 décembre, mais il ne fait pas partie des douze signes du zodiaque.", "u": "https://fr.wikipedia.org/wiki/Ophiuchus", "a": "Ophiuchus"}, {"t": "Il prolonge Pabilsag, archer-centaure ailé de Mésopotamie, à deux visages. Ératosthène y voit Crotos, fils d’Euphémé, à qui les Muses apprirent à tirer à l’arc pour se nourrir des bêtes sauvages ; d’autres traditions grecques y reconnaissent un centaure, sans qu’on s’accorde sur son identité.", "u": "https://fr.wikipedia.org/wiki/Sagittaire_(constellation)", "a": "Sagittaire (constellation)"}, {"t": "Depuis la Mésopotamie, c’est un hybride de chèvre et de poisson (« la Carpe-chèvre »), emblème du dieu Enki. Les Grecs y voient parfois Amalthée, la chèvre qui nourrit Zeus enfant, ou Pan (ou Dionysos) fuyant le monstre Typhon : changé en chèvre, il plonge dans l’eau, mais seul l’arrière de son corps devient poisson.", "u": "https://fr.wikipedia.org/wiki/Capricorne_(constellation)", "a": "Capricorne (constellation)"}, {"t": "Appelé « le Géant » en Mésopotamie. Le mythe grec le plus courant y voit Ganymède, jeune berger que Zeus, changé en aigle, enlève pour qu’il devienne l’échanson des dieux à la place d’Hébé, ce qui provoque la jalousie d’Héra. Zeus l’élève ensuite au ciel.", "u": "https://fr.wikipedia.org/wiki/Verseau", "a": "Verseau"}, {"t": "Création mésopotamienne, liée à des déesses tutélaires du Tigre et de l’Euphrate. Chez les Grecs, ce sont Aphrodite et Éros (ou Thétis et Thérys selon les versions) qui, poursuivis par le monstre Typhon, se transforment en poissons pour s’enfuir dans un fleuve.", "u": "https://fr.wikipedia.org/wiki/Poissons_(constellation)", "a": "Poissons (constellation)"}, {"t": "Chasseur géant de la mythologie grecque, réputé pour sa beauté et sa violence. La légende raconte que Zeus le change en constellation. Chez Homère, Sirius est son chien ; chez Hésiode, il poursuit les Pléiades. Dans l’une des versions rapportées par Hygin, il meurt piqué par un scorpion : le Scorpion est alors placé lui aussi au ciel, à l’opposé d’Orion.", "u": "https://fr.wikipedia.org/wiki/Orion_(mythologie)", "a": "Orion (mythologie)"}, {"t": "Reine d’Éthiopie, épouse de Céphée et mère d’Andromède, dans le mythe de Persée et d’Andromède. Vaniteuse, elle se vante de sa beauté ; sa fille est exposée à un monstre marin avant d’être sauvée par Persée. Pour punir son orgueil, les dieux la condamnent à tourner autour du pôle Nord, enchaînée à son trône, parfois la tête en bas.", "u": "https://fr.wikipedia.org/wiki/Cassiop%C3%A9e_(constellation)", "a": "Cassiopée (constellation)"}, {"t": "Amas d’étoiles du Taureau. Pour les Grecs, ce sont sept sœurs, filles du Titan Atlas et de Pléioné : Astérope, Mérope, Électre, Maïa, Taygète, Célaéno et Alcyone. Dans le mythe d’Orion, elles fuient le chasseur qui les poursuit ; changées en étoiles, elles restent poursuivies par Orion dans le ciel. Leur lever et leur coucher réglaient la moisson, le labour et la navigation. On n’en distingue souvent que six à l’œil nu.", "u": "https://fr.wikipedia.org/wiki/Pl%C3%A9iades_(astronomie)", "a": "Pléiades (astronomie)"}, {"t": "Selon Ératosthène, c’est Callisto, nymphe d’Arcadie, fille de Lycaon et compagne d’Artémis. Aimée de Zeus, elle est changée en ourse (par Artémis ou par Héra selon les versions) et met au monde Arcas. Pour les soustraire aux chasseurs, Zeus les transforme en constellations : Callisto en Grande Ourse, Arcas en Petite Ourse, qui tournent sans fin autour du pôle sans jamais se reposer sous la mer.", "u": "https://fr.wikipedia.org/wiki/Grande_Ourse", "a": "Grande Ourse"}, {"t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.", "u": "https://fr.wikipedia.org/wiki/Petite_Ourse", "a": "Petite Ourse"}], "planets": [{"t": "Les Grecs le personnifient en Hélios, Titan fils d’Hypérion et de Théia, frère de Séléné (la Lune) et d’Éos (l’Aurore). Chaque jour, il traverse le ciel sur son char ; son fils mortel Phaéton, qui voulut le conduire, est resté célèbre. À Rome, son équivalent est Sol, et Hélios a peu à peu été assimilé à Apollon.", "l": ["Hélios", "Soleil"]}, {"t": "Séléné, fille des Titans Hypérion et Théia et sœur d’Hélios, personnifie la Lune elle-même. On la lie souvent à Artémis et à Hécate : ensemble, elles forment une triade (pleine lune, croissant, nouvelle lune). Son mythe le plus célèbre est son amour pour le berger Endymion, à qui Zeus accorde de dormir sans fin, éternellement jeune. Les Romains l’appelaient Luna.", "l": ["Séléné", "Lune"]}, {"t": "Chez les Romains, Mercure est le dieu du commerce, assimilé à l’Hermès grec : messager des dieux, protecteur des voyageurs et des voleurs, il conduit aussi les âmes aux Enfers. La planète porte son nom pour la vitesse de son déplacement dans le ciel, et son symbole évoque le caducée d’Hermès. Les Babyloniens y voyaient Nabû, dieu du savoir.", "l": ["Mercure (planète)", "Mercure (mythologie)"]}, {"t": "Déesse romaine de l’amour, de la séduction et de la beauté, assimilée très tôt à l’Aphrodite grecque. Fille d’Ouranos chez Hésiode, elle passe à Rome pour la fille de Jupiter et de Dioné ; elle est la mère de Cupidon, qu’elle a eu avec Mars, et d’Hermaphrodite, avec Mercure. La planète, la plus brillante du ciel, lui doit sans doute son nom.", "l": ["Vénus (planète)", "Vénus (mythologie)"]}, {"t": "Dieu romain de la guerre, identifié à l’Arès grec et membre de la triade précapitoline avec Jupiter et Quirinus ; la légende en fait le père de Romulus et Rémus. Arès, fils de Zeus et d’Héra, combat avec Éris, Déimos (la Terreur) et Phobos (la Crainte) : les deux noms donnés aux lunes de la planète. Sa teinte rouge l’a associée à la guerre.", "l": ["Mars (planète)", "Mars (mythologie)"]}, {"t": "Roi des dieux et dieu du ciel dans la religion romaine ; son nom vient d’un « Père du Ciel » indo-européen et ses attributs sont la foudre et l’aigle. Les Romains l’ont assimilé au Zeus grec, dont il a repris les mythes : fils de Saturne, il le détrône. La plus grosse planète du Système solaire porte le nom du chef du panthéon, et l’Union astronomique internationale nomme ses lunes d’après les amours et les descendants du dieu.", "l": ["Jupiter (planète)", "Jupiter (mythologie)"]}, {"t": "Dieu romain du temps, des semailles et des Saturnales, fêtes du solstice d’hiver, assimilé très tôt au Titan Cronos. Dans le mythe grec, Cronos détrône son père Ouranos ; averti qu’un de ses fils le renversera, il dévore ses enfants, jusqu’à ce que Zeus, sauvé, le détrône à son tour. La planète, la plus lointaine connue des Anciens, porte son nom, et son symbole évoque la faucille du dieu.", "l": ["Saturne (planète)", "Saturne (mythologie)"]}, {"t": "Ouranos, le Ciel, est la divinité primordiale grecque qui, unie à Gaïa (la Terre), engendre la première génération des Titans ; il est le père de Cronos (Saturne) et le grand-père de Zeus (Jupiter). La planète, découverte par William Herschel le 13 mars 1781, fut d’abord baptisée par lui Georgium Sidus ; Johann Bode proposa Uranus, pour rester dans la mythologie comme les autres planètes.", "l": ["Uranus (planète)", "Ouranos (mythologie)"]}, {"t": "Neptune est le dieu romain de la mer, l’équivalent du Poséidon grec. La planète a été trouvée par le calcul : Urbain Le Verrier prédit sa position, et Johann Galle l’observe à Berlin le 23 septembre 1846 (John Couch Adams avait fait de son côté des calculs indépendants). Galle suggéra d’abord le nom de Janus ; celui de Neptune fut finalement retenu, dans la tradition des autres planètes.", "l": ["Neptune (planète)", "Neptune (mythologie)"]}, {"t": "Pluton est le dieu romain des Enfers, équivalent du Hadès grec. Découverte le 18 février 1930 par Clyde Tombaugh, la planète a reçu son nom d’une fillette de onze ans d’Oxford, Venetia Burney, passionnée de mythologie ; il plut aussi parce que ses deux premières lettres sont les initiales de Percival Lowell. Elle est classée planète naine depuis 2006.", "l": ["Pluton (planète naine)", "Hadès"]}], "stars": {"Sirius": ["α Canis Majoris", "Grand Chien", "Sirius"], "Canopus": ["α Carinae", "Carène", "Canopus (étoile)"], "Alpha Centauri": ["α Centauri", "Centaure", "Alpha Centauri"], "Arcturus": ["α Boötis", "Bouvier", "Arcturus"], "Véga": ["α Lyrae", "Lyre", "Véga"], "Capella": ["α Aurigae", "Cocher", "Capella (étoile)"], "Rigel": ["β Orionis", "Orion", "Rigel"], "Procyon": ["α Canis Minoris", "Petit Chien", "Procyon"], "Achernar": ["α Eridani", "Éridan", "Achernar"], "Bételgeuse": ["α Orionis", "Orion", "Bételgeuse"], "Altaïr": ["α Aquilae", "Aigle", "Altaïr"], "Aldébaran": ["α Tauri", "Taureau", "Aldébaran"], "Spica": ["α Virginis", "Vierge", "Spica"], "Antarès": ["α Scorpii", "Scorpion", "Antarès"], "Pollux": ["β Geminorum", "Gémeaux", "Pollux (étoile)"], "Fomalhaut": ["α Piscis Austrini", "Poisson austral", "Fomalhaut"], "Deneb": ["α Cygni", "Cygne", "Deneb"], "Régulus": ["α Leonis", "Lion", "Regulus"], "Castor": ["α Geminorum", "Gémeaux", "Castor (étoile)"], "Bellatrix": ["γ Orionis", "Orion", "Bellatrix"], "Alnilam": ["ε Orionis", "Orion", "Alnilam"], "Alnitak": ["ζ Orionis", "Orion", "Alnitak"], "Mintaka": ["δ Orionis", "Orion", "Mintaka"], "Meissa": ["λ Orionis", "Orion", "Meissa"], "Saiph": ["κ Orionis", "Orion", "Saiph"], "Alioth": ["ε Ursae Majoris", "Grande Ourse", "Alioth"], "Dubhe": ["α Ursae Majoris", "Grande Ourse", "Dubhe"], "Alkaid": ["η Ursae Majoris", "Grande Ourse", "Alkaid"], "Mizar": ["ζ Ursae Majoris", "Grande Ourse", "Mizar"], "Merak": ["β Ursae Majoris", "Grande Ourse", "Merak"], "Phecda": ["γ Ursae Majoris", "Grande Ourse", "Phecda"], "Megrez": ["δ Ursae Majoris", "Grande Ourse", "Megrez"], "Polaris": ["α Ursae Minoris", "Petite Ourse", "Étoile polaire"], "Kochab": ["β Ursae Minoris", "Petite Ourse", "Kochab"], "Pherkad": ["γ Ursae Minoris", "Petite Ourse", "Pherkad"], "Yildun": ["δ Ursae Minoris", "Petite Ourse", "Yildun"], "Mirfak": ["α Persei", "Persée", "Mirfak"], "Schedar": ["α Cassiopeiae", "Cassiopée", "Schedar"], "Caph": ["β Cassiopeiae", "Cassiopée", "Caph"], "Gamma Cassiopeiae": ["γ Cassiopeiae", "Cassiopée", "Gamma Cassiopeiae"], "Ruchbah": ["δ Cassiopeiae", "Cassiopée", "Ruchbah"], "Segin": ["ε Cassiopeiae", "Cassiopée", "Segin"], "Hamal": ["α Arietis", "Bélier", "Hamal"], "Elnath": ["β Tauri", "Taureau", "Elnath"], "Alhena": ["γ Geminorum", "Gémeaux", "Alhena"], "Porrima": ["γ Virginis", "Vierge", "Porrima"], "Vindemiatrix": ["ε Virginis", "Vierge", "Vindemiatrix"], "Shaula": ["λ Scorpii", "Scorpion", "Shaula"], "Kaus Australis": ["ε Sagittarii", "Sagittaire", "Kaus Australis"], "Nunki": ["σ Sagittarii", "Sagittaire", "Nunki"], "Alrescha": ["α Piscium", "Poissons", "Alrescha"], "Rasalhague": ["α Ophiuchi", "Ophiuchus", "Rasalhague"], "Alcyone": ["η Tauri", "Pléiades", "Alcyone"], "Atlas": ["27 Tauri", "Pléiades", "Atlas (étoile)"], "Electra": ["17 Tauri", "Pléiades", "Électre (étoile)"], "Maia": ["20 Tauri", "Pléiades", "Maïa (étoile)"], "Merope": ["23 Tauri", "Pléiades", "Mérope (étoile)"], "Taygeta": ["19 Tauri", "Pléiades", "Taygète (étoile)"], "Pleione": ["28 Tauri", "Pléiades", "Pléione (étoile)"]}}}};
+  const DEFAULT_CONTENT = {"schema": 1, "version": "2026-09-19.5", "updated": "2026-09-19", "sources": {"wikipedia": {"name": "Wikipédia (français)", "constellations": [{"t": "Figure d’origine mésopotamienne, d’abord « le Travailleur journalier », épithète de Dumuzi (Tammuz), berger et amant d’Ishtar. Les Grecs y voient Chrysomallos, le bélier volant à la toison d’or, chevauché par Phrixos et Hellé : selon Apollodore, Hermès l’envoie les sauver d’un sacrifice, à la demande de leur mère Néphélé. Cette toison inspirera l’expédition de Jason et des Argonautes.", "u": "https://fr.wikipedia.org/wiki/B%C3%A9lier_(constellation)", "a": "Bélier (constellation)"}, {"t": "Constellation très ancienne. En Mésopotamie, c’est le Taureau céleste que le dieu Anu envoie ravager Uruk, à la demande d’Ishtar, dans l’épopée de Gilgamesh. Chez les Grecs, il représente soit Zeus changé en taureau pour enlever Europe, soit le taureau blanc envoyé par Poséidon au roi Minos.", "u": "https://fr.wikipedia.org/wiki/Taureau_(constellation)", "a": "Taureau (constellation)"}, {"t": "Selon Ératosthène, ce sont Castor et Pollux, les Dioscures, fils de Léda et frères d’Hélène de Troie. Séduite par Zeus changé en cygne, Léda pondit deux œufs : de l’un, fécondé par son époux Tyndare, naquirent Castor et Clytemnestre, mortels ; de l’autre, Pollux et Hélène, divins. Protecteurs des marins et des athlètes, ils héritent d’une figure mésopotamienne plus ancienne.", "u": "https://fr.wikipedia.org/wiki/G%C3%A9meaux", "a": "Gémeaux"}, {"t": "Chez les Grecs, c’est le crabe envoyé par Héra pour gêner Héraclès pendant son combat contre l’Hydre de Lerne ; le héros l’écrase. Selon les versions, Héra le place ensuite au ciel. En Mésopotamie, la figure s’appelait déjà « le Crabe ».", "u": "https://fr.wikipedia.org/wiki/Cancer_(constellation)", "a": "Cancer (constellation)"}, {"t": "Le lion de Némée, monstre à la peau invulnérable, est tué par Héraclès lors du premier de ses douze travaux : les flèches rebondissent sur son cuir, le héros l’affronte donc à la massue, puis l’étouffe. Zeus place ensuite le fauve parmi les constellations.", "u": "https://fr.wikipedia.org/wiki/Lion_de_N%C3%A9m%C3%A9e", "a": "Lion de Némée"}, {"t": "Figure très ancienne à l’identité incertaine : déesse à l’épi d’orge en Mésopotamie, puis Isis, Déméter, Perséphone… Chez les Grecs, c’est souvent Astrée (ou Thémis), déesse de la Justice, qui aurait quitté la Terre par dégoût de la brutalité des hommes, d’où l’épi et la Balance qui l’accompagnent. Autre version : Érigone, que Zeus place au ciel pour sa piété filiale après la mort de son père Icarios.", "u": "https://fr.wikipedia.org/wiki/Vierge_(constellation)", "a": "Vierge (constellation)"}, {"t": "Longtemps considérée comme les pinces du Scorpion, elle devient une constellation à part entière à l’époque romaine. Dans la mythologie classique, c’est la balance d’Astrée, déesse de la Justice, figurée par la Vierge voisine. En Mésopotamie, la balance symbolisait Kittu et Mišāru, ministres du dieu-soleil Šamaš : le Droit et l’Équité.", "u": "https://fr.wikipedia.org/wiki/Balance_(constellation)", "a": "Balance (constellation)"}, {"t": "Constellation d’origine mésopotamienne, liée à Išḫara, « la Dame des régions inhabitées ». Chez les Grecs, c’est le scorpion que les dieux (Artémis, Apollon, Héra ou Gaïa selon les sources) envoient contre le chasseur Orion. Les deux sont placés aux extrémités opposées du ciel : quand le Scorpion se lève, Orion se couche.", "u": "https://fr.wikipedia.org/wiki/Scorpion_(constellation)", "a": "Scorpion (constellation)"}, {"t": "Le « porteur de serpent » représenterait Asclépios, élève du centaure Chiron et médecin : selon la légende, il aurait tué un serpent, puis vu un autre serpent le ranimer avec des herbes. Le Soleil le traverse du 29 novembre au 18 décembre, mais il ne fait pas partie des douze signes du zodiaque.", "u": "https://fr.wikipedia.org/wiki/Ophiuchus", "a": "Ophiuchus"}, {"t": "Il prolonge Pabilsag, archer-centaure ailé de Mésopotamie, à deux visages. Ératosthène y voit Crotos, fils d’Euphémé, à qui les Muses apprirent à tirer à l’arc pour se nourrir des bêtes sauvages ; d’autres traditions grecques y reconnaissent un centaure, sans qu’on s’accorde sur son identité.", "u": "https://fr.wikipedia.org/wiki/Sagittaire_(constellation)", "a": "Sagittaire (constellation)"}, {"t": "Depuis la Mésopotamie, c’est un hybride de chèvre et de poisson (« la Carpe-chèvre »), emblème du dieu Enki. Les Grecs y voient parfois Amalthée, la chèvre qui nourrit Zeus enfant, ou Pan (ou Dionysos) fuyant le monstre Typhon : changé en chèvre, il plonge dans l’eau, mais seul l’arrière de son corps devient poisson.", "u": "https://fr.wikipedia.org/wiki/Capricorne_(constellation)", "a": "Capricorne (constellation)"}, {"t": "Appelé « le Géant » en Mésopotamie. Le mythe grec le plus courant y voit Ganymède, jeune berger que Zeus, changé en aigle, enlève pour qu’il devienne l’échanson des dieux à la place d’Hébé, ce qui provoque la jalousie d’Héra. Zeus l’élève ensuite au ciel.", "u": "https://fr.wikipedia.org/wiki/Verseau", "a": "Verseau"}, {"t": "Création mésopotamienne, liée à des déesses tutélaires du Tigre et de l’Euphrate. Chez les Grecs, ce sont Aphrodite et Éros (ou Thétis et Thérys selon les versions) qui, poursuivis par le monstre Typhon, se transforment en poissons pour s’enfuir dans un fleuve.", "u": "https://fr.wikipedia.org/wiki/Poissons_(constellation)", "a": "Poissons (constellation)"}, {"t": "Chasseur géant de la mythologie grecque, réputé pour sa beauté et sa violence. La légende raconte que Zeus le change en constellation. Chez Homère, Sirius est son chien ; chez Hésiode, il poursuit les Pléiades. Dans l’une des versions rapportées par Hygin, il meurt piqué par un scorpion : le Scorpion est alors placé lui aussi au ciel, à l’opposé d’Orion.", "u": "https://fr.wikipedia.org/wiki/Orion_(mythologie)", "a": "Orion (mythologie)"}, {"t": "Reine d’Éthiopie, épouse de Céphée et mère d’Andromède, dans le mythe de Persée et d’Andromède. Vaniteuse, elle se vante de sa beauté ; sa fille est exposée à un monstre marin avant d’être sauvée par Persée. Pour punir son orgueil, les dieux la condamnent à tourner autour du pôle Nord, enchaînée à son trône, parfois la tête en bas.", "u": "https://fr.wikipedia.org/wiki/Cassiop%C3%A9e_(constellation)", "a": "Cassiopée (constellation)"}, {"t": "Amas d’étoiles du Taureau. Pour les Grecs, ce sont sept sœurs, filles du Titan Atlas et de Pléioné : Astérope, Mérope, Électre, Maïa, Taygète, Célaéno et Alcyone. Dans le mythe d’Orion, elles fuient le chasseur qui les poursuit ; changées en étoiles, elles restent poursuivies par Orion dans le ciel. Leur lever et leur coucher réglaient la moisson, le labour et la navigation. On n’en distingue souvent que six à l’œil nu.", "u": "https://fr.wikipedia.org/wiki/Pl%C3%A9iades_(astronomie)", "a": "Pléiades (astronomie)"}, {"t": "Selon Ératosthène, c’est Callisto, nymphe d’Arcadie, fille de Lycaon et compagne d’Artémis. Aimée de Zeus, elle est changée en ourse (par Artémis ou par Héra selon les versions) et met au monde Arcas. Pour les soustraire aux chasseurs, Zeus les transforme en constellations : Callisto en Grande Ourse, Arcas en Petite Ourse, qui tournent sans fin autour du pôle sans jamais se reposer sous la mer.", "u": "https://fr.wikipedia.org/wiki/Grande_Ourse", "a": "Grande Ourse"}, {"t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.", "u": "https://fr.wikipedia.org/wiki/Petite_Ourse", "a": "Petite Ourse"}], "planets": [{"t": "Les Grecs le personnifient en Hélios, Titan fils d’Hypérion et de Théia, frère de Séléné (la Lune) et d’Éos (l’Aurore). Chaque jour, il traverse le ciel sur son char ; son fils mortel Phaéton, qui voulut le conduire, est resté célèbre. À Rome, son équivalent est Sol, et Hélios a peu à peu été assimilé à Apollon.", "l": ["Hélios", "Soleil"]}, {"t": "Séléné, fille des Titans Hypérion et Théia et sœur d’Hélios, personnifie la Lune elle-même. On la lie souvent à Artémis et à Hécate : ensemble, elles forment une triade (pleine lune, croissant, nouvelle lune). Son mythe le plus célèbre est son amour pour le berger Endymion, à qui Zeus accorde de dormir sans fin, éternellement jeune. Les Romains l’appelaient Luna.", "l": ["Séléné", "Lune"]}, {"t": "Chez les Romains, Mercure est le dieu du commerce, assimilé à l’Hermès grec : messager des dieux, protecteur des voyageurs et des voleurs, il conduit aussi les âmes aux Enfers. La planète porte son nom pour la vitesse de son déplacement dans le ciel, et son symbole évoque le caducée d’Hermès. Les Babyloniens y voyaient Nabû, dieu du savoir.", "l": ["Mercure (planète)", "Mercure (mythologie)"]}, {"t": "Déesse romaine de l’amour, de la séduction et de la beauté, assimilée très tôt à l’Aphrodite grecque. Fille d’Ouranos chez Hésiode, elle passe à Rome pour la fille de Jupiter et de Dioné ; elle est la mère de Cupidon, qu’elle a eu avec Mars, et d’Hermaphrodite, avec Mercure. La planète, la plus brillante du ciel, lui doit sans doute son nom.", "l": ["Vénus (planète)", "Vénus (mythologie)"]}, {"t": "Dieu romain de la guerre, identifié à l’Arès grec et membre de la triade précapitoline avec Jupiter et Quirinus ; la légende en fait le père de Romulus et Rémus. Arès, fils de Zeus et d’Héra, combat avec Éris, Déimos (la Terreur) et Phobos (la Crainte) : les deux noms donnés aux lunes de la planète. Sa teinte rouge l’a associée à la guerre.", "l": ["Mars (planète)", "Mars (mythologie)"]}, {"t": "Roi des dieux et dieu du ciel dans la religion romaine ; son nom vient d’un « Père du Ciel » indo-européen et ses attributs sont la foudre et l’aigle. Les Romains l’ont assimilé au Zeus grec, dont il a repris les mythes : fils de Saturne, il le détrône. La plus grosse planète du Système solaire porte le nom du chef du panthéon, et l’Union astronomique internationale nomme ses lunes d’après les amours et les descendants du dieu.", "l": ["Jupiter (planète)", "Jupiter (mythologie)"]}, {"t": "Dieu romain du temps, des semailles et des Saturnales, fêtes du solstice d’hiver, assimilé très tôt au Titan Cronos. Dans le mythe grec, Cronos détrône son père Ouranos ; averti qu’un de ses fils le renversera, il dévore ses enfants, jusqu’à ce que Zeus, sauvé, le détrône à son tour. La planète, la plus lointaine connue des Anciens, porte son nom, et son symbole évoque la faucille du dieu.", "l": ["Saturne (planète)", "Saturne (mythologie)"]}, {"t": "Ouranos, le Ciel, est la divinité primordiale grecque qui, unie à Gaïa (la Terre), engendre la première génération des Titans ; il est le père de Cronos (Saturne) et le grand-père de Zeus (Jupiter). La planète, découverte par William Herschel le 13 mars 1781, fut d’abord baptisée par lui Georgium Sidus ; Johann Bode proposa Uranus, pour rester dans la mythologie comme les autres planètes.", "l": ["Uranus (planète)", "Ouranos (mythologie)"]}, {"t": "Neptune est le dieu romain de la mer, l’équivalent du Poséidon grec. La planète a été trouvée par le calcul : Urbain Le Verrier prédit sa position, et Johann Galle l’observe à Berlin le 23 septembre 1846 (John Couch Adams avait fait de son côté des calculs indépendants). Galle suggéra d’abord le nom de Janus ; celui de Neptune fut finalement retenu, dans la tradition des autres planètes.", "l": ["Neptune (planète)", "Neptune (mythologie)"]}, {"t": "Pluton est le dieu romain des Enfers, équivalent du Hadès grec. Découverte le 18 février 1930 par Clyde Tombaugh, la planète a reçu son nom d’une fillette de onze ans d’Oxford, Venetia Burney, passionnée de mythologie ; il plut aussi parce que ses deux premières lettres sont les initiales de Percival Lowell. Elle est classée planète naine depuis 2006.", "l": ["Pluton (planète naine)", "Hadès"]}], "stars": {"Sirius": ["α Canis Majoris", "Grand Chien", "Sirius"], "Canopus": ["α Carinae", "Carène", "Canopus (étoile)"], "Alpha Centauri": ["α Centauri", "Centaure", "Alpha Centauri"], "Arcturus": ["α Boötis", "Bouvier", "Arcturus"], "Véga": ["α Lyrae", "Lyre", "Véga"], "Capella": ["α Aurigae", "Cocher", "Capella (étoile)"], "Rigel": ["β Orionis", "Orion", "Rigel"], "Procyon": ["α Canis Minoris", "Petit Chien", "Procyon"], "Achernar": ["α Eridani", "Éridan", "Achernar"], "Bételgeuse": ["α Orionis", "Orion", "Bételgeuse"], "Altaïr": ["α Aquilae", "Aigle", "Altaïr"], "Aldébaran": ["α Tauri", "Taureau", "Aldébaran"], "Spica": ["α Virginis", "Vierge", "Spica"], "Antarès": ["α Scorpii", "Scorpion", "Antarès"], "Pollux": ["β Geminorum", "Gémeaux", "Pollux (étoile)"], "Fomalhaut": ["α Piscis Austrini", "Poisson austral", "Fomalhaut"], "Deneb": ["α Cygni", "Cygne", "Deneb"], "Régulus": ["α Leonis", "Lion", "Regulus"], "Castor": ["α Geminorum", "Gémeaux", "Castor (étoile)"], "Bellatrix": ["γ Orionis", "Orion", "Bellatrix"], "Alnilam": ["ε Orionis", "Orion", "Alnilam"], "Alnitak": ["ζ Orionis", "Orion", "Alnitak"], "Mintaka": ["δ Orionis", "Orion", "Mintaka"], "Meissa": ["λ Orionis", "Orion", "Meissa"], "Saiph": ["κ Orionis", "Orion", "Saiph"], "Alioth": ["ε Ursae Majoris", "Grande Ourse", "Alioth"], "Dubhe": ["α Ursae Majoris", "Grande Ourse", "Dubhe"], "Alkaid": ["η Ursae Majoris", "Grande Ourse", "Alkaid"], "Mizar": ["ζ Ursae Majoris", "Grande Ourse", "Mizar"], "Merak": ["β Ursae Majoris", "Grande Ourse", "Merak"], "Phecda": ["γ Ursae Majoris", "Grande Ourse", "Phecda"], "Megrez": ["δ Ursae Majoris", "Grande Ourse", "Megrez"], "Polaris": ["α Ursae Minoris", "Petite Ourse", "Étoile polaire"], "Kochab": ["β Ursae Minoris", "Petite Ourse", "Kochab"], "Pherkad": ["γ Ursae Minoris", "Petite Ourse", "Pherkad"], "Yildun": ["δ Ursae Minoris", "Petite Ourse", "Yildun"], "Mirfak": ["α Persei", "Persée", "Mirfak"], "Schedar": ["α Cassiopeiae", "Cassiopée", "Schedar"], "Caph": ["β Cassiopeiae", "Cassiopée", "Caph"], "Gamma Cassiopeiae": ["γ Cassiopeiae", "Cassiopée", "Gamma Cassiopeiae"], "Ruchbah": ["δ Cassiopeiae", "Cassiopée", "Ruchbah"], "Segin": ["ε Cassiopeiae", "Cassiopée", "Segin"], "Hamal": ["α Arietis", "Bélier", "Hamal"], "Elnath": ["β Tauri", "Taureau", "Elnath"], "Alhena": ["γ Geminorum", "Gémeaux", "Alhena"], "Porrima": ["γ Virginis", "Vierge", "Porrima"], "Vindemiatrix": ["ε Virginis", "Vierge", "Vindemiatrix"], "Shaula": ["λ Scorpii", "Scorpion", "Shaula"], "Kaus Australis": ["ε Sagittarii", "Sagittaire", "Kaus Australis"], "Nunki": ["σ Sagittarii", "Sagittaire", "Nunki"], "Alrescha": ["α Piscium", "Poissons", "Alrescha"], "Rasalhague": ["α Ophiuchi", "Ophiuchus", "Rasalhague"], "Alcyone": ["η Tauri", "Pléiades", "Alcyone"], "Atlas": ["27 Tauri", "Pléiades", "Atlas (étoile)"], "Electra": ["17 Tauri", "Pléiades", "Électre (étoile)"], "Maia": ["20 Tauri", "Pléiades", "Maïa (étoile)"], "Merope": ["23 Tauri", "Pléiades", "Mérope (étoile)"], "Taygeta": ["19 Tauri", "Pléiades", "Taygète (étoile)"], "Pleione": ["28 Tauri", "Pléiades", "Pléione (étoile)"]}}}};
   let content = DEFAULT_CONTENT;
 
   /* Étoiles pouvant être survolées : la liste est figée par le code ; les textes viennent du contenu. */
@@ -632,6 +709,7 @@ const XFIGS = XFIG_RAW.map(f => ({
     heading: 0,
     compass: false,
     figures: true,
+    houses: 'placidus',
     zoom: 1,
     panX: 0,
     panY: 0,
@@ -808,6 +886,21 @@ const XFIGS = XFIG_RAW.map(f => ({
   }
   make(wheel, 'circle', { cx: C, cy: C, r: 3, class: 'earth' });
 
+
+  /* Maisons : lignes, repères AS / MC / DS / FC et numéros (positions mises à jour à chaque rendu) */
+  const houseG = make(wheel, 'g', {});
+  const houseLines = make(wheel, 'path', { d: '', class: 'hl' }, houseG);
+  const houseAxes = make(wheel, 'path', { d: '', class: 'hla' }, houseG);
+  const houseAng = ['AS', 'FC', 'DS', 'MC'].map(t => {
+    const e = make(wheel, 'text', { x: 0, y: 0, class: 'hab' }, houseG);
+    e.textContent = t;
+    return e;
+  });
+  const houseNums = Array.from({ length: 12 }, (_, i) => {
+    const e = make(wheel, 'text', { x: 0, y: 0, class: 'hn' }, houseG);
+    e.textContent = String(i + 1);
+    return e;
+  });
 
   const traces = BODIES.map(() => make(wheel, 'path', { d: '', class: 'tr' }));
   const groups = BODIES.map((b, i) => {
@@ -990,10 +1083,46 @@ const XFIGS = XFIG_RAW.map(f => ({
 
   /* ---------- Rendu de la roue ---------- */
   function renderWheel() {
-    const jd = state.jd;
-    const lons = allLons(jd);
+    const place = PLACES[state.place];
+    const jd = instantJD();
+    const all = allPos(jd);
+    const lons = all.pos.map(q => q.lon);
     const ahead = allLons(jd + 0.5);
     const back = allLons(jd - 0.5);
+
+    /* maisons */
+    let H = null;
+    if (state.houses !== 'none') {
+      H = houseCusps(gmst(jd) + place.lon, all.obl, place.lat, state.houses);
+      let dl = '';
+      H.cusps.forEach(c => {
+        const a = pt(c, 42), b = pt(c, 250);
+        dl += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+      });
+      houseLines.setAttribute('d', dl);
+      let da = '';
+      [H.asc, H.asc + 180, H.mc, H.mc + 180].forEach(c => {
+        const a = pt(c, 42), b = pt(c, 300);
+        da += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+      });
+      houseAxes.setAttribute('d', da);
+      [H.asc, H.asc + 180, H.mc, H.mc + 180].forEach((c, k) => {
+        const q = pt(c, 314);
+        houseAng[[0, 2, 3, 1][k]].setAttribute('x', f1(q[0]));
+        houseAng[[0, 2, 3, 1][k]].setAttribute('y', f1(q[1]));
+      });
+      houseNums.forEach((t, i) => {
+        const a = H.cusps[i], b = H.cusps[(i + 1) % 12];
+        let span = rev(b - a);
+        if (span === 0) span = 360;
+        const q = pt(a + span / 2, 30);
+        t.setAttribute('x', f1(q[0]));
+        t.setAttribute('y', f1(q[1]));
+      });
+    }
+    houseG.setAttribute('display', H ? 'inline' : 'none');
+    sub.textContent = hhmm(state.minutes) + ' à ' + place.n;
+    timeLabel.textContent = hhmm(state.minutes);
 
     BODIES.forEach((b, i) => {
       const r = 55 + 19 * b.ring;
@@ -1005,7 +1134,7 @@ const XFIGS = XFIG_RAW.map(f => ({
       const within = lons[i] % 30;
       const deg = Math.floor(within);
       const min = Math.floor((within - deg) * 60);
-      rows[i].v.textContent = deg + '°' + pad(min) + '′ ' + SIGNS[Math.floor(lons[i] / 30)][0];
+      rows[i].v.textContent = deg + '°' + pad(min) + '′ ' + SIGNS[Math.floor(lons[i] / 30)][0] + (H ? ' · maison ' + houseOf(lons[i], H.cusps) : '');
       rows[i].r.textContent = retro ? '℞' : '';
     });
 
@@ -1222,12 +1351,13 @@ const XFIGS = XFIG_RAW.map(f => ({
     const isWheel = v === 'wheel';
     wheel.toggleAttribute('hidden', !isWheel);
     sky.toggleAttribute('hidden', isWheel);
-    document.getElementById('hz').hidden = isWheel;
+    document.querySelectorAll('.hzg').forEach(el => { el.hidden = isWheel; });
+    document.querySelectorAll('.whg').forEach(el => { el.hidden = !isWheel; });
     document.getElementById('trace').hidden = !isWheel;
     document.getElementById('noteWheel').hidden = !isWheel;
     document.getElementById('noteSky').hidden = isWheel;
     document.getElementById('noteMyth').hidden = isWheel;
-    sub.hidden = isWheel;
+    sub.hidden = false;
     if (isWheel && state.compass) compassOff();
     title.textContent = 'Space Ephemerides · ' + (isWheel ? 'Roue zodiacale' : 'Ciel vu depuis la Terre');
     document.querySelectorAll('#views button').forEach(b => {
@@ -1260,6 +1390,7 @@ const XFIGS = XFIG_RAW.map(f => ({
   });
 
   placeSel.addEventListener('change', () => { state.place = Number(placeSel.value); render(); });
+  document.getElementById('housesSel').addEventListener('change', e => { state.houses = e.target.value; render(); });
   timeSlider.addEventListener('input', () => {
     state.minutes = Number(timeSlider.value);
     render();
@@ -1530,7 +1661,7 @@ const XFIGS = XFIG_RAW.map(f => ({
   });
 
   /* ---------- Hors connexion : contenu mis à jour et service worker ---------- */
-  const APP_VERSION = '2026-09-19.3';
+  const APP_VERSION = '2026-09-19.5';
   const hosted = /^https?:$/.test(location.protocol);
   const offGrp = document.getElementById('offGrp');
   const offMsg = document.getElementById('offMsg');
