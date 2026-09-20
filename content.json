@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "2026-09-19.7",
+ "version": "2026-09-19.11",
  "updated": "2026-09-19",
  "sources": {
   "wikipedia": {
@@ -173,197 +173,236 @@
     "Sirius": [
      "α Canis Majoris",
      "Grand Chien",
-     "Sirius"
+     "Sirius",
+     "HIP 32349 · HD 48915 · HR 2491"
     ],
     "Canopus": [
      "α Carinae",
      "Carène",
-     "Canopus (étoile)"
+     "Canopus (étoile)",
+     "HIP 30438 · HD 45348 · HR 2326"
     ],
     "Alpha Centauri": [
      "α Centauri",
      "Centaure",
-     "Alpha Centauri"
+     "Alpha Centauri",
+     "HIP 71683 · HD 128620 · HR 5459"
     ],
     "Arcturus": [
      "α Boötis",
      "Bouvier",
-     "Arcturus"
+     "Arcturus",
+     "HIP 69673 · HD 124897 · HR 5340"
     ],
     "Véga": [
      "α Lyrae",
      "Lyre",
-     "Véga"
+     "Véga",
+     "HIP 91262 · HD 172167 · HR 7001"
     ],
     "Capella": [
      "α Aurigae",
      "Cocher",
-     "Capella (étoile)"
+     "Capella (étoile)",
+     "HIP 24608 · HD 34029 · HR 1708"
     ],
     "Rigel": [
      "β Orionis",
      "Orion",
-     "Rigel"
+     "Rigel",
+     "HIP 24436 · HD 34085 · HR 1713"
     ],
     "Procyon": [
      "α Canis Minoris",
      "Petit Chien",
-     "Procyon"
+     "Procyon",
+     "HIP 37279 · HD 61421 · HR 2943"
     ],
     "Achernar": [
      "α Eridani",
      "Éridan",
-     "Achernar"
+     "Achernar",
+     "HIP 7588 · HD 10144 · HR 472"
     ],
     "Bételgeuse": [
      "α Orionis",
      "Orion",
-     "Bételgeuse"
+     "Bételgeuse",
+     "HIP 27989 · HD 39801 · HR 2061"
     ],
     "Altaïr": [
      "α Aquilae",
      "Aigle",
-     "Altaïr"
+     "Altaïr",
+     "HIP 97649 · HD 187642 · HR 7557"
     ],
     "Aldébaran": [
      "α Tauri",
      "Taureau",
-     "Aldébaran"
+     "Aldébaran",
+     "HIP 21421 · HD 29139 · HR 1457"
     ],
     "Spica": [
      "α Virginis",
      "Vierge",
-     "Spica"
+     "Spica",
+     "HIP 65474 · HD 116658 · HR 5056"
     ],
     "Antarès": [
      "α Scorpii",
      "Scorpion",
-     "Antarès"
+     "Antarès",
+     "HIP 80763 · HD 148478 · HR 6134"
     ],
     "Pollux": [
      "β Geminorum",
      "Gémeaux",
-     "Pollux (étoile)"
+     "Pollux (étoile)",
+     "HIP 37826 · HD 62509 · HR 2990"
     ],
     "Fomalhaut": [
      "α Piscis Austrini",
      "Poisson austral",
-     "Fomalhaut"
+     "Fomalhaut",
+     "HIP 113368 · HD 216956 · HR 8728"
     ],
     "Deneb": [
      "α Cygni",
      "Cygne",
-     "Deneb"
+     "Deneb",
+     "HIP 102098 · HD 197345 · HR 7924"
     ],
     "Régulus": [
      "α Leonis",
      "Lion",
-     "Regulus"
+     "Regulus",
+     "HIP 49669 · HD 87901 · HR 3982"
     ],
     "Castor": [
      "α Geminorum",
      "Gémeaux",
-     "Castor (étoile)"
+     "Castor (étoile)",
+     "HIP 36850 · HD 60179 · HR 2891"
     ],
     "Bellatrix": [
      "γ Orionis",
      "Orion",
-     "Bellatrix"
+     "Bellatrix",
+     "HIP 25336 · HD 35468 · HR 1790"
     ],
     "Alnilam": [
      "ε Orionis",
      "Orion",
-     "Alnilam"
+     "Alnilam",
+     "HIP 26311 · HD 37128 · HR 1903"
     ],
     "Alnitak": [
      "ζ Orionis",
      "Orion",
-     "Alnitak"
+     "Alnitak",
+     "HIP 26727 · HD 37742 · HR 1948"
     ],
     "Mintaka": [
      "δ Orionis",
      "Orion",
-     "Mintaka"
+     "Mintaka",
+     "HIP 25930 · HD 36486 · HR 1852"
     ],
     "Meissa": [
      "λ Orionis",
      "Orion",
-     "Meissa"
+     "Meissa",
+     "HIP 26207 · HD 36861 · HR 1879"
     ],
     "Saiph": [
      "κ Orionis",
      "Orion",
-     "Saiph"
+     "Saiph",
+     "HIP 27366 · HD 38771 · HR 2004"
     ],
     "Alioth": [
      "ε Ursae Majoris",
      "Grande Ourse",
-     "Alioth"
+     "Alioth",
+     "HIP 62956 · HD 112185 · HR 4905"
     ],
     "Dubhe": [
      "α Ursae Majoris",
      "Grande Ourse",
-     "Dubhe"
+     "Dubhe",
+     "HIP 54061 · HD 95689 · HR 4301"
     ],
     "Alkaid": [
      "η Ursae Majoris",
      "Grande Ourse",
-     "Alkaid"
+     "Alkaid",
+     "HIP 67301 · HD 120315 · HR 5191"
     ],
     "Mizar": [
      "ζ Ursae Majoris",
      "Grande Ourse",
-     "Mizar"
+     "Mizar",
+     "HIP 65378 · HD 116656 · HR 5054"
     ],
     "Merak": [
      "β Ursae Majoris",
      "Grande Ourse",
-     "Merak"
+     "Merak",
+     "HIP 53910 · HD 95418 · HR 4295"
     ],
     "Phecda": [
      "γ Ursae Majoris",
      "Grande Ourse",
-     "Phecda"
+     "Phecda",
+     "HIP 58001 · HD 103287 · HR 4554"
     ],
     "Megrez": [
      "δ Ursae Majoris",
      "Grande Ourse",
-     "Megrez"
+     "Megrez",
+     "HIP 59774 · HD 106591 · HR 4660"
     ],
     "Polaris": [
      "α Ursae Minoris",
      "Petite Ourse",
-     "Étoile polaire"
+     "Étoile polaire",
+     "HIP 11767 · HD 8890 · HR 424"
     ],
     "Kochab": [
      "β Ursae Minoris",
      "Petite Ourse",
-     "Kochab"
+     "Kochab",
+     "HIP 72607 · HD 131873 · HR 5563"
     ],
     "Pherkad": [
      "γ Ursae Minoris",
      "Petite Ourse",
-     "Pherkad"
+     "Pherkad",
+     "HIP 75097 · HD 137422 · HR 5735"
     ],
     "Yildun": [
      "δ Ursae Minoris",
      "Petite Ourse",
-     "Yildun"
+     "Yildun",
+     "HIP 85822 · HD 166205 · HR 6789"
     ],
     "Mirfak": [
      "α Persei",
      "Persée",
-     "Mirfak"
+     "Mirfak",
+     "HIP 15863 · HD 20902 · HR 1017"
     ],
     "Schedar": [
      "α Cassiopeiae",
      "Cassiopée",
-     "Schedar"
+     "Schedar",
+     "HIP 3179 · HD 3712 · HR 168"
     ],
     "Caph": [
      "β Cassiopeiae",
      "Cassiopée",
-     "Caph"
+     "Caph",
+     "HIP 746 · HD 432 · HR 21"
     ],
     "Gamma Cassiopeiae": [
      "γ Cassiopeiae",
@@ -373,137 +412,164 @@
     "Ruchbah": [
      "δ Cassiopeiae",
      "Cassiopée",
-     "Ruchbah"
+     "Ruchbah",
+     "HIP 6686 · HD 8538 · HR 403"
     ],
     "Segin": [
      "ε Cassiopeiae",
      "Cassiopée",
-     "Segin"
+     "Segin",
+     "HIP 8886 · HD 11415 · HR 542"
     ],
     "Hamal": [
      "α Arietis",
      "Bélier",
-     "Hamal"
+     "Hamal",
+     "HIP 9884 · HD 12929 · HR 617"
     ],
     "Elnath": [
      "β Tauri",
      "Taureau",
-     "Elnath"
+     "Elnath",
+     "HIP 25428 · HD 35497 · HR 1791"
     ],
     "Alhena": [
      "γ Geminorum",
      "Gémeaux",
-     "Alhena"
+     "Alhena",
+     "HIP 31681 · HD 47105 · HR 2421"
     ],
     "Porrima": [
      "γ Virginis",
      "Vierge",
-     "Porrima"
+     "Porrima",
+     "HIP 61941 · HD 110379 · HR 4825"
     ],
     "Vindemiatrix": [
      "ε Virginis",
      "Vierge",
-     "Vindemiatrix"
+     "Vindemiatrix",
+     "HIP 63608 · HD 113226 · HR 4932"
     ],
     "Shaula": [
      "λ Scorpii",
      "Scorpion",
-     "Shaula"
+     "Shaula",
+     "HIP 85927 · HD 158926 · HR 6527"
     ],
     "Kaus Australis": [
      "ε Sagittarii",
      "Sagittaire",
-     "Kaus Australis"
+     "Kaus Australis",
+     "HIP 90185 · HD 169022 · HR 6879"
     ],
     "Nunki": [
      "σ Sagittarii",
      "Sagittaire",
-     "Nunki"
+     "Nunki",
+     "HIP 92855 · HD 175191 · HR 7121"
     ],
     "Alrescha": [
      "α Piscium",
      "Poissons",
-     "Alrescha"
+     "Alrescha",
+     "HIP 9487 · HD 12446 · HR 596"
     ],
     "Rasalhague": [
      "α Ophiuchi",
      "Ophiuchus",
-     "Rasalhague"
+     "Rasalhague",
+     "HIP 86032 · HD 159561 · HR 6556"
     ],
     "Alcyone": [
-     "η Tauri",
-     "Pléiades",
-     "Alcyone"
+     "η Tauri (Pléiades)",
+     "Taureau",
+     "Alcyone",
+     "HIP 17702 · HD 23630 · HR 1165"
     ],
     "Atlas": [
-     "27 Tauri",
-     "Pléiades",
-     "Atlas (étoile)"
+     "27 Tauri (Pléiades)",
+     "Taureau",
+     "Atlas (étoile)",
+     "HIP 17847 · HD 23850 · HR 1178"
     ],
     "Electra": [
-     "17 Tauri",
-     "Pléiades",
-     "Électre (étoile)"
+     "17 Tauri (Pléiades)",
+     "Taureau",
+     "Électre (étoile)",
+     "HIP 17499 · HD 23302 · HR 1142"
     ],
     "Maia": [
-     "20 Tauri",
-     "Pléiades",
-     "Maïa (étoile)"
+     "20 Tauri (Pléiades)",
+     "Taureau",
+     "Maïa (étoile)",
+     "HIP 17573 · HD 23408 · HR 1149"
     ],
     "Merope": [
-     "23 Tauri",
-     "Pléiades",
-     "Mérope (étoile)"
+     "23 Tauri (Pléiades)",
+     "Taureau",
+     "Mérope (étoile)",
+     "HIP 17608 · HD 23480 · HR 1156"
     ],
     "Taygeta": [
-     "19 Tauri",
-     "Pléiades",
-     "Taygète (étoile)"
+     "19 Tauri (Pléiades)",
+     "Taureau",
+     "Taygète (étoile)",
+     "HIP 17531 · HD 23338 · HR 1145"
     ],
     "Pleione": [
-     "28 Tauri",
-     "Pléiades",
-     "Pléione (étoile)"
+     "28 Tauri (Pléiades)",
+     "Taureau",
+     "Pléione (étoile)",
+     "HIP 17851 · HD 23862 · HR 1180"
     ],
     "Hadar": [
      "β Centauri",
      "Centaure",
-     "Bêta Centauri"
+     "Bêta Centauri",
+     "HIP 68702 · HD 122451 · HR 5267"
     ],
     "Acrux": [
      "α Crucis",
      "Croix du Sud",
-     "Acrux"
+     "Acrux",
+     "HIP 60718 · HD 108248 · HR 4730"
     ],
     "Mimosa": [
      "β Crucis",
      "Croix du Sud",
-     "Mimosa (étoile)"
+     "Mimosa (étoile)",
+     "HIP 62434 · HD 111123 · HR 4853"
     ],
     "Adhara": [
      "ε Canis Majoris",
      "Grand Chien",
-     "Adhara"
+     "Adhara",
+     "HIP 33579 · HD 52089 · HR 2618"
     ],
     "Gacrux": [
      "γ Crucis",
      "Croix du Sud",
-     "Gacrux"
+     "Gacrux",
+     "HIP 61084 · HD 108903 · HR 4763"
     ],
     "Miaplacidus": [
      "β Carinae",
      "Carène",
-     "Miaplacidus"
+     "Miaplacidus",
+     "HIP 45238 · HD 80007 · HR 3685"
     ],
     "Alnair": [
      "α Gruis",
      "Grue",
-     "Alnair"
+     "Alnair",
+     "HIP 109268 · HD 209952 · HR 8425"
     ],
     "Wezen": [
      "δ Canis Majoris",
      "Grand Chien",
-     "Wezen"
+     "Wezen",
+     "HIP 34444 · HD 54605 · HR 2693"
     ],
     "Regor": [
      "γ² Velorum",
@@ -513,67 +579,80 @@
     "Avior": [
      "ε Carinae",
      "Carène",
-     "Avior"
+     "Avior",
+     "HIP 41037 · HD 71129 · HR 3307"
     ],
     "Menkalinan": [
      "β Aurigae",
      "Cocher",
-     "Menkalinan"
+     "Menkalinan",
+     "HIP 28360 · HD 40183 · HR 2088"
     ],
     "Atria": [
      "α Trianguli Australis",
      "Triangle austral",
-     "Atria"
+     "Atria",
+     "HIP 82273 · HD 150798 · HR 6217"
     ],
     "Peacock": [
      "α Pavonis",
      "Paon",
-     "Peacock (étoile)"
+     "Peacock (étoile)",
+     "HIP 100751 · HD 193924 · HR 7790"
     ],
     "Alsephina": [
      "δ Velorum",
      "Voiles",
-     "Alsephina"
+     "Alsephina",
+     "HIP 42913 · HD 74956 · HR 3485"
     ],
     "Mirzam": [
      "β Canis Majoris",
      "Grand Chien",
-     "Mirzam"
+     "Mirzam",
+     "HIP 30324 · HD 44743 · HR 2294"
     ],
     "Alphard": [
      "α Hydrae",
      "Hydre",
-     "Alphard"
+     "Alphard",
+     "HIP 46390 · HD 81797 · HR 3748"
     ],
     "Diphda": [
      "β Ceti",
      "Baleine",
-     "Diphda"
+     "Diphda",
+     "HIP 3419 · HD 4128 · HR 188"
     ],
     "Menkent": [
      "θ Centauri",
      "Centaure",
-     "Menkent"
+     "Menkent",
+     "HIP 68933 · HD 123139 · HR 5288"
     ],
     "Alpheratz": [
      "α Andromedae",
      "Andromède",
-     "Alpheratz"
+     "Alpheratz",
+     "HIP 677 · HD 358 · HR 15"
     ],
     "Mirach": [
      "β Andromedae",
      "Andromède",
-     "Mirach"
+     "Mirach",
+     "HIP 5447 · HD 6860 · HR 337"
     ],
     "Algol": [
      "β Persei",
      "Persée",
-     "Algol"
+     "Algol",
+     "HIP 14576 · HD 19356 · HR 936"
     ],
     "Tiaki": [
      "β Gruis",
      "Grue",
-     "Bêta Gruis"
+     "Bêta Gruis",
+     "HIP 112122 · HD 214952 · HR 8636"
     ],
     "Muhlifain": [
      "γ Centauri",
@@ -583,42 +662,50 @@
     "Aspidiske": [
      "ι Carinae",
      "Carène",
-     "Aspidiske"
+     "Aspidiske",
+     "HIP 45556 · HD 80404 · HR 3699"
     ],
     "Suhail": [
      "λ Velorum",
      "Voiles",
-     "Lambda Velorum"
+     "Lambda Velorum",
+     "HIP 44816 · HD 78647 · HR 3634"
     ],
     "Alphecca": [
      "α Coronae Borealis",
      "Couronne boréale",
-     "Alphecca"
+     "Alphecca",
+     "HIP 76267 · HD 139006 · HR 5793"
     ],
     "Sadr": [
      "γ Cygni",
      "Cygne",
-     "Sadr"
+     "Sadr",
+     "HIP 100453 · HD 194093 · HR 7796"
     ],
     "Eltanin": [
      "γ Draconis",
      "Dragon",
-     "Eltanin"
+     "Eltanin",
+     "HIP 87833 · HD 164058 · HR 6705"
     ],
     "Naos": [
      "ζ Puppis",
      "Poupe",
-     "Naos"
+     "Naos",
+     "HIP 39429 · HD 66811 · HR 3165"
     ],
     "Almach": [
      "γ Andromedae",
      "Andromède",
-     "Almach"
+     "Almach",
+     "HIP 9640 · HD 12533 · HR 603"
     ],
     "Izar": [
      "ε Boötis",
      "Bouvier",
-     "Izar"
+     "Izar",
+     "HIP 72105 · HD 129988 · HR 5506"
     ],
     "Uridim": [
      "α Lupi",
@@ -638,72 +725,86 @@
     "Ankaa": [
      "α Phoenicis",
      "Phénix",
-     "Ankaa"
+     "Ankaa",
+     "HIP 2081 · HD 2261 · HR 99"
     ],
     "Enif": [
      "ε Pegasi",
      "Pégase",
-     "Enif"
+     "Enif",
+     "HIP 107315 · HD 206778 · HR 8308"
     ],
     "Scheat": [
      "β Pegasi",
      "Pégase",
-     "Scheat"
+     "Scheat",
+     "HIP 113881 · HD 217906 · HR 8775"
     ],
     "Aludra": [
      "η Canis Majoris",
      "Grand Chien",
-     "Aludra"
+     "Aludra",
+     "HIP 35904 · HD 58350 · HR 2827"
     ],
     "Alderamin": [
      "α Cephei",
      "Céphée",
-     "Alderamin"
+     "Alderamin",
+     "HIP 105199 · HD 203280 · HR 8162"
     ],
     "Markeb": [
      "κ Velorum",
      "Voiles",
-     "Markeb"
+     "Markeb",
+     "HIP 45941 · HD 81188 · HR 3734"
     ],
     "Markab": [
      "α Pegasi",
      "Pégase",
-     "Markab"
+     "Markab",
+     "HIP 113963 · HD 218045 · HR 8781"
     ],
     "Aljanah": [
      "ε Cygni",
      "Cygne",
-     "Epsilon Cygni"
+     "Epsilon Cygni",
+     "HIP 102488 · HD 197989 · HR 7949"
     ],
     "Acrab": [
      "β Scorpii",
      "Scorpion",
-     "Acrab"
+     "Acrab",
+     "HIP 78820 · HD 144217 · HR 5984"
     ],
     "Algieba": [
-     "γ Leonis",
+     "γ¹ Leonis",
      "Lion",
-     "Algieba"
+     "Algieba",
+     "HIP 50583 · HD 89484 · HR 4057"
     ],
     "Zosma": [
      "δ Leonis",
      "Lion",
-     "Zosma"
+     "Zosma",
+     "HIP 54872 · HD 97603 · HR 4357"
     ],
     "Dschubba": [
      "δ Scorpii",
      "Scorpion",
-     "Dschubba"
+     "Dschubba",
+     "HIP 78401 · HD 143275 · HR 5953"
     ],
     "Larawag": [
      "ε Scorpii",
      "Scorpion",
-     "Larawag"
+     "Larawag",
+     "HIP 82396 · HD 151680 · HR 6241"
     ],
     "Sargas": [
      "θ Scorpii",
      "Scorpion",
-     "Sargas"
+     "Sargas",
+     "HIP 86228 · HD 159532 · HR 6553"
     ],
     "Girtab": [
      "κ Scorpii",
@@ -713,12 +814,14 @@
     "Ascella": [
      "ζ Sagittarii",
      "Sagittaire",
-     "Ascella"
+     "Ascella",
+     "HIP 93506 · HD 176687 · HR 7194"
     ],
     "Sabik": [
      "η Ophiuchi",
      "Ophiuchus",
-     "Sabik"
+     "Sabik",
+     "HIP 84012 · HD 155125 · HR 6378"
     ],
     "Han": [
      "ζ Ophiuchi",
