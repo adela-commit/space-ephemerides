@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "2026-09-19.11",
+ "version": "2026-09-19.14",
  "updated": "2026-09-19",
  "sources": {
   "wikipedia": {
@@ -95,6 +95,609 @@
      "t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.",
      "u": "https://fr.wikipedia.org/wiki/Petite_Ourse",
      "a": "Petite Ourse"
+    },
+    {
+     "t": "Fille de Céphée et de Cassiopée. Après l’insolence de sa mère envers les nymphes, Poséidon envoie le monstre marin Cetus contre l’Éthiopie ; l’oracle exige de lui sacrifier Andromède, enchaînée à un rocher du rivage. Persée la délivre et l’épouse : le couple fonde Mycènes et la dynastie des Perséides. À sa mort, Athéna la place au ciel ; les constellations voisines (Persée, Cassiopée, la Baleine, Céphée) représentent les autres personnages du mythe.",
+     "s": "Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Andromède (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne une pompe à air, instrument des physiciens du XVIIIe siècle.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Machine pneumatique"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. ",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Oiseau de paradis (constellation)"
+     ]
+    },
+    {
+     "t": "L’aigle de Zeus : le dieu prend sa forme pour enlever le jeune Ganymède et en faire l’échanson des dieux, puis place l’oiseau parmi les astres. Ganymède est associé au Verseau.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Aigle (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "L’autel sur lequel, selon la tradition, les dieux prêtèrent serment avant de combattre les Titans ; Zeus l’aurait placé parmi les astres.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Autel (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Un conducteur de char, identifié selon les traditions à Érichthonios, roi d’Athènes et inventeur du quadrige, ou à Myrtilos. Sa brillante Capella y est parfois la chèvre Amalthée, nourrice de Zeus.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Cocher (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Le « bouvier », gardien de l’Ourse, qui semble conduire le chariot autour du pôle. Selon les traditions, il est Arcas, fils de Callisto (la Grande Ourse), ou un laboureur.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Bouvier (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne un burin de graveur.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Burin (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation moderne, proposée par l’astronome allemand Jakob Bartsch en 1624. Elle est apparue avec la Licorne et la Croix du Sud ; le Tigre et le Jourdain, proposés en même temps, n’ont pas été retenus.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Girafe (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. On y voit les deux lévriers que tient en laisse le Bouvier.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Origine",
+     "l": [
+      "Chiens de chasse"
+     ]
+    },
+    {
+     "t": "Le chien du chasseur Orion, qui le suit dans le ciel ; selon d’autres versions, Lélaps, le chien qui ne manquait jamais sa proie, placé parmi les astres par Zeus. Sirius, son étoile, est la plus brillante du ciel.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Grand Chien",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Un chien de chasse qui accompagne Orion ou, selon d’autres versions, une chienne liée à la légende d’Icarios. Son étoile Procyon signifie « avant le chien », car elle se lève avant Sirius.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Petit Chien (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Partie de l’ancien Navire Argo, le navire de Jason et des Argonautes partis chercher la Toison d’or en Colchide. Nicolas-Louis de Lacaille divisa ce grand navire en trois constellations plus faciles à manier : la Carène (la coque), la Poupe et les Voiles.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Carène (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Souvent identifié à Chiron, le sage centaure, précepteur d’Achille, de Jason et d’Asclépios. Blessé par mégarde par une flèche d’Héraclès, il renonce à l’immortalité et est placé au ciel. Hipparque en aurait détaché le Loup.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Centaure (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Roi d’Éthiopie, époux de Cassiopée et père d’Andromède. Quand sa femme offense les Néréides, il consulte l’oracle et doit livrer sa fille au monstre marin ; Persée la sauve. Constellation du cycle d’Andromède.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Céphée (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Le monstre marin (Cetus) envoyé par Poséidon contre l’Éthiopie pour punir l’insolence de Cassiopée ; Persée le tue et délivre Andromède. Elle appartient au cycle d’Andromède.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Baleine (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Il représente un caméléon.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Caméléon (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne un compas de dessinateur.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Compas (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente une colombe.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Colombe (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation introduite par Conon de Samos (vers 280 av. J.-C.) et reprise par Ptolémée, puis élevée au rang de constellation par Tycho Brahe. Selon la tradition, elle évoque la chevelure offerte par la reine Bérénice.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Origine",
+     "l": [
+      "Chevelure de Bérénice",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation ancienne, attestée chez Géminos de Rhodes (Ier siècle av. J.-C.). Elle n’a pas de mythe propre bien établi.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Couronne australe",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "La couronne d’Ariane, que Dionysos aurait placée au ciel après l’avoir épousée.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Couronne boréale",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Figure d’origine mésopotamienne (emblème du dieu Adad), reprise par les Grecs qui l’associent à l’Hydre et à la Coupe. Chargé par les dieux de puiser de l’eau, le corbeau s’attarde près d’un figuier dont il attend les fruits, puis rapporte un serpent avec une coupe en l’accusant d’avoir bu l’eau. Apollon, qui connaît la vérité, le punit et fixe au ciel le corbeau, la coupe et l’hydre.",
+     "s": "Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Corbeau (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "La coupe de l’épisode du corbeau et du serpent : les Grecs l’ont ajoutée au couple mésopotamien du Corbeau et du Serpent (l’Hydre). Selon Ératosthène, Apollon plaça au ciel l’Hydre, la Coupe et le Corbeau en souvenir d’un sacrilège.",
+     "s": "Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Hydre (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation moderne, proposée par l’astronome allemand Jakob Bartsch en 1624. Elle est apparue avec la Licorne et la Girafe.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Croix du Sud",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Selon les versions, le cygne dont Zeus prend la forme pour séduire Léda, ou Cycnus, ami de Phaéton, changé en cygne après l’avoir pleuré au bord de l’Éridan.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Cygne (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Le dauphin envoyé par Poséidon pour retrouver Amphitrite, ou celui qui sauva le poète Arion jeté à la mer ; il est placé au ciel en récompense.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Dauphin (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Son nom désigne l’espadon.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Dorade (constellation)"
+     ]
+    },
+    {
+     "t": "Ladon, le dragon qui gardait les pommes d’or du jardin des Hespérides ; Héraclès le tue au cours de l’un de ses travaux et le dragon est placé au ciel.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Dragon (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation ancienne qu’Hipparque aurait détachée de Pégase. Certaines traditions y voient un frère du cheval ailé.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Origine",
+     "l": [
+      "Petit Cheval",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Fleuve de la mythologie grecque, parfois identifié au Pô, au Rhône ou au Nil selon les auteurs anciens. Phaéton, fils du dieu Soleil, y serait tombé après avoir perdu le contrôle du char de son père ; ses sœurs, les Héliades, le pleurèrent et furent changées en peupliers. Répertoriée par Ptolémée, la constellation fut prolongée vers le sud par les astronomes arabes.",
+     "s": "Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Éridan (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne un fourneau de laboratoire.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Fourneau (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente une grue.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Grue (constellation)"
+     ]
+    },
+    {
+     "t": "Héraclès, le héros aux douze travaux, représenté à genoux (« l’Agenouillé ») ; Zeus le place parmi les astres après sa mort.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Hercule (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne une horloge à pendule.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Horloge (constellation)"
+     ]
+    },
+    {
+     "t": "Création mésopotamienne (le « Serpent »), reprise par les Grecs avec le Corbeau et la Coupe. Selon Ératosthène, le corbeau, envoyé puiser de l’eau pour les dieux, accuse faussement l’hydre d’avoir bu l’eau de la source ; Apollon place alors au ciel l’Hydre, la Coupe et le Corbeau en souvenir de ce mensonge.",
+     "s": "Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Hydre (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente un serpent d’eau, pendant austral de l’Hydre.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Hydre mâle"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente un Indien.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Indien (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. Elle a été créée en lieu et place du Sceptre proposé par Augustin Royer.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Lézard (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. Elle complète le ciel autour du Lion.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Petit Lion"
+     ]
+    },
+    {
+     "t": "Le lièvre poursuivi par Orion, à ses pieds, avec ses chiens.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Lièvre (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation ancienne qu’Hipparque aurait détachée du Centaure. Certains y voient Lycaon, roi d’Arcadie changé en loup par Zeus.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Loup (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. Ses étoiles sont si faibles, dit-il en substance, qu’il faut des yeux de lynx pour les voir.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Lynx (constellation)"
+     ]
+    },
+    {
+     "t": "La lyre d’Orphée, le musicien qui charmait les bêtes et descendit aux Enfers chercher Eurydice ; à sa mort, sa lyre est placée au ciel. Le nom de Véga vient de l’arabe « l’aigle tombant » : les anciens catalogues représentaient la Lyre devant un aigle.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Lyre (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Elle s’appelait d’abord la Montagne de la Table, du nom de la montagne du Cap depuis laquelle il avait effectué ses observations.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Table (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne un microscope.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Microscope (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation moderne, proposée par l’astronome allemand Jakob Bartsch en 1624. Elle est apparue avec la Girafe et la Croix du Sud.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Licorne (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Elle représente une mouche.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Mouche (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne une règle de géomètre.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Règle (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne l’octant, instrument de navigation.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Octant (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente un paon.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Paon (constellation)"
+     ]
+    },
+    {
+     "t": "Le cheval ailé né du sang de Méduse quand Persée la décapita ; monté par Bellérophon pour vaincre la Chimère, il finit sa course parmi les astres. Son « Grand carré » sert de repère dans le ciel d’automne.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Pégase (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation ancienne, déjà répertoriée par Aratos de Soles puis par Ptolémée. Elle représente Persée, le héros de la mythologie grecque qui sauva Andromède, et appartient au cycle de ce mythe.",
+     "s": "Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Persée (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente l’oiseau mythique.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Phénix (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Elle s’appelait d’abord le Chevalet du peintre.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Peintre (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation ancienne située sous le Verseau, dont elle semble boire l’eau. Son étoile Fomalhaut marque la « bouche du poisson ».",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Poisson austral",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Partie de l’ancien Navire Argo, le navire de Jason et des Argonautes. Lacaille divisa ce grand navire en trois constellations : la Carène, la Poupe (l’arrière du navire) et les Voiles.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Poupe (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne une boussole de marine.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Boussole (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne le réticule, viseur d’un instrument d’optique.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Réticule (constellation)"
+     ]
+    },
+    {
+     "t": "Une petite constellation ancienne dont le récit varie selon les auteurs : la flèche d’Héraclès, celle d’Apollon ou une flèche liée à l’aigle voisin.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Flèche (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne un atelier de sculpteur.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Sculpteur (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. Elle porte le nom d’un écu.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Écu de Sobieski"
+     ]
+    },
+    {
+     "t": "Constellation ancienne, aujourd’hui divisée en deux parties (la Tête et la Queue) par Ophiuchus, qui tient le serpent. Ophiuchus est souvent identifié à Asclépios, le dieu guérisseur.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Serpent (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. Son nom désigne un sextant, instrument de mesure des positions célestes.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Sextant (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation référencée par Nicolas-Louis de Lacaille dans son Coelum australe stelliferum (1763) pour combler des zones encore vierges du ciel austral ; ses noms reflètent les sciences et les techniques de l’époque plutôt que la mythologie. Son nom désigne une lunette astronomique.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Télescope (constellation)"
+     ]
+    },
+    {
+     "t": "Petite constellation ancienne en forme de triangle : les Grecs y voyaient la lettre delta, parfois le delta du Nil.",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Origine",
+     "l": [
+      "Triangle (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle dessine un triangle.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Triangle austral"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente un toucan.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Toucan (constellation)"
+     ]
+    },
+    {
+     "t": "Partie de l’ancien Navire Argo, le navire de Jason et des Argonautes. Lacaille divisa ce grand navire en trois constellations : la Carène, la Poupe et les Voiles (la voilure).",
+     "s": "Tradition grecque (résumé de l’application) ; origine : Wikipédia (français)",
+     "k": "Mythe",
+     "l": [
+      "Voiles (constellation)",
+      "Constellation"
+     ]
+    },
+    {
+     "t": "Constellation australe créée à la fin du XVIe siècle : l’une des douze nouvelles constellations publiées par Johann Bayer dans l’Uranometria (1603), vraisemblablement cartographiées par les navigateurs néerlandais Pieter Dirkszoon Keyser et Frederick de Houtman. Aux noms exotiques, ces constellations ont eu un tel succès qu’elles sont toujours utilisées. Elle représente un poisson volant.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Poisson volant (constellation)"
+     ]
+    },
+    {
+     "t": "Constellation proposée vers 1690 par Johannes Hevelius, bourgmestre de Dantzig ; ces dénominations modestes, non rattachées à un souverain, ont eu plus de succès que les autres. Elle s’appelait à l’origine le Renard à l’oie : un renard qui s’enfuit en emportant une oie dans sa gueule.",
+     "s": "Wikipédia (français), article « Constellation »",
+     "k": "Origine",
+     "l": [
+      "Petit Renard"
+     ]
     }
    ],
    "planets": [
@@ -827,6 +1430,864 @@
      "ζ Ophiuchi",
      "Ophiuchus",
      "Zeta Ophiuchi"
+    ],
+    "Sheratan": [
+     "β Arietis",
+     "Bélier",
+     "Sheratan",
+     "HIP 8903 · HD 11636 · HR 553"
+    ],
+    "Mesarthim": [
+     "γ² Arietis",
+     "Bélier",
+     "Mesarthim",
+     "HIP 8832 · HD 11502 · HR 546"
+    ],
+    "Bharani": [
+     "41 Arietis",
+     "Bélier",
+     "Bharani",
+     "HIP 13209 · HD 17573 · HR 838"
+    ],
+    "Tianguan": [
+     "ζ Tauri",
+     "Taureau",
+     "Tianguan",
+     "HIP 26451 · HD 37202 · HR 1910"
+    ],
+    "Prima Hyadum": [
+     "γ Tauri",
+     "Taureau",
+     "Prima Hyadum",
+     "HIP 20205 · HD 27371 · HR 1346"
+    ],
+    "Chamukuy": [
+     "θ² Tauri",
+     "Taureau",
+     "Chamukuy",
+     "HIP 20894 · HD 28319 · HR 1412"
+    ],
+    "Ain": [
+     "ε Tauri",
+     "Taureau",
+     "Ain (étoile)",
+     "HIP 20889 · HD 28305 · HR 1409"
+    ],
+    "Mebsuta": [
+     "ε Geminorum",
+     "Gémeaux",
+     "Mebsuta",
+     "HIP 32246 · HD 48329 · HR 2473"
+    ],
+    "Tejat": [
+     "μ Geminorum",
+     "Gémeaux",
+     "Tejat",
+     "HIP 30343 · HD 44478 · HR 2286"
+    ],
+    "Propus": [
+     "η Geminorum",
+     "Gémeaux",
+     "Propus",
+     "HIP 29655 · HD 42995 · HR 2216"
+    ],
+    "Wasat": [
+     "δ Geminorum",
+     "Gémeaux",
+     "Wasat",
+     "HIP 35550 · HD 56986 · HR 2777"
+    ],
+    "Mekbuda": [
+     "ζ Geminorum",
+     "Gémeaux",
+     "Mekbuda",
+     "HIP 34088 · HD 52973 · HR 2650"
+    ],
+    "Alzirr": [
+     "ξ Geminorum",
+     "Gémeaux",
+     "Alzirr",
+     "HIP 32362 · HD 48737 · HR 2484"
+    ],
+    "Acubens": [
+     "α Cancri",
+     "Cancer",
+     "Acubens",
+     "HIP 44066 · HD 76756 · HR 3572"
+    ],
+    "Tarf": [
+     "β Cancri",
+     "Cancer",
+     "Tarf",
+     "HIP 40526 · HD 69267 · HR 3249"
+    ],
+    "Asellus Australis": [
+     "δ Cancri",
+     "Cancer",
+     "Asellus Australis",
+     "HIP 42911 · HD 74442 · HR 3461"
+    ],
+    "Asellus Borealis": [
+     "γ Cancri",
+     "Cancer",
+     "Asellus Borealis",
+     "HIP 42806 · HD 74198 · HR 3449"
+    ],
+    "Chertan": [
+     "θ Leonis",
+     "Lion",
+     "Chertan",
+     "HIP 54879 · HD 97633 · HR 4359"
+    ],
+    "Adhafera": [
+     "ζ Leonis",
+     "Lion",
+     "Adhafera",
+     "HIP 50335 · HD 89025 · HR 4031"
+    ],
+    "Rasalas": [
+     "μ Leonis",
+     "Lion",
+     "Rasalas",
+     "HIP 48455 · HD 85503 · HR 3905"
+    ],
+    "Zavijava": [
+     "β Virginis",
+     "Vierge",
+     "Zavijava",
+     "HIP 57757 · HD 102870 · HR 4540"
+    ],
+    "Heze": [
+     "ζ Virginis",
+     "Vierge",
+     "Heze",
+     "HIP 66249 · HD 118098 · HR 5107"
+    ],
+    "Zaniah": [
+     "η Virginis",
+     "Vierge",
+     "Zaniah",
+     "HIP 60129 · HD 107259 · HR 4689"
+    ],
+    "Minelauva": [
+     "δ Virginis",
+     "Vierge",
+     "Minelauva",
+     "HIP 63090 · HD 112300 · HR 4910"
+    ],
+    "Syrma": [
+     "ι Virginis",
+     "Vierge",
+     "Syrma",
+     "HIP 69701 · HD 124850 · HR 5338"
+    ],
+    "Zubeneschamali": [
+     "β Librae",
+     "Balance",
+     "Zubeneschamali",
+     "HIP 74785 · HD 135742 · HR 5685"
+    ],
+    "Zubenelgenubi": [
+     "α² Librae",
+     "Balance",
+     "Zubenelgenubi",
+     "HIP 72622 · HD 130841 · HR 5531"
+    ],
+    "Zubenelhakrabi": [
+     "γ Librae",
+     "Balance",
+     "Zubenelhakrabi",
+     "HIP 76333 · HD 138905 · HR 5787"
+    ],
+    "Brachium": [
+     "σ Librae",
+     "Balance",
+     "Brachium",
+     "HIP 73714 · HD 133216 · HR 5603"
+    ],
+    "Fang": [
+     "π Scorpii",
+     "Scorpion",
+     "Fang",
+     "HIP 78265 · HD 143018 · HR 5944"
+    ],
+    "Alniyat": [
+     "σ Scorpii",
+     "Scorpion",
+     "Alniyat",
+     "HIP 80112 · HD 147165 · HR 6084"
+    ],
+    "Paikauhale": [
+     "τ Scorpii",
+     "Scorpion",
+     "Paikauhale",
+     "HIP 81266 · HD 149438 · HR 6165"
+    ],
+    "Lesath": [
+     "υ Scorpii",
+     "Scorpion",
+     "Lesath",
+     "HIP 85696 · HD 158408 · HR 6508"
+    ],
+    "Kaus Media": [
+     "δ Sagittarii",
+     "Sagittaire",
+     "Kaus Media",
+     "HIP 89931 · HD 168454 · HR 6859"
+    ],
+    "Kaus Borealis": [
+     "λ Sagittarii",
+     "Sagittaire",
+     "Kaus Borealis",
+     "HIP 90496 · HD 169916 · HR 6913"
+    ],
+    "Alnasl": [
+     "γ² Sagittarii",
+     "Sagittaire",
+     "Alnasl",
+     "HIP 88635 · HD 165135 · HR 6746"
+    ],
+    "Albaldah": [
+     "π Sagittarii",
+     "Sagittaire",
+     "Albaldah",
+     "HIP 94141 · HD 178524 · HR 7264"
+    ],
+    "Deneb Algedi": [
+     "δ Capricorni",
+     "Capricorne",
+     "Deneb Algedi",
+     "HIP 107556 · HD 207098 · HR 8322"
+    ],
+    "Dabih": [
+     "β¹ Capricorni",
+     "Capricorne",
+     "Dabih",
+     "HIP 100345 · HD 193495 · HR 7776"
+    ],
+    "Algedi": [
+     "α² Capricorni",
+     "Capricorne",
+     "Algedi",
+     "HIP 100064 · HD 192947 · HR 7754"
+    ],
+    "Nashira": [
+     "γ Capricorni",
+     "Capricorne",
+     "Nashira",
+     "HIP 106985 · HD 206088 · HR 8278"
+    ],
+    "Sadalsuud": [
+     "β Aquarii",
+     "Verseau",
+     "Sadalsuud",
+     "HIP 106278 · HD 204867 · HR 8232"
+    ],
+    "Sadalmelik": [
+     "α Aquarii",
+     "Verseau",
+     "Sadalmelik",
+     "HIP 109074 · HD 209750 · HR 8414"
+    ],
+    "Sadachbia": [
+     "γ Aquarii",
+     "Verseau",
+     "Sadachbia",
+     "HIP 110395 · HD 212061 · HR 8518"
+    ],
+    "Skat": [
+     "δ Aquarii",
+     "Verseau",
+     "Skat (étoile)",
+     "HIP 113136 · HD 216627 · HR 8709"
+    ],
+    "Albali": [
+     "ε Aquarii",
+     "Verseau",
+     "Albali",
+     "HIP 102618 · HD 198001 · HR 7950"
+    ],
+    "Ancha": [
+     "θ Aquarii",
+     "Verseau",
+     "Ancha",
+     "HIP 110003 · HD 211391 · HR 8499"
+    ],
+    "Alpherg": [
+     "η Piscium",
+     "Poissons",
+     "Alpherg",
+     "HIP 7097 · HD 9270 · HR 437"
+    ],
+    "Fumalsamakah": [
+     "β Piscium",
+     "Poissons",
+     "Fumalsamakah",
+     "HIP 113889 · HD 217891 · HR 8773"
+    ],
+    "Torcular": [
+     "ο Piscium",
+     "Poissons",
+     "Torcular",
+     "HIP 8198 · HD 10761 · HR 510"
+    ],
+    "Cebalrai": [
+     "β Ophiuchi",
+     "Ophiuchus",
+     "Cebalrai",
+     "HIP 86742 · HD 161096 · HR 6603"
+    ],
+    "Yed Prior": [
+     "δ Ophiuchi",
+     "Ophiuchus",
+     "Yed Prior",
+     "HIP 79593 · HD 146051 · HR 6056"
+    ],
+    "Yed Posterior": [
+     "ε Ophiuchi",
+     "Ophiuchus",
+     "Yed Posterior",
+     "HIP 79882 · HD 146791 · HR 6075"
+    ],
+    "Marfik": [
+     "λ Ophiuchi",
+     "Ophiuchus",
+     "Marfik",
+     "HIP 80883 · HD 148857 · HR 6149"
+    ],
+    "Nembus": [
+     "51 Andromedae",
+     "Andromède",
+     "Nembus",
+     "HIP 7607 · HD 9927 · HR 464"
+    ],
+    "Tarazed": [
+     "γ Aquilae",
+     "Aigle",
+     "Tarazed",
+     "HIP 97278 · HD 186791 · HR 7525"
+    ],
+    "Alshain": [
+     "β Aquilae",
+     "Aigle",
+     "Alshain",
+     "HIP 98036 · HD 188512 · HR 7602"
+    ],
+    "Okab": [
+     "ζ Aquilae",
+     "Aigle",
+     "Okab",
+     "HIP 93747 · HD 177724 · HR 7235"
+    ],
+    "Haedus": [
+     "η Aurigae",
+     "Cocher",
+     "Haedus",
+     "HIP 23767 · HD 32630 · HR 1641"
+    ],
+    "Hassaleh": [
+     "ι Aurigae",
+     "Cocher",
+     "Hassaleh",
+     "HIP 23015 · HD 31398 · HR 1577"
+    ],
+    "Mahasim": [
+     "θ Aurigae",
+     "Cocher",
+     "Mahasim",
+     "HIP 28380 · HD 40312 · HR 2095"
+    ],
+    "Almaaz": [
+     "ε Aurigae",
+     "Cocher",
+     "Almaaz",
+     "HIP 23416 · HD 31964 · HR 1605"
+    ],
+    "Saclateni": [
+     "ζ Aurigae",
+     "Cocher",
+     "Saclateni",
+     "HIP 23453 · HD 32068 · HR 1612"
+    ],
+    "Muphrid": [
+     "η Boötis",
+     "Bouvier",
+     "Muphrid",
+     "HIP 67927 · HD 121370 · HR 5235"
+    ],
+    "Seginus": [
+     "γ Boötis",
+     "Bouvier",
+     "Seginus",
+     "HIP 71075 · HD 127762 · HR 5435"
+    ],
+    "Nekkar": [
+     "β Boötis",
+     "Bouvier",
+     "Nekkar",
+     "HIP 73555 · HD 133208 · HR 5602"
+    ],
+    "Xuange": [
+     "λ Boötis",
+     "Bouvier",
+     "Xuange",
+     "HIP 69732 · HD 125162 · HR 5351"
+    ],
+    "Cor Caroli": [
+     "α² Canum Venaticorum",
+     "Chiens de chasse",
+     "Cor Caroli",
+     "HIP 63125 · HD 112413 · HR 4915"
+    ],
+    "Chara": [
+     "β Canum Venaticorum",
+     "Chiens de chasse",
+     "Chara (étoile)",
+     "HIP 61317 · HD 109358 · HR 4785"
+    ],
+    "Furud": [
+     "ζ Canis Majoris",
+     "Grand Chien",
+     "Furud",
+     "HIP 30122 · HD 44402 · HR 2282"
+    ],
+    "Muliphein": [
+     "γ Canis Majoris",
+     "Grand Chien",
+     "Muliphein",
+     "HIP 34045 · HD 53244 · HR 2657"
+    ],
+    "Gomeisa": [
+     "β Canis Minoris",
+     "Petit Chien",
+     "Gomeisa",
+     "HIP 36188 · HD 58715 · HR 2845"
+    ],
+    "Errai": [
+     "γ Cephei",
+     "Céphée",
+     "Errai",
+     "HIP 116727 · HD 222404 · HR 8974"
+    ],
+    "Alfirk": [
+     "β Cephei",
+     "Céphée",
+     "Alfirk",
+     "HIP 106032 · HD 205021 · HR 8238"
+    ],
+    "Kaffaljidhma": [
+     "γ Ceti",
+     "Baleine",
+     "Kaffaljidhma",
+     "HIP 12706 · HD 16970 · HR 804"
+    ],
+    "Menkar": [
+     "α Ceti",
+     "Baleine",
+     "Menkar",
+     "HIP 14135 · HD 18884 · HR 911"
+    ],
+    "Baten Kaitos": [
+     "ζ Ceti",
+     "Baleine",
+     "Baten Kaitos",
+     "HIP 8645 · HD 11353 · HR 539"
+    ],
+    "Wazn": [
+     "β Columbae",
+     "Colombe",
+     "Wazn",
+     "HIP 27628 · HD 39425 · HR 2040"
+    ],
+    "Phact": [
+     "α Columbae",
+     "Colombe",
+     "Phact",
+     "HIP 26634 · HD 37795 · HR 1956"
+    ],
+    "Diadem": [
+     "α Comae Berenices",
+     "Chevelure de Bérénice",
+     "Diadem",
+     "HIP 64241 · HD 114378 · HR 4968"
+    ],
+    "Meridiana": [
+     "α Coronae Australis",
+     "Couronne australe",
+     "Meridiana",
+     "HIP 94114 · HD 178253 · HR 7254"
+    ],
+    "Nusakan": [
+     "β Coronae Borealis",
+     "Couronne boréale",
+     "Nusakan",
+     "HIP 75695 · HD 137909 · HR 5747"
+    ],
+    "Alchiba": [
+     "α Corvi",
+     "Corbeau",
+     "Alchiba",
+     "HIP 59199 · HD 105452 · HR 4623"
+    ],
+    "Gienah": [
+     "γ Corvi",
+     "Corbeau",
+     "Gienah",
+     "HIP 59803 · HD 106625 · HR 4662"
+    ],
+    "Algorab": [
+     "δ Corvi",
+     "Corbeau",
+     "Algorab",
+     "HIP 60965 · HD 108767 · HR 4757"
+    ],
+    "Kraz": [
+     "β Corvi",
+     "Corbeau",
+     "Kraz",
+     "HIP 61359 · HD 109379 · HR 4786"
+    ],
+    "Alkes": [
+     "α Crateris",
+     "Coupe",
+     "Alkes",
+     "HIP 53740 · HD 95272 · HR 4287"
+    ],
+    "Imai": [
+     "δ Crucis",
+     "Croix du Sud",
+     "Imai (étoile)",
+     "HIP 59747 · HD 106490 · HR 4656"
+    ],
+    "Fawaris": [
+     "δ Cygni",
+     "Cygne",
+     "Fawaris",
+     "HIP 97165 · HD 186882 · HR 7528"
+    ],
+    "Albireo": [
+     "β Cygni",
+     "Cygne",
+     "Albireo",
+     "HIP 95947 · HD 183912 · HR 7417"
+    ],
+    "Aldulfin": [
+     "ε Delphini",
+     "Dauphin",
+     "Aldulfin",
+     "HIP 101421 · HD 195810 · HR 7852"
+    ],
+    "Rotanev": [
+     "β Delphini",
+     "Dauphin",
+     "Rotanev",
+     "HIP 101769 · HD 196524 · HR 7882"
+    ],
+    "Sualocin": [
+     "α Delphini",
+     "Dauphin",
+     "Sualocin",
+     "HIP 101958 · HD 196867 · HR 7906"
+    ],
+    "Grumium": [
+     "ξ Draconis",
+     "Dragon",
+     "Grumium",
+     "HIP 87585 · HD 163588 · HR 6688"
+    ],
+    "Rastaban": [
+     "β Draconis",
+     "Dragon",
+     "Rastaban",
+     "HIP 85670 · HD 159181 · HR 6536"
+    ],
+    "Altais": [
+     "δ Draconis",
+     "Dragon",
+     "Altais",
+     "HIP 94376 · HD 180711 · HR 7310"
+    ],
+    "Aldhibah": [
+     "ζ Draconis",
+     "Dragon",
+     "Aldhibah",
+     "HIP 83895 · HD 155763 · HR 6396"
+    ],
+    "Athebyne": [
+     "η Draconis",
+     "Dragon",
+     "Athebyne",
+     "HIP 80331 · HD 148387 · HR 6132"
+    ],
+    "Edasich": [
+     "ι Draconis",
+     "Dragon",
+     "Edasich",
+     "HIP 75458 · HD 137759 · HR 5744"
+    ],
+    "Thuban": [
+     "α Draconis",
+     "Dragon",
+     "Thuban",
+     "HIP 68756 · HD 123299 · HR 5291"
+    ],
+    "Giausar": [
+     "λ Draconis",
+     "Dragon",
+     "Giausar",
+     "HIP 56211 · HD 100029 · HR 4434"
+    ],
+    "Kitalpha": [
+     "α Equulei",
+     "Petit Cheval",
+     "Kitalpha",
+     "HIP 104987 · HD 202447 · HR 8131"
+    ],
+    "Cursa": [
+     "β Eridani",
+     "Éridan",
+     "Cursa",
+     "HIP 23875 · HD 33111 · HR 1666"
+    ],
+    "Beid": [
+     "ο¹ Eridani",
+     "Éridan",
+     "Beid",
+     "HIP 19587 · HD 26574 · HR 1298"
+    ],
+    "Zaurak": [
+     "γ Eridani",
+     "Éridan",
+     "Zaurak",
+     "HIP 18543 · HD 25025 · HR 1231"
+    ],
+    "Rana": [
+     "δ Eridani",
+     "Éridan",
+     "Rana (étoile)",
+     "HIP 17378 · HD 23249 · HR 1136"
+    ],
+    "Ran": [
+     "ε Eridani",
+     "Éridan",
+     "Ran (étoile)",
+     "HIP 16537 · HD 22049 · HR 1084"
+    ],
+    "Azha": [
+     "η Eridani",
+     "Éridan",
+     "Azha",
+     "HIP 13701 · HD 18322 · HR 874"
+    ],
+    "Beemim": [
+     "υ³ Eridani",
+     "Éridan",
+     "Beemim",
+     "HIP 20535 · HD 28028 · HR 1393"
+    ],
+    "Acamar": [
+     "θ¹ Eridani",
+     "Éridan",
+     "Acamar",
+     "HIP 13847 · HD 18622 · HR 897"
+    ],
+    "Dalim": [
+     "α Fornacis",
+     "Fourneau",
+     "Dalim",
+     "HIP 14879 · HD 20010 · HR 963"
+    ],
+    "Aldhanab": [
+     "γ Gruis",
+     "Grue",
+     "Aldhanab",
+     "HIP 108085 · HD 207971 · HR 8353"
+    ],
+    "Kornephoros": [
+     "β Herculis",
+     "Hercule",
+     "Kornephoros",
+     "HIP 80816 · HD 148856 · HR 6148"
+    ],
+    "Sarin": [
+     "δ Herculis",
+     "Hercule",
+     "Sarin",
+     "HIP 84379 · HD 156164 · HR 6410"
+    ],
+    "Rasalgethi": [
+     "α¹ Herculis",
+     "Hercule",
+     "Rasalgethi",
+     "HIP 84345 · HD 156014 · HR 6406"
+    ],
+    "Ashlesha": [
+     "ε Hydrae",
+     "Hydre",
+     "Ashlesha",
+     "HIP 43109 · HD 74874 · HR 3482"
+    ],
+    "Minchir": [
+     "σ Hydrae",
+     "Hydre",
+     "Minchir",
+     "HIP 42402 · HD 73471 · HR 3418"
+    ],
+    "Ukdah": [
+     "ι Hydrae",
+     "Hydre",
+     "Ukdah",
+     "HIP 47431 · HD 83618 · HR 3845"
+    ],
+    "Zhang": [
+     "υ¹ Hydrae",
+     "Hydre",
+     "Zhang (étoile)",
+     "HIP 48356 · HD 85444 · HR 3903"
+    ],
+    "Praecipua": [
+     "46 Leonis Minoris",
+     "Petit Lion",
+     "Praecipua",
+     "HIP 53229 · HD 94264 · HR 4247"
+    ],
+    "Arneb": [
+     "α Leporis",
+     "Lièvre",
+     "Arneb",
+     "HIP 25985 · HD 36673 · HR 1865"
+    ],
+    "Nihal": [
+     "β Leporis",
+     "Lièvre",
+     "Nihal",
+     "HIP 25606 · HD 36079 · HR 1829"
+    ],
+    "Alsciaukat": [
+     "31 Lyncis",
+     "Lynx",
+     "Alsciaukat",
+     "HIP 41075 · HD 70272 · HR 3275"
+    ],
+    "Sulafat": [
+     "γ Lyrae",
+     "Lyre",
+     "Sulafat",
+     "HIP 93194 · HD 176437 · HR 7178"
+    ],
+    "Sheliak": [
+     "β Lyrae",
+     "Lyre",
+     "Sheliak",
+     "HIP 92420 · HD 174638 · HR 7106"
+    ],
+    "Matar": [
+     "η Pegasi",
+     "Pégase",
+     "Matar (étoile)",
+     "HIP 112158 · HD 215182 · HR 8650"
+    ],
+    "Algenib": [
+     "γ Pegasi",
+     "Pégase",
+     "Algenib",
+     "HIP 1067 · HD 886 · HR 39"
+    ],
+    "Homam": [
+     "ζ Pegasi",
+     "Pégase",
+     "Homam (étoile)",
+     "HIP 112029 · HD 214923 · HR 8634"
+    ],
+    "Biham": [
+     "θ Pegasi",
+     "Pégase",
+     "Biham",
+     "HIP 109427 · HD 210418 · HR 8450"
+    ],
+    "Sadalbari": [
+     "μ Pegasi",
+     "Pégase",
+     "Sadalbari",
+     "HIP 112748 · HD 216131 · HR 8684"
+    ],
+    "Atik": [
+     "ο Persei",
+     "Persée",
+     "Atik",
+     "HIP 17448 · HD 23180 · HR 1131"
+    ],
+    "Menkib": [
+     "ξ Persei",
+     "Persée",
+     "Menkib",
+     "HIP 18614 · HD 24912 · HR 1228"
+    ],
+    "Miram": [
+     "η Persei",
+     "Persée",
+     "Miram",
+     "HIP 13268 · HD 17506 · HR 834"
+    ],
+    "Misam": [
+     "κ Persei",
+     "Persée",
+     "Misam",
+     "HIP 14668 · HD 19476 · HR 941"
+    ],
+    "Wurren": [
+     "ζ Phoenicis",
+     "Phénix",
+     "Wurren",
+     "HIP 5348 · HD 6882 · HR 338"
+    ],
+    "Azmidi": [
+     "ξ Puppis",
+     "Poupe",
+     "Azmidi",
+     "HIP 38170 · HD 63700 · HR 3045"
+    ],
+    "Tureis": [
+     "ρ Puppis",
+     "Poupe",
+     "Tureis",
+     "HIP 39757 · HD 67523 · HR 3185"
+    ],
+    "Sham": [
+     "α Sagittae",
+     "Flèche",
+     "Sham (étoile)",
+     "HIP 96757 · HD 185758 · HR 7479"
+    ],
+    "Gudja": [
+     "κ Serpentis",
+     "Serpent",
+     "Gudja",
+     "HIP 77450 · HD 141477 · HR 5879"
+    ],
+    "Unukalhai": [
+     "α Serpentis",
+     "Serpent",
+     "Unukalhai",
+     "HIP 77070 · HD 140573 · HR 5854"
+    ],
+    "Alya": [
+     "θ¹ Serpentis",
+     "Serpent",
+     "Alya",
+     "HIP 92946 · HD 175638 · HR 7141"
+    ],
+    "Mothallah": [
+     "α Trianguli",
+     "Triangle",
+     "Mothallah",
+     "HIP 8796 · HD 11443 · HR 544"
+    ],
+    "Anser": [
+     "α Vulpeculae",
+     "Petit Renard",
+     "Anser (étoile)",
+     "HIP 95771 · HD 183439 · HR 7405"
     ]
    },
    "signs": [

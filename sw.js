@@ -1,7 +1,7 @@
 /* Service worker : permet l'utilisation hors connexion et les mises à jour.
    Pour publier une nouvelle version de l'application (index.html modifié), changez VERSION ci-dessous :
    les appareils connectés proposent alors « Recharger ». Modifier seulement content.json ne l'exige pas. */
-const VERSION = '2026-09-19.11';
+const VERSION = '2026-09-19.14';
 const CACHE = 'ciel-zodiacal-' + VERSION;
 const SHELL = [
   'index.html', 'content.json', 'manifest.webmanifest',
