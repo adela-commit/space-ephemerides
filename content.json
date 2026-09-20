@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "2026-09-19.5",
+ "version": "2026-09-19.7",
  "updated": "2026-09-19",
  "sources": {
   "wikipedia": {
@@ -464,8 +464,502 @@
      "28 Tauri",
      "Pléiades",
      "Pléione (étoile)"
+    ],
+    "Hadar": [
+     "β Centauri",
+     "Centaure",
+     "Bêta Centauri"
+    ],
+    "Acrux": [
+     "α Crucis",
+     "Croix du Sud",
+     "Acrux"
+    ],
+    "Mimosa": [
+     "β Crucis",
+     "Croix du Sud",
+     "Mimosa (étoile)"
+    ],
+    "Adhara": [
+     "ε Canis Majoris",
+     "Grand Chien",
+     "Adhara"
+    ],
+    "Gacrux": [
+     "γ Crucis",
+     "Croix du Sud",
+     "Gacrux"
+    ],
+    "Miaplacidus": [
+     "β Carinae",
+     "Carène",
+     "Miaplacidus"
+    ],
+    "Alnair": [
+     "α Gruis",
+     "Grue",
+     "Alnair"
+    ],
+    "Wezen": [
+     "δ Canis Majoris",
+     "Grand Chien",
+     "Wezen"
+    ],
+    "Regor": [
+     "γ² Velorum",
+     "Voiles",
+     "Gamma Velorum"
+    ],
+    "Avior": [
+     "ε Carinae",
+     "Carène",
+     "Avior"
+    ],
+    "Menkalinan": [
+     "β Aurigae",
+     "Cocher",
+     "Menkalinan"
+    ],
+    "Atria": [
+     "α Trianguli Australis",
+     "Triangle austral",
+     "Atria"
+    ],
+    "Peacock": [
+     "α Pavonis",
+     "Paon",
+     "Peacock (étoile)"
+    ],
+    "Alsephina": [
+     "δ Velorum",
+     "Voiles",
+     "Alsephina"
+    ],
+    "Mirzam": [
+     "β Canis Majoris",
+     "Grand Chien",
+     "Mirzam"
+    ],
+    "Alphard": [
+     "α Hydrae",
+     "Hydre",
+     "Alphard"
+    ],
+    "Diphda": [
+     "β Ceti",
+     "Baleine",
+     "Diphda"
+    ],
+    "Menkent": [
+     "θ Centauri",
+     "Centaure",
+     "Menkent"
+    ],
+    "Alpheratz": [
+     "α Andromedae",
+     "Andromède",
+     "Alpheratz"
+    ],
+    "Mirach": [
+     "β Andromedae",
+     "Andromède",
+     "Mirach"
+    ],
+    "Algol": [
+     "β Persei",
+     "Persée",
+     "Algol"
+    ],
+    "Tiaki": [
+     "β Gruis",
+     "Grue",
+     "Bêta Gruis"
+    ],
+    "Muhlifain": [
+     "γ Centauri",
+     "Centaure",
+     "Muhlifain"
+    ],
+    "Aspidiske": [
+     "ι Carinae",
+     "Carène",
+     "Aspidiske"
+    ],
+    "Suhail": [
+     "λ Velorum",
+     "Voiles",
+     "Lambda Velorum"
+    ],
+    "Alphecca": [
+     "α Coronae Borealis",
+     "Couronne boréale",
+     "Alphecca"
+    ],
+    "Sadr": [
+     "γ Cygni",
+     "Cygne",
+     "Sadr"
+    ],
+    "Eltanin": [
+     "γ Draconis",
+     "Dragon",
+     "Eltanin"
+    ],
+    "Naos": [
+     "ζ Puppis",
+     "Poupe",
+     "Naos"
+    ],
+    "Almach": [
+     "γ Andromedae",
+     "Andromède",
+     "Almach"
+    ],
+    "Izar": [
+     "ε Boötis",
+     "Bouvier",
+     "Izar"
+    ],
+    "Uridim": [
+     "α Lupi",
+     "Loup",
+     "Alpha Lupi"
+    ],
+    "ε Centauri": [
+     "ε Centauri",
+     "Centaure",
+     "Epsilon Centauri"
+    ],
+    "η Centauri": [
+     "η Centauri",
+     "Centaure",
+     "Eta Centauri"
+    ],
+    "Ankaa": [
+     "α Phoenicis",
+     "Phénix",
+     "Ankaa"
+    ],
+    "Enif": [
+     "ε Pegasi",
+     "Pégase",
+     "Enif"
+    ],
+    "Scheat": [
+     "β Pegasi",
+     "Pégase",
+     "Scheat"
+    ],
+    "Aludra": [
+     "η Canis Majoris",
+     "Grand Chien",
+     "Aludra"
+    ],
+    "Alderamin": [
+     "α Cephei",
+     "Céphée",
+     "Alderamin"
+    ],
+    "Markeb": [
+     "κ Velorum",
+     "Voiles",
+     "Markeb"
+    ],
+    "Markab": [
+     "α Pegasi",
+     "Pégase",
+     "Markab"
+    ],
+    "Aljanah": [
+     "ε Cygni",
+     "Cygne",
+     "Epsilon Cygni"
+    ],
+    "Acrab": [
+     "β Scorpii",
+     "Scorpion",
+     "Acrab"
+    ],
+    "Algieba": [
+     "γ Leonis",
+     "Lion",
+     "Algieba"
+    ],
+    "Zosma": [
+     "δ Leonis",
+     "Lion",
+     "Zosma"
+    ],
+    "Dschubba": [
+     "δ Scorpii",
+     "Scorpion",
+     "Dschubba"
+    ],
+    "Larawag": [
+     "ε Scorpii",
+     "Scorpion",
+     "Larawag"
+    ],
+    "Sargas": [
+     "θ Scorpii",
+     "Scorpion",
+     "Sargas"
+    ],
+    "Girtab": [
+     "κ Scorpii",
+     "Scorpion",
+     "Girtab"
+    ],
+    "Ascella": [
+     "ζ Sagittarii",
+     "Sagittaire",
+     "Ascella"
+    ],
+    "Sabik": [
+     "η Ophiuchi",
+     "Ophiuchus",
+     "Sabik"
+    ],
+    "Han": [
+     "ζ Ophiuchi",
+     "Ophiuchus",
+     "Zeta Ophiuchi"
     ]
-   }
+   },
+   "signs": [
+    {
+     "t": "Signe de feu et cardinal : il ouvre le printemps (hémisphère nord) et le zodiaque. Attributs cités : combativité, spontanéité, instinct ; il symbolise l’impulsion, l’énergie, l’indépendance et le courage. Complémentaire de la Balance ; on y voit le principal signe de Mars.",
+     "l": [
+      "Bélier (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe de terre et fixe, au milieu du printemps. Attributs cités : possessivité, lenteur, entêtement ; il symbolise une grande puissance de travail, l’instinct de conservation, la sensualité et le goût des plaisirs. Complémentaire du Scorpion.",
+     "l": [
+      "Taureau (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe d’air et mutable, qui achève le printemps. Attributs cités : curiosité, adaptabilité, versatilité ; symbole double des contacts humains, des transports et des communications, du goût du jeu et de l’envol de l’intelligence. On y voit le principal signe de Mercure. Complémentaire du Sagittaire.",
+     "l": [
+      "Gémeaux (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe d’eau et cardinal, qui ouvre l’été. Attributs cités : esprit maternel et familial, imagination ; signe lunaire, il exprime le retrait sur soi, la sensibilité, la timidité et la ténacité. Complémentaire du Capricorne.",
+     "l": [
+      "Cancer (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe de feu et fixe, au cœur de l’été. Attributs cités : vitalité, ambition, noblesse ; il exprime la joie de vivre et l’orgueil, mais aussi l’autoritarisme ou le commandement : « l’œuvre d’un seul ». Complémentaire du Verseau.",
+     "l": [
+      "Lion (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe de terre et mutable, qui achève l’été. Attributs cités : intelligence analytique, méthode, sens pratique ; il symbolise la moisson, le travail, la minutie et la dextérité manuelle, avec un caractère réservé et méthodique. Complémentaire des Poissons.",
+     "l": [
+      "Vierge (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe d’air et cardinal, qui ouvre l’automne. Attributs cités : sens de la justice, raffinement, sociabilité, mais aussi indécision ; il symbolise l’équilibre entre l’élan et la retenue, la spontanéité et la réflexion. Complémentaire du Bélier.",
+     "l": [
+      "Balance (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe d’eau et fixe, au cœur de l’automne. Attributs cités : résistance, sensualité, magnétisme ; il symbolise à la fois la résistance, la fermentation et la mort, le dynamisme, la dureté et les luttes. Complémentaire du Taureau.",
+     "l": [
+      "Scorpion (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe de feu et mutable, qui achève l’automne. Attributs cités : sagesse, goût des voyages et du risque ; il symbolise le mouvement, les instincts nomades, l’indépendance et les réflexes vifs. Complémentaire des Gémeaux.",
+     "l": [
+      "Sagittaire (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe de terre et cardinal, qui ouvre l’hiver. Attributs cités : concentration, devoir, rigorisme ; il exprime la patience, la persévérance, la prudence, la réalisation et le sens du devoir. Complémentaire du Cancer.",
+     "l": [
+      "Capricorne (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe d’air et fixe, au cœur de l’hiver. Attributs cités : originalité, esprit d’avant-garde, mais aussi excentricité ; il symbolise la solidarité collective, la coopération, la fraternité et le détachement des choses matérielles, avec une facette « uranienne » : progrès, émancipation, aventure. Complémentaire du Lion.",
+     "l": [
+      "Verseau (astrologie)",
+      "Signe du zodiaque"
+     ]
+    },
+    {
+     "t": "Signe d’eau et mutable, qui achève l’hiver. Attributs cités : dévouement, compassion, sensiblerie ; ils symbolisent le psychisme, la réceptivité et l’impressionnabilité, la fusion dans une totalité et l’effacement des particularismes. Complémentaires de la Vierge.",
+     "l": [
+      "Poissons (astrologie)",
+      "Signe du zodiaque"
+     ]
+    }
+   ],
+   "houses": [
+    {
+     "t": "Maison de l’ego : la façon de se manifester et de vivre le quotidien, ce que l’on montre aux autres, le caractère inné. Sa pointe est l’Ascendant. On l’associe au Bélier, « l’Être », le commencement. Maison angulaire.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Maison de l’avoir : les résultats matériels de l’activité personnelle, la gestion de sa propre valeur, les moyens d’existence. On l’associe au Taureau : la construction, le travail à long terme. Maison succédente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Maison de la pensée concrète : les études, l’entourage proche (frères et sœurs, voisins), les brefs déplacements et les échanges. Maison cadente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les bases de la vie : les racines, les parents, l’enfance, le foyer et la sphère privée. Sa pointe est le Fond du Ciel. Maison angulaire.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les joies personnelles : la création individuelle, les enfants, les divertissements et le jeu. Maison succédente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les contingences du quotidien : la santé, les maladies aiguës, les obligations et les servitudes, le travail comme devoir. Maison cadente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les relations avec les autres : unions et associations, contrats, ennemis déclarés. Sa pointe est le Descendant, opposé à l’Ascendant. Maison angulaire.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les pertes et les transformations (mort et renaissance) : ce dont on se débarrasse, l’argent venu des autres, les héritages, les crises. Maison succédente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La pensée abstraite et l’élargissement du champ de conscience : idéal philosophique ou religieux, pays étrangers, longs voyages. Maison cadente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Le sommet de la vie : le moi social, la vie publique, le travail comme vocation, la notoriété. Sa pointe est le Milieu du Ciel. Maison angulaire.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les joies collectives : la création sociale, les amis, les soutiens, les projets et les espoirs partagés. Maison succédente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les épreuves et les ennemis cachés, les maladies chroniques, la dépossession de l’ego face à l’universel, les lieux isolés et la solitude propice à la vie intérieure ; par opposition à la maison VI, aussi la disponibilité et le bénévolat. Maison cadente.",
+     "l": [
+      "Maison (astrologie)",
+      "Symbolisme astrologique"
+     ]
+    }
+   ],
+   "astro": [
+    {
+     "t": "Dans les correspondances psychologiques admises, le Soleil représente la conscience et le moi : la vie, la chaleur et la lumière, la volonté, l’idéal, la discipline, la conscience morale et la vocation.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Astre de la matière et de la fécondité, de la vie animale, végétative et inconsciente : l’instinct, l’imagination, la spontanéité et le rêve.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La fonction du raisonnement, de la communication et de l’adaptation à l’environnement : la manière dont on échange des idées.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "Les relations affectives (la façon d’aimer et d’attirer l’amour), la beauté, l’harmonie et les plaisirs de la vie, l’esthétique et le confort.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La force impulsive : les pulsions (parfois agressives ou destructrices), la tension, le désir, la conquête et la passion.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La force d’expansion, d’affirmation et d’épanouissement : l’aisance, la richesse, la confiance, le profit ; l’éducation supérieure, la religion et la loi.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La force d’inhibition, de concentration, de dépouillement et d’abstraction : le doute, le détachement. La tradition en fait généralement une planète négative (limites, renoncement, épreuves) ; les lectures modernes en valorisent la concentration, la résistance et le recul.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La force d’individualisation, de singularisation et de dépassement : l’indépendance, la révolte, l’aventure. Planète lente : beaucoup d’astrologues y lisent surtout un thème de génération.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La force de « collectivisation » : l’intégration au milieu, l’assimilation et la fusion avec l’ambiance. Planète lente, souvent lue à l’échelle d’une génération.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    },
+    {
+     "t": "La force des puissances de la vie intérieure et du dépassement de soi : tendances agressives, changements, transformation. Planète lente, souvent lue à l’échelle d’une génération.",
+     "l": [
+      "Symbolisme astrologique"
+     ]
+    }
+   ]
   }
  }
 }

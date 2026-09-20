@@ -157,7 +157,8 @@ select option{color:#1C1C1E;background:#FFFFFF}
 .hl{fill:none;stroke:var(--line);stroke-width:1}
 .hla{fill:none;stroke:var(--muted);stroke-width:1.4;opacity:.8}
 .hab{fill:var(--ink);font-size:13px;font-weight:500;text-anchor:middle;dominant-baseline:central}
-.hn{fill:var(--muted);font-size:10px;text-anchor:middle;dominant-baseline:central}
+.hn{fill:var(--ink);font-size:13px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.hab{pointer-events:none}
 @media (min-width:861px){.wheelbox{position:sticky;top:16px}}
 .tl{font-size:14px;font-variant-numeric:tabular-nums;min-width:3.2em}
 input[type="range"]{width:100%;margin:2px 0;accent-color:var(--ink)}
@@ -193,7 +194,7 @@ input[type="date"]{color-scheme:light dark}
   </header>
 
   <div class="wheelbox">
-    <svg id="wheel" viewBox="-30 -30 700 700" role="img" aria-label="Roue zodiacale montrant la position des planètes" hidden></svg>
+    <svg id="wheel" viewBox="-36 -36 712 712" role="img" aria-label="Roue zodiacale montrant la position des planètes" hidden></svg>
     <svg id="sky" viewBox="0 0 640 640" role="img" aria-label="Ciel vu depuis la Terre : hauteur et direction du Soleil, de la Lune, des planètes et de quelques étoiles"></svg>
   </div>
 
@@ -287,16 +288,22 @@ input[type="date"]{color-scheme:light dark}
       <p class="hint">Molette, pincement du pavé tactile ou de l’écran pour zoomer ; Maj + glisser (souris) ou deux doigts (écran tactile) pour déplacer la vue.</p>
     </div>
 
-    <div class="grp hzg">
-      <div class="gt"><span>Fiches : constellations, étoiles, planètes</span></div>
+    <div class="grp">
+      <div class="gt"><span>Fiches : mythes, étoiles, signes, maisons, planètes</span></div>
       <div class="row">
-        <button type="button" id="figToggle" aria-pressed="true">Figures</button>
-        <select id="mythSrc" aria-label="Source des fiches (mythes et étoiles)">
+        <button type="button" id="figToggle" class="hzg" aria-pressed="true">Figures</button>
+        <select id="mythSrc" aria-label="Source des fiches">
           <option value="wikipedia" selected>Fiches : Wikipédia</option>
           <option value="none">Fiches : aucune</option>
         </select>
       </div>
-      <p class="hint">Survolez une constellation, une étoile nommée ou une planète (sur la carte ou dans la liste) pour lire sa fiche ; cliquez ou touchez pour l’épingler et ouvrir les articles Wikipédia.</p>
+      <p class="hint">Survolez une constellation, une étoile, une planète, un signe ou une maison (sur la carte ou dans la liste) pour lire sa fiche ; cliquez ou touchez pour l’épingler et ouvrir les articles Wikipédia. Sur l’horizon, les planètes affichent leur mythe ; sur la roue, leur interprétation astrologique.</p>
+    </div>
+    <div class="grp hzg">
+      <div class="gt"><label for="magLim">Magnitude limite des étoiles</label><span class="gv" id="magLabel">≤ 2,5</span></div>
+      <input type="range" id="magLim" min="-14" max="25" step="1" value="25">
+      <p class="hint">Seules les étoiles de magnitude inférieure ou égale à cette limite sont dessinées : plus la valeur est basse, plus l’étoile est brillante. La liste est complète jusqu’à 2,5 ; les étoiles plus faibles n’apparaissent qu’avec les figures.</p>
+      <p class="hint" id="magCount"></p>
     </div>
     <div class="grp" id="offGrp" hidden>
       <div class="gt"><span>Hors connexion et mises à jour</span></div>
@@ -307,14 +314,14 @@ input[type="date"]{color-scheme:light dark}
 
   <section class="listbox">
     <ul class="list" id="list"></ul>
-    <p class="note" id="noteWheel" hidden>Zodiaque tropical ; positions géocentriques à l’heure locale et au lieu choisis, calculées à partir d’éléments orbitaux simplifiés, de 1900 à 2100. Écart usuel : une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton. Le symbole ℞ et la couleur signalent un mouvement rétrograde. Sur la roue, chaque planète occupe son propre cercle ; la Terre est au centre. Les maisons astrologiques dépendent du lieu et de l’heure : l’Ascendant (AS) est le degré du zodiaque qui se lève à l’est, le Milieu du Ciel (MC) celui qui culmine au sud. Le système Placidus n’est pas défini aux latitudes polaires : l’application bascule alors sur Porphyre.</p>
-    <p class="note" id="noteMyth">Les mythes sont des résumés rédigés à partir d’articles de Wikipédia (texte sous licence CC BY-SA), intégrés à la page : elle ne peut pas interroger Wikipédia en direct. Chaque fiche renvoie vers l’article d’origine. Pour les étoiles et les planètes, les liens passent par la recherche de Wikipédia, qui ouvre directement l’article lorsque son titre existe.</p>
-    <p class="note" id="noteSky">Le zénith est au centre et l’horizon en bordure. La carte se lit comme un plan posé à plat : le haut correspond à la direction du regard, la gauche et la droite à votre gauche et votre droite (par défaut, nord en haut et est à droite). Le bouton Boussole utilise les capteurs de l’appareil (position portrait, appareil à plat ou dressé) : il indique le nord magnétique, sans correction de déclinaison, et peut être indisponible selon le navigateur ou l’intégration de la page. L’heure est celle du lieu, heure d’été comprise ; le défilement du temps fait avancer la date à heure constante. Le trait pointillé est l’écliptique, découpé en constellations zodiacales par de petits traits (limites de l’Union astronomique internationale ; treize avec Ophiuchus), dont les noms sont inscrits à côté. Les étoiles repères sont une trentaine ; les constellations zodiacales, ainsi qu’Orion, Cassiopée, les Pléiades, la Grande Ourse et la Petite Ourse, sont reliées par des traits schématiques entre leurs principales étoiles (bouton Figures). La réfraction atmosphérique est ignorée ; la parallaxe de la Lune n’est corrigée qu’en hauteur.</p>
+    <p class="note" id="noteWheel" hidden>Zodiaque tropical ; positions géocentriques à l’heure locale et au lieu choisis, calculées à partir d’éléments orbitaux simplifiés, de 1900 à 2100. Écart usuel : une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton. Le symbole ℞ et la couleur signalent un mouvement rétrograde. Sur la roue, chaque planète occupe son propre cercle ; la Terre est au centre. Les maisons astrologiques dépendent du lieu et de l’heure : l’Ascendant (AS) est le degré du zodiaque qui se lève à l’est, le Milieu du Ciel (MC) celui qui culmine au sud. Le système Placidus n’est pas défini aux latitudes polaires : l’application bascule alors sur Porphyre. Survolez (ou touchez) un signe, une maison ou une planète pour lire son interprétation astrologique, résumée d’articles de Wikipédia ; l’astrologie est un système symbolique, sans validité scientifique établie.</p>
+    <p class="note" id="noteMyth">Les mythes et les interprétations sont des résumés rédigés à partir d’articles de Wikipédia (texte sous licence CC BY-SA), intégrés à la page : elle ne peut pas interroger Wikipédia en direct. Chaque fiche renvoie vers l’article d’origine. Pour les étoiles et les planètes, les liens passent par la recherche de Wikipédia, qui ouvre directement l’article lorsque son titre existe.</p>
+    <p class="note" id="noteSky">Le zénith est au centre et l’horizon en bordure. La carte se lit comme un plan posé à plat : le haut correspond à la direction du regard, la gauche et la droite à votre gauche et votre droite (par défaut, nord en haut et est à droite). Le bouton Boussole utilise les capteurs de l’appareil (position portrait, appareil à plat ou dressé) : il indique le nord magnétique, sans correction de déclinaison, et peut être indisponible selon le navigateur ou l’intégration de la page. L’heure est celle du lieu, heure d’été comprise ; le défilement du temps fait avancer la date à heure constante. Le trait pointillé est l’écliptique, découpé en constellations zodiacales par de petits traits (limites de l’Union astronomique internationale ; treize avec Ophiuchus), dont les noms sont inscrits à côté. Les étoiles affichées dépendent de la magnitude limite (liste complète jusqu’à la magnitude 2,5) ; les constellations zodiacales, ainsi qu’Orion, Cassiopée, les Pléiades, la Grande Ourse et la Petite Ourse, sont reliées par des traits schématiques entre leurs principales étoiles (bouton Figures). La réfraction atmosphérique est ignorée ; la parallaxe de la Lune n’est corrigée qu’en hauteur.</p>
     <details class="about" id="about">
       <summary>À propos et crédits</summary>
       <p><strong>À propos.</strong> Space Ephemerides est une carte du ciel vue depuis la Terre : positions du Soleil, de la Lune et des planètes, étoiles repères, constellations et leurs mythes. Projet personnel, non professionnel. Tous les calculs sont faits sur votre appareil.</p>
-      <p><strong>Licences.</strong> Le code est publié sans licence : tous droits réservés, à titre personnel. Les fiches (mythes des constellations et des planètes, informations sur les étoiles) sont des résumés reformulés et abrégés à partir d’articles de Wikipédia en français, disponibles sous licence Creative Commons Attribution – Partage dans les mêmes conditions (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA</a>). Ils sont redistribués sous la même licence. Chaque fiche épinglée renvoie vers l’article d’origine, dont l’historique donne la liste des auteurs.</p>
-      <p><strong>Sources des calculs et des données.</strong> Positions du Soleil, de la Lune et des planètes : éléments orbitaux simplifiés de Paul Schlyter (« How to compute planetary positions ») ; pour Pluton, éléments orbitaux moyens approchés. Limites des constellations zodiacales : longitudes écliptiques des passages du Soleil aux limites de l’Union astronomique internationale, relevées par Guy Ottewell (Universal Workshop) et corrigées de la précession. Maisons astrologiques : formules classiques de l’Ascendant, du Milieu du Ciel et des systèmes Placidus (par itération), Porphyre, signes entiers et maisons égales, appliquées au temps sidéral et à l’obliquité calculés par l’application. Coordonnées des étoiles : valeurs saisies à la main, non issues d’un catalogue, puis contrôlées visuellement.</p>
+      <p><strong>Licences.</strong> Le code est publié sans licence : tous droits réservés, à titre personnel. Les fiches (mythes des constellations et des planètes, informations sur les étoiles, interprétations astrologiques des signes, des maisons et des planètes) sont des résumés reformulés et abrégés à partir d’articles de Wikipédia en français, disponibles sous licence Creative Commons Attribution – Partage dans les mêmes conditions (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA</a>). Ils sont redistribués sous la même licence. Chaque fiche épinglée renvoie vers l’article d’origine, dont l’historique donne la liste des auteurs.</p>
+      <p><strong>Sources des calculs et des données.</strong> Positions du Soleil, de la Lune et des planètes : éléments orbitaux simplifiés de Paul Schlyter (« How to compute planetary positions ») ; pour Pluton, éléments orbitaux moyens approchés. Limites des constellations zodiacales : longitudes écliptiques des passages du Soleil aux limites de l’Union astronomique internationale, relevées par Guy Ottewell (Universal Workshop) et corrigées de la précession. Maisons astrologiques : formules classiques de l’Ascendant, du Milieu du Ciel et des systèmes Placidus (par itération), Porphyre, signes entiers et maisons égales, appliquées au temps sidéral et à l’obliquité calculés par l’application. Interprétations astrologiques : résumés des articles Wikipédia « Signe du zodiaque », « Maison (astrologie) » et « Symbolisme astrologique ». Étoiles : liste des étoiles de magnitude inférieure ou égale à 2,5 établie d’après la liste « List of brightest stars » de Wikipédia ; coordonnées (J2000) saisies à la main, non issues d’un catalogue, contrôlées visuellement, et neuf d’entre elles recoupées avec Wikipédia.</p>
       <p><strong>Précision.</strong> Les positions sont approchées : écart usuel d’une fraction de degré jusqu’à Neptune, environ 0,5° pour la Lune, un degré ou davantage pour Pluton ; la réfraction atmosphérique est ignorée. Les figures des constellations sont schématiques. Cette carte n’est pas destinée à la navigation ni aux observations de précision.</p>
     </details>
   </section>
@@ -463,31 +470,74 @@ const STARS_RAW = [
   ['Procyon', 7, 39, 18.1, 1, 5, 13, 30, 0.34],
   ['Achernar', 1, 37, 42.8, -1, 57, 14, 12, 0.46],
   ['Bételgeuse', 5, 55, 10.3, 1, 7, 24, 25, 0.5],
-  ['Altaïr', 19, 50, 47.0, 1, 8, 52, 6, 0.77],
-  ['Aldébaran', 4, 35, 55.2, 1, 16, 30, 33, 0.85],
+  ['Altaïr', 19, 50, 47.0, 1, 8, 52, 6, 0.76],
+  ['Aldébaran', 4, 35, 55.2, 1, 16, 30, 33, 0.86],
   ['Spica', 13, 25, 11.6, -1, 11, 9, 41, 0.97],
-  ['Antarès', 16, 29, 24.5, -1, 26, 25, 55, 1.06],
+  ['Antarès', 16, 29, 24.5, -1, 26, 25, 55, 0.96],
   ['Pollux', 7, 45, 18.9, 1, 28, 1, 34, 1.14],
   ['Fomalhaut', 22, 57, 39.0, -1, 29, 37, 20, 1.16],
   ['Deneb', 20, 41, 25.9, 1, 45, 16, 49, 1.25],
-  ['Régulus', 10, 8, 22.3, 1, 11, 58, 2, 1.35],
+  ['Régulus', 10, 8, 22.3, 1, 11, 58, 2, 1.39],
   ['Castor', 7, 34, 36.0, 1, 31, 53, 18, 1.58],
   ['Bellatrix', 5, 25, 7.9, 1, 6, 20, 59, 1.64],
   ['Alnilam', 5, 36, 12.8, -1, 1, 12, 7, 1.69],
-  ['Alnitak', 5, 40, 45.5, -1, 1, 56, 34, 1.74],
-  ['Alioth', 12, 54, 1.7, 1, 55, 57, 35, 1.76],
+  ['Alnitak', 5, 40, 45.5, -1, 1, 56, 34, 1.77],
+  ['Alioth', 12, 54, 1.7, 1, 55, 57, 35, 1.77],
   ['Dubhe', 11, 3, 43.7, 1, 61, 45, 3, 1.79],
-  ['Mirfak', 3, 24, 19.4, 1, 49, 51, 40, 1.79],
+  ['Mirfak', 3, 24, 19.4, 1, 49, 51, 40, 1.82],
   ['Alkaid', 13, 47, 32.4, 1, 49, 18, 48, 1.86],
   ['Polaris', 2, 31, 49.1, 1, 89, 15, 51, 1.98],
   ['Mizar', 13, 23, 55.5, 1, 54, 55, 31, 2.04],
   ['Mintaka', 5, 32, 0.4, -1, 0, 17, 57, 2.23],
-  ['Schedar', 0, 40, 30.4, 1, 56, 32, 14, 2.23],
-  ['Caph', 0, 9, 10.7, 1, 59, 8, 59, 2.27],
+  ['Schedar', 0, 40, 30.4, 1, 56, 32, 14, 2.24],
+  ['Caph', 0, 9, 10.7, 1, 59, 8, 59, 2.28],
   ['Gamma Cassiopeiae', 0, 56, 42.5, 1, 60, 43, 0, 2.47],
   ['Merak', 11, 1, 50.5, 1, 56, 22, 57, 2.37],
   ['Phecda', 11, 53, 49.8, 1, 53, 41, 41, 2.44],
   ['Ruchbah', 1, 25, 48.9, 1, 60, 14, 7, 2.68],
+  ['Hadar', 14, 3, 49.4, -1, 60, 22, 22.9, 0.61],
+  ['Acrux', 12, 26, 35.9, -1, 63, 5, 56.7, 0.76],
+  ['Mimosa', 12, 47, 43.27, -1, 59, 41, 19.6, 1.25],
+  ['Adhara', 6, 58, 37.55, -1, 28, 58, 19.5, 1.50],
+  ['Gacrux', 12, 31, 9.96, -1, 57, 6, 47.6, 1.64],
+  ['Miaplacidus', 9, 13, 11.98, -1, 69, 43, 1.9, 1.69],
+  ['Alnair', 22, 8, 13.98, -1, 46, 57, 39.5, 1.74],
+  ['Wezen', 7, 8, 23.48, -1, 26, 23, 35.5, 1.82],
+  ['Regor', 8, 9, 31.95, -1, 47, 20, 11.7, 1.83],
+  ['Avior', 8, 22, 30.84, -1, 59, 30, 34.1, 1.86],
+  ['Menkalinan', 5, 59, 31.72, 1, 44, 56, 50.8, 1.90],
+  ['Atria', 16, 48, 39.89, -1, 69, 1, 39.8, 1.91],
+  ['Peacock', 20, 25, 38.86, -1, 56, 44, 6.3, 1.94],
+  ['Alsephina', 8, 44, 42.23, -1, 54, 42, 31.7, 1.96],
+  ['Mirzam', 6, 22, 41.99, -1, 17, 57, 21.3, 1.98],
+  ['Alphard', 9, 27, 35.24, -1, 8, 39, 30.9, 2.00],
+  ['Diphda', 0, 43, 35.37, -1, 17, 59, 11.8, 2.02],
+  ['Menkent', 14, 6, 40.95, -1, 36, 22, 11.8, 2.06],
+  ['Alpheratz', 0, 8, 23.26, 1, 29, 5, 25.6, 2.06],
+  ['Mirach', 1, 9, 43.92, 1, 35, 37, 14.0, 2.07],
+  ['Algol', 3, 8, 10.13, 1, 40, 57, 20.3, 2.12],
+  ['Tiaki', 22, 42, 40.05, -1, 46, 53, 4.5, 2.15],
+  ['Muhlifain', 12, 41, 30.86, -1, 48, 57, 35.5, 2.17],
+  ['Aspidiske', 9, 17, 5.41, -1, 59, 16, 30.8, 2.21],
+  ['Suhail', 9, 7, 59.76, -1, 43, 25, 57.3, 2.21],
+  ['Alphecca', 15, 34, 41.27, 1, 26, 42, 52.9, 2.23],
+  ['Sadr', 20, 22, 13.7, 1, 40, 15, 24.0, 2.23],
+  ['Eltanin', 17, 56, 36.37, 1, 51, 29, 20.0, 2.23],
+  ['Naos', 8, 3, 35.05, -1, 40, 0, 11.3, 2.25],
+  ['Almach', 2, 3, 53.95, 1, 42, 19, 47.0, 2.26],
+  ['Izar', 14, 44, 59.22, 1, 27, 4, 27.2, 2.29],
+  ['Uridim', 14, 41, 55.76, -1, 47, 23, 17.5, 2.30],
+  ['ε Centauri', 13, 39, 53.26, -1, 53, 27, 59.0, 2.30],
+  ['η Centauri', 14, 35, 30.42, -1, 42, 9, 28.2, 2.35],
+  ['Ankaa', 0, 26, 17.05, -1, 42, 18, 21.6, 2.38],
+  ['Enif', 21, 44, 11.16, 1, 9, 52, 30.0, 2.40],
+  ['Scheat', 23, 3, 46.46, 1, 28, 4, 58.0, 2.42],
+  ['Aludra', 7, 24, 5.7, -1, 29, 18, 11.2, 2.45],
+  ['Alderamin', 21, 18, 34.77, 1, 62, 35, 8.1, 2.46],
+  ['Markeb', 9, 22, 6.85, -1, 55, 0, 38.4, 2.47],
+  ['Markab', 23, 4, 45.65, 1, 15, 12, 18.9, 2.48],
+  ['Aljanah', 20, 46, 12.68, 1, 33, 58, 12.9, 2.48],
+  ['Acrab', 16, 5, 26.23, -1, 19, 48, 19.6, 2.50],
   ['Megrez', 12, 15, 25.6, 1, 57, 1, 57, 3.31]
 ];
 
@@ -513,19 +563,19 @@ const FIG_RAW = [
    l:[[3, 0], [0, 1], [1, 2]] },
  { n:"Taureau", s:[[68.9800,16.5092,0.85,"Aldébaran",1],[81.5729,28.6075,1.65,"Elnath",0],[84.4113,21.1425,3.0,"",0],[64.9483,15.6278,3.65,"",0],[67.1654,15.8708,3.4,"",0],[67.1542,19.1806,3.53,"",0],[60.1700,12.4903,3.47,"",0],[56.8713,24.1053,2.87,"Alcyone",0]],
    l:[[3, 4], [4, 0], [3, 5], [5, 1], [0, 2], [3, 6]] },
- { n:"Gémeaux", s:[[113.6500,31.8883,1.58,"Castor",1],[116.3287,28.0261,1.14,"Pollux",1],[99.4279,16.3992,1.93,"Alhena",0],[100.9829,25.1311,3.0,"",0],[95.7400,22.5136,2.88,"",0],[93.7196,22.5067,3.3,"",0],[110.0308,21.9822,3.5,"",0],[106.0271,20.5703,3.9,"",0],[101.3225,12.8956,3.36,"",0]],
+ { n:"Gémeaux", s:[[113.6500,31.8883,1.58,"Castor",1],[116.3287,28.0261,1.14,"Pollux",1],[99.4279,16.3992,1.92,"Alhena",0],[100.9829,25.1311,3.0,"",0],[95.7400,22.5136,2.88,"",0],[93.7196,22.5067,3.3,"",0],[110.0308,21.9822,3.5,"",0],[106.0271,20.5703,3.9,"",0],[101.3225,12.8956,3.36,"",0]],
    l:[[0, 3], [3, 4], [4, 5], [1, 6], [6, 8], [3, 7], [7, 2], [6, 7]] },
  { n:"Cancer", s:[[134.6217,11.8578,4.25,"",0],[124.1288,9.1856,3.5,"",0],[131.1712,18.1542,3.94,"",0],[130.8217,21.4686,4.66,"",0],[131.6742,28.7600,4.0,"",0]],
    l:[[0, 2], [1, 2], [2, 3], [3, 4]] },
- { n:"Lion", s:[[152.0929,11.9672,1.35,"Régulus",1],[177.2650,14.5719,2.14,"Denebola",0],[154.9933,19.8417,2.0,"",0],[168.5271,20.5236,2.56,"",0],[168.5600,15.4294,3.3,"",0],[154.1725,23.4172,3.4,"",0],[148.1908,26.0069,3.9,"",0],[146.4629,23.7742,2.98,"",0],[151.8329,16.7628,3.5,"",0]],
+ { n:"Lion", s:[[152.0929,11.9672,1.35,"Régulus",1],[177.2650,14.5719,2.11,"Denebola",0],[154.9933,19.8417,2.08,"Algieba",0],[168.5271,20.5236,2.56,"Zosma",0],[168.5600,15.4294,3.3,"",0],[154.1725,23.4172,3.4,"",0],[148.1908,26.0069,3.9,"",0],[146.4629,23.7742,2.98,"",0],[151.8329,16.7628,3.5,"",0]],
    l:[[0, 8], [8, 2], [2, 5], [5, 6], [6, 7], [2, 3], [3, 1], [3, 4], [4, 1], [4, 0]] },
  { n:"Vierge", s:[[201.2983,-11.1614,0.97,"Spica",1],[190.4150,-1.4494,2.74,"Porrima",0],[195.5442,10.9592,2.83,"Vindemiatrix",0],[177.6738,1.7647,3.6,"",0],[203.6733,-0.5958,3.37,"",0],[184.9767,-0.6667,3.89,"",0],[193.9008,3.3975,3.38,"",0],[214.0037,-6.0006,4.08,"",0]],
    l:[[2, 6], [6, 1], [1, 5], [5, 3], [1, 4], [4, 0], [4, 7]] },
  { n:"Balance", s:[[229.2517,-9.3831,2.61,"",0],[222.7196,-16.0417,2.75,"",0],[233.8817,-14.7897,3.91,"",0],[226.0175,-25.2819,3.29,"",0],[234.2558,-28.1303,3.6,"",0],[234.6642,-29.7778,3.66,"",0]],
    l:[[1, 0], [0, 2], [1, 3], [2, 4], [4, 5]] },
- { n:"Scorpion", s:[[247.3521,-26.4319,1.06,"Antarès",1],[241.3592,-19.8053,2.62,"",0],[240.0833,-22.6217,2.32,"",0],[239.7129,-26.1139,2.89,"",0],[245.2971,-25.5928,2.89,"",0],[248.9704,-28.2161,2.82,"",0],[252.5408,-34.2933,2.29,"",0],[252.9675,-38.0472,3.0,"",0],[253.6462,-42.3611,3.6,"",0],[258.0375,-43.2392,3.33,"",0],[264.3296,-42.9978,1.87,"",0],[266.8963,-40.1269,3.0,"",0],[265.6221,-39.0300,2.41,"",0],[263.4021,-37.1039,1.62,"Shaula",0],[262.6908,-37.2958,2.7,"",0]],
+ { n:"Scorpion", s:[[247.3521,-26.4319,1.06,"Antarès",1],[241.3592,-19.8053,2.62,"",0],[240.0833,-22.6217,2.31,"Dschubba",0],[239.7129,-26.1139,2.89,"",0],[245.2971,-25.5928,2.89,"",0],[248.9704,-28.2161,2.82,"",0],[252.5408,-34.2933,2.31,"Larawag",0],[252.9675,-38.0472,3.0,"",0],[253.6462,-42.3611,3.6,"",0],[258.0375,-43.2392,3.33,"",0],[264.3296,-42.9978,1.84,"Sargas",0],[266.8963,-40.1269,3.0,"",0],[265.6221,-39.0300,2.39,"Girtab",0],[263.4021,-37.1039,1.63,"Shaula",0],[262.6908,-37.2958,2.7,"",0]],
    l:[[1, 2], [2, 3], [2, 4], [4, 0], [0, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14]] },
- { n:"Sagittaire", s:[[276.0429,-34.3847,1.85,"Kaus Australis",0],[275.2483,-29.8281,2.7,"",0],[276.9925,-25.4217,2.81,"",0],[283.8163,-26.2967,2.02,"Nunki",0],[285.6529,-29.8800,2.6,"",0],[271.4521,-30.4242,2.99,"",0],[281.4154,-26.9908,3.17,"",0],[286.7350,-27.6706,3.32,"",0],[287.4408,-21.0236,2.89,"",0]],
+ { n:"Sagittaire", s:[[276.0429,-34.3847,1.85,"Kaus Australis",0],[275.2483,-29.8281,2.7,"",0],[276.9925,-25.4217,2.81,"",0],[283.8163,-26.2967,2.05,"Nunki",0],[285.6529,-29.8800,2.6,"Ascella",0],[271.4521,-30.4242,2.99,"",0],[281.4154,-26.9908,3.17,"",0],[286.7350,-27.6706,3.32,"",0],[287.4408,-21.0236,2.89,"",0]],
    l:[[5, 1], [1, 2], [2, 6], [6, 3], [3, 7], [7, 4], [4, 0], [0, 1], [6, 4], [2, 8]] },
  { n:"Capricorne", s:[[326.7600,-16.1272,2.85,"",0],[305.2529,-14.7814,3.05,"",0],[304.5137,-12.5447,3.57,"",0],[325.0229,-16.6622,3.68,"",0],[311.5237,-25.2708,4.1,"",0],[312.9554,-26.9189,4.1,"",0],[316.4871,-17.2328,4.07,"",0],[321.6667,-22.4114,3.74,"",0]],
    l:[[2, 1], [1, 6], [6, 3], [3, 0], [0, 7], [7, 5], [5, 4], [4, 1]] },
@@ -533,7 +583,7 @@ const FIG_RAW = [
    l:[[7, 0], [0, 1], [1, 2], [2, 4], [4, 5], [4, 6], [6, 2], [5, 8], [8, 9], [9, 3]] },
  { n:"Poissons", s:[[30.5117,2.7636,3.82,"Alrescha",0],[22.8708,15.3458,3.62,"",0],[349.2912,3.2822,3.69,"",0],[345.9692,3.8200,4.5,"",0],[15.7367,7.8903,4.28,"",0],[12.1704,7.5850,4.44,"",0],[359.8279,6.8644,4.01,"",0],[354.9875,5.6264,4.13,"",0],[351.9917,6.3789,4.28,"",0],[26.3483,9.1578,4.26,"",0],[22.5463,6.1439,4.84,"",0]],
    l:[[0, 10], [10, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 2], [2, 3], [0, 9], [9, 1]] },
- { n:"Ophiuchus", s:[[263.7337,12.5600,2.08,"Rasalhague",0],[265.8683,4.5672,2.77,"",0],[257.5946,-15.7250,2.43,"",0],[243.5863,-3.6944,2.74,"",0],[244.5804,-4.6925,3.24,"",0],[249.2896,-10.5672,2.56,"",0],[254.4171,9.3750,3.2,"",0],[247.7283,1.9839,3.82,"",0],[269.7567,-9.7736,3.3,"",0],[266.8963,2.7072,3.75,"",0]],
+ { n:"Ophiuchus", s:[[263.7337,12.5600,2.07,"Rasalhague",0],[265.8683,4.5672,2.77,"",0],[257.5946,-15.7250,2.43,"Sabik",0],[243.5863,-3.6944,2.74,"",0],[244.5804,-4.6925,3.24,"",0],[249.2896,-10.5672,2.56,"Han",0],[254.4171,9.3750,3.2,"",0],[247.7283,1.9839,3.82,"",0],[269.7567,-9.7736,3.3,"",0],[266.8963,2.7072,3.75,"",0]],
    l:[[0, 1], [1, 9], [9, 8], [8, 2], [2, 5], [5, 4], [4, 3], [3, 7], [7, 6], [6, 0]] }
 ];
 function eqToEcl(ra, dec) {
@@ -550,7 +600,7 @@ const FIGS = FIG_RAW.map(f => ({
 
 /* Figures d'autres constellations et amas : mêmes conventions que FIG_RAW */
 const XFIG_RAW = [
- { n:"Orion", s:[[88.7929,7.4069,0.5,"Bételgeuse",1],[81.2829,6.3497,1.64,"Bellatrix",1],[83.7846,9.9342,3.54,"Meissa",0],[85.1896,-1.9428,1.74,"Alnitak",1],[84.0533,-1.2019,1.69,"Alnilam",1],[83.0017,-0.2992,2.23,"Mintaka",1],[86.9392,-9.6697,2.06,"Saiph",0],[78.6346,-8.2017,0.13,"Rigel",1]],
+ { n:"Orion", s:[[88.7929,7.4069,0.5,"Bételgeuse",1],[81.2829,6.3497,1.64,"Bellatrix",1],[83.7846,9.9342,3.54,"Meissa",0],[85.1896,-1.9428,1.74,"Alnitak",1],[84.0533,-1.2019,1.69,"Alnilam",1],[83.0017,-0.2992,2.23,"Mintaka",1],[86.9392,-9.6697,2.09,"Saiph",0],[78.6346,-8.2017,0.13,"Rigel",1]],
    l:[[2, 0], [2, 1], [0, 3], [1, 5], [3, 4], [4, 5], [3, 6], [5, 7]] },
  { n:"Cassiopée", s:[[2.2946,59.1497,2.27,"Caph",1],[10.1267,56.5372,2.23,"Schedar",1],[14.1771,60.7167,2.47,"Gamma Cassiopeiae",1],[21.4537,60.2353,2.68,"Ruchbah",1],[28.5987,63.6703,3.37,"Segin",0]],
    l:[[0, 1], [1, 2], [2, 3], [3, 4]] },
@@ -674,14 +724,16 @@ function houseOf(lon, cusps) {
      tout tableau indexé par constellation (mythes, zones sensibles, surbrillance) reste ainsi cohérent. */
   FIGS.sort((a, b) => CONST.findIndex(c => c[0] === a.n) - CONST.findIndex(c => c[0] === b.n));
 
-  /* Contenu par défaut, intégré pour fonctionner sans connexion. Il est remplacé par content.json
-     lorsque ce fichier est disponible (voir LISEZMOI.md). */
-  const DEFAULT_CONTENT = {"schema": 1, "version": "2026-09-19.5", "updated": "2026-09-19", "sources": {"wikipedia": {"name": "Wikipédia (français)", "constellations": [{"t": "Figure d’origine mésopotamienne, d’abord « le Travailleur journalier », épithète de Dumuzi (Tammuz), berger et amant d’Ishtar. Les Grecs y voient Chrysomallos, le bélier volant à la toison d’or, chevauché par Phrixos et Hellé : selon Apollodore, Hermès l’envoie les sauver d’un sacrifice, à la demande de leur mère Néphélé. Cette toison inspirera l’expédition de Jason et des Argonautes.", "u": "https://fr.wikipedia.org/wiki/B%C3%A9lier_(constellation)", "a": "Bélier (constellation)"}, {"t": "Constellation très ancienne. En Mésopotamie, c’est le Taureau céleste que le dieu Anu envoie ravager Uruk, à la demande d’Ishtar, dans l’épopée de Gilgamesh. Chez les Grecs, il représente soit Zeus changé en taureau pour enlever Europe, soit le taureau blanc envoyé par Poséidon au roi Minos.", "u": "https://fr.wikipedia.org/wiki/Taureau_(constellation)", "a": "Taureau (constellation)"}, {"t": "Selon Ératosthène, ce sont Castor et Pollux, les Dioscures, fils de Léda et frères d’Hélène de Troie. Séduite par Zeus changé en cygne, Léda pondit deux œufs : de l’un, fécondé par son époux Tyndare, naquirent Castor et Clytemnestre, mortels ; de l’autre, Pollux et Hélène, divins. Protecteurs des marins et des athlètes, ils héritent d’une figure mésopotamienne plus ancienne.", "u": "https://fr.wikipedia.org/wiki/G%C3%A9meaux", "a": "Gémeaux"}, {"t": "Chez les Grecs, c’est le crabe envoyé par Héra pour gêner Héraclès pendant son combat contre l’Hydre de Lerne ; le héros l’écrase. Selon les versions, Héra le place ensuite au ciel. En Mésopotamie, la figure s’appelait déjà « le Crabe ».", "u": "https://fr.wikipedia.org/wiki/Cancer_(constellation)", "a": "Cancer (constellation)"}, {"t": "Le lion de Némée, monstre à la peau invulnérable, est tué par Héraclès lors du premier de ses douze travaux : les flèches rebondissent sur son cuir, le héros l’affronte donc à la massue, puis l’étouffe. Zeus place ensuite le fauve parmi les constellations.", "u": "https://fr.wikipedia.org/wiki/Lion_de_N%C3%A9m%C3%A9e", "a": "Lion de Némée"}, {"t": "Figure très ancienne à l’identité incertaine : déesse à l’épi d’orge en Mésopotamie, puis Isis, Déméter, Perséphone… Chez les Grecs, c’est souvent Astrée (ou Thémis), déesse de la Justice, qui aurait quitté la Terre par dégoût de la brutalité des hommes, d’où l’épi et la Balance qui l’accompagnent. Autre version : Érigone, que Zeus place au ciel pour sa piété filiale après la mort de son père Icarios.", "u": "https://fr.wikipedia.org/wiki/Vierge_(constellation)", "a": "Vierge (constellation)"}, {"t": "Longtemps considérée comme les pinces du Scorpion, elle devient une constellation à part entière à l’époque romaine. Dans la mythologie classique, c’est la balance d’Astrée, déesse de la Justice, figurée par la Vierge voisine. En Mésopotamie, la balance symbolisait Kittu et Mišāru, ministres du dieu-soleil Šamaš : le Droit et l’Équité.", "u": "https://fr.wikipedia.org/wiki/Balance_(constellation)", "a": "Balance (constellation)"}, {"t": "Constellation d’origine mésopotamienne, liée à Išḫara, « la Dame des régions inhabitées ». Chez les Grecs, c’est le scorpion que les dieux (Artémis, Apollon, Héra ou Gaïa selon les sources) envoient contre le chasseur Orion. Les deux sont placés aux extrémités opposées du ciel : quand le Scorpion se lève, Orion se couche.", "u": "https://fr.wikipedia.org/wiki/Scorpion_(constellation)", "a": "Scorpion (constellation)"}, {"t": "Le « porteur de serpent » représenterait Asclépios, élève du centaure Chiron et médecin : selon la légende, il aurait tué un serpent, puis vu un autre serpent le ranimer avec des herbes. Le Soleil le traverse du 29 novembre au 18 décembre, mais il ne fait pas partie des douze signes du zodiaque.", "u": "https://fr.wikipedia.org/wiki/Ophiuchus", "a": "Ophiuchus"}, {"t": "Il prolonge Pabilsag, archer-centaure ailé de Mésopotamie, à deux visages. Ératosthène y voit Crotos, fils d’Euphémé, à qui les Muses apprirent à tirer à l’arc pour se nourrir des bêtes sauvages ; d’autres traditions grecques y reconnaissent un centaure, sans qu’on s’accorde sur son identité.", "u": "https://fr.wikipedia.org/wiki/Sagittaire_(constellation)", "a": "Sagittaire (constellation)"}, {"t": "Depuis la Mésopotamie, c’est un hybride de chèvre et de poisson (« la Carpe-chèvre »), emblème du dieu Enki. Les Grecs y voient parfois Amalthée, la chèvre qui nourrit Zeus enfant, ou Pan (ou Dionysos) fuyant le monstre Typhon : changé en chèvre, il plonge dans l’eau, mais seul l’arrière de son corps devient poisson.", "u": "https://fr.wikipedia.org/wiki/Capricorne_(constellation)", "a": "Capricorne (constellation)"}, {"t": "Appelé « le Géant » en Mésopotamie. Le mythe grec le plus courant y voit Ganymède, jeune berger que Zeus, changé en aigle, enlève pour qu’il devienne l’échanson des dieux à la place d’Hébé, ce qui provoque la jalousie d’Héra. Zeus l’élève ensuite au ciel.", "u": "https://fr.wikipedia.org/wiki/Verseau", "a": "Verseau"}, {"t": "Création mésopotamienne, liée à des déesses tutélaires du Tigre et de l’Euphrate. Chez les Grecs, ce sont Aphrodite et Éros (ou Thétis et Thérys selon les versions) qui, poursuivis par le monstre Typhon, se transforment en poissons pour s’enfuir dans un fleuve.", "u": "https://fr.wikipedia.org/wiki/Poissons_(constellation)", "a": "Poissons (constellation)"}, {"t": "Chasseur géant de la mythologie grecque, réputé pour sa beauté et sa violence. La légende raconte que Zeus le change en constellation. Chez Homère, Sirius est son chien ; chez Hésiode, il poursuit les Pléiades. Dans l’une des versions rapportées par Hygin, il meurt piqué par un scorpion : le Scorpion est alors placé lui aussi au ciel, à l’opposé d’Orion.", "u": "https://fr.wikipedia.org/wiki/Orion_(mythologie)", "a": "Orion (mythologie)"}, {"t": "Reine d’Éthiopie, épouse de Céphée et mère d’Andromède, dans le mythe de Persée et d’Andromède. Vaniteuse, elle se vante de sa beauté ; sa fille est exposée à un monstre marin avant d’être sauvée par Persée. Pour punir son orgueil, les dieux la condamnent à tourner autour du pôle Nord, enchaînée à son trône, parfois la tête en bas.", "u": "https://fr.wikipedia.org/wiki/Cassiop%C3%A9e_(constellation)", "a": "Cassiopée (constellation)"}, {"t": "Amas d’étoiles du Taureau. Pour les Grecs, ce sont sept sœurs, filles du Titan Atlas et de Pléioné : Astérope, Mérope, Électre, Maïa, Taygète, Célaéno et Alcyone. Dans le mythe d’Orion, elles fuient le chasseur qui les poursuit ; changées en étoiles, elles restent poursuivies par Orion dans le ciel. Leur lever et leur coucher réglaient la moisson, le labour et la navigation. On n’en distingue souvent que six à l’œil nu.", "u": "https://fr.wikipedia.org/wiki/Pl%C3%A9iades_(astronomie)", "a": "Pléiades (astronomie)"}, {"t": "Selon Ératosthène, c’est Callisto, nymphe d’Arcadie, fille de Lycaon et compagne d’Artémis. Aimée de Zeus, elle est changée en ourse (par Artémis ou par Héra selon les versions) et met au monde Arcas. Pour les soustraire aux chasseurs, Zeus les transforme en constellations : Callisto en Grande Ourse, Arcas en Petite Ourse, qui tournent sans fin autour du pôle sans jamais se reposer sous la mer.", "u": "https://fr.wikipedia.org/wiki/Grande_Ourse", "a": "Grande Ourse"}, {"t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.", "u": "https://fr.wikipedia.org/wiki/Petite_Ourse", "a": "Petite Ourse"}], "planets": [{"t": "Les Grecs le personnifient en Hélios, Titan fils d’Hypérion et de Théia, frère de Séléné (la Lune) et d’Éos (l’Aurore). Chaque jour, il traverse le ciel sur son char ; son fils mortel Phaéton, qui voulut le conduire, est resté célèbre. À Rome, son équivalent est Sol, et Hélios a peu à peu été assimilé à Apollon.", "l": ["Hélios", "Soleil"]}, {"t": "Séléné, fille des Titans Hypérion et Théia et sœur d’Hélios, personnifie la Lune elle-même. On la lie souvent à Artémis et à Hécate : ensemble, elles forment une triade (pleine lune, croissant, nouvelle lune). Son mythe le plus célèbre est son amour pour le berger Endymion, à qui Zeus accorde de dormir sans fin, éternellement jeune. Les Romains l’appelaient Luna.", "l": ["Séléné", "Lune"]}, {"t": "Chez les Romains, Mercure est le dieu du commerce, assimilé à l’Hermès grec : messager des dieux, protecteur des voyageurs et des voleurs, il conduit aussi les âmes aux Enfers. La planète porte son nom pour la vitesse de son déplacement dans le ciel, et son symbole évoque le caducée d’Hermès. Les Babyloniens y voyaient Nabû, dieu du savoir.", "l": ["Mercure (planète)", "Mercure (mythologie)"]}, {"t": "Déesse romaine de l’amour, de la séduction et de la beauté, assimilée très tôt à l’Aphrodite grecque. Fille d’Ouranos chez Hésiode, elle passe à Rome pour la fille de Jupiter et de Dioné ; elle est la mère de Cupidon, qu’elle a eu avec Mars, et d’Hermaphrodite, avec Mercure. La planète, la plus brillante du ciel, lui doit sans doute son nom.", "l": ["Vénus (planète)", "Vénus (mythologie)"]}, {"t": "Dieu romain de la guerre, identifié à l’Arès grec et membre de la triade précapitoline avec Jupiter et Quirinus ; la légende en fait le père de Romulus et Rémus. Arès, fils de Zeus et d’Héra, combat avec Éris, Déimos (la Terreur) et Phobos (la Crainte) : les deux noms donnés aux lunes de la planète. Sa teinte rouge l’a associée à la guerre.", "l": ["Mars (planète)", "Mars (mythologie)"]}, {"t": "Roi des dieux et dieu du ciel dans la religion romaine ; son nom vient d’un « Père du Ciel » indo-européen et ses attributs sont la foudre et l’aigle. Les Romains l’ont assimilé au Zeus grec, dont il a repris les mythes : fils de Saturne, il le détrône. La plus grosse planète du Système solaire porte le nom du chef du panthéon, et l’Union astronomique internationale nomme ses lunes d’après les amours et les descendants du dieu.", "l": ["Jupiter (planète)", "Jupiter (mythologie)"]}, {"t": "Dieu romain du temps, des semailles et des Saturnales, fêtes du solstice d’hiver, assimilé très tôt au Titan Cronos. Dans le mythe grec, Cronos détrône son père Ouranos ; averti qu’un de ses fils le renversera, il dévore ses enfants, jusqu’à ce que Zeus, sauvé, le détrône à son tour. La planète, la plus lointaine connue des Anciens, porte son nom, et son symbole évoque la faucille du dieu.", "l": ["Saturne (planète)", "Saturne (mythologie)"]}, {"t": "Ouranos, le Ciel, est la divinité primordiale grecque qui, unie à Gaïa (la Terre), engendre la première génération des Titans ; il est le père de Cronos (Saturne) et le grand-père de Zeus (Jupiter). La planète, découverte par William Herschel le 13 mars 1781, fut d’abord baptisée par lui Georgium Sidus ; Johann Bode proposa Uranus, pour rester dans la mythologie comme les autres planètes.", "l": ["Uranus (planète)", "Ouranos (mythologie)"]}, {"t": "Neptune est le dieu romain de la mer, l’équivalent du Poséidon grec. La planète a été trouvée par le calcul : Urbain Le Verrier prédit sa position, et Johann Galle l’observe à Berlin le 23 septembre 1846 (John Couch Adams avait fait de son côté des calculs indépendants). Galle suggéra d’abord le nom de Janus ; celui de Neptune fut finalement retenu, dans la tradition des autres planètes.", "l": ["Neptune (planète)", "Neptune (mythologie)"]}, {"t": "Pluton est le dieu romain des Enfers, équivalent du Hadès grec. Découverte le 18 février 1930 par Clyde Tombaugh, la planète a reçu son nom d’une fillette de onze ans d’Oxford, Venetia Burney, passionnée de mythologie ; il plut aussi parce que ses deux premières lettres sont les initiales de Percival Lowell. Elle est classée planète naine depuis 2006.", "l": ["Pluton (planète naine)", "Hadès"]}], "stars": {"Sirius": ["α Canis Majoris", "Grand Chien", "Sirius"], "Canopus": ["α Carinae", "Carène", "Canopus (étoile)"], "Alpha Centauri": ["α Centauri", "Centaure", "Alpha Centauri"], "Arcturus": ["α Boötis", "Bouvier", "Arcturus"], "Véga": ["α Lyrae", "Lyre", "Véga"], "Capella": ["α Aurigae", "Cocher", "Capella (étoile)"], "Rigel": ["β Orionis", "Orion", "Rigel"], "Procyon": ["α Canis Minoris", "Petit Chien", "Procyon"], "Achernar": ["α Eridani", "Éridan", "Achernar"], "Bételgeuse": ["α Orionis", "Orion", "Bételgeuse"], "Altaïr": ["α Aquilae", "Aigle", "Altaïr"], "Aldébaran": ["α Tauri", "Taureau", "Aldébaran"], "Spica": ["α Virginis", "Vierge", "Spica"], "Antarès": ["α Scorpii", "Scorpion", "Antarès"], "Pollux": ["β Geminorum", "Gémeaux", "Pollux (étoile)"], "Fomalhaut": ["α Piscis Austrini", "Poisson austral", "Fomalhaut"], "Deneb": ["α Cygni", "Cygne", "Deneb"], "Régulus": ["α Leonis", "Lion", "Regulus"], "Castor": ["α Geminorum", "Gémeaux", "Castor (étoile)"], "Bellatrix": ["γ Orionis", "Orion", "Bellatrix"], "Alnilam": ["ε Orionis", "Orion", "Alnilam"], "Alnitak": ["ζ Orionis", "Orion", "Alnitak"], "Mintaka": ["δ Orionis", "Orion", "Mintaka"], "Meissa": ["λ Orionis", "Orion", "Meissa"], "Saiph": ["κ Orionis", "Orion", "Saiph"], "Alioth": ["ε Ursae Majoris", "Grande Ourse", "Alioth"], "Dubhe": ["α Ursae Majoris", "Grande Ourse", "Dubhe"], "Alkaid": ["η Ursae Majoris", "Grande Ourse", "Alkaid"], "Mizar": ["ζ Ursae Majoris", "Grande Ourse", "Mizar"], "Merak": ["β Ursae Majoris", "Grande Ourse", "Merak"], "Phecda": ["γ Ursae Majoris", "Grande Ourse", "Phecda"], "Megrez": ["δ Ursae Majoris", "Grande Ourse", "Megrez"], "Polaris": ["α Ursae Minoris", "Petite Ourse", "Étoile polaire"], "Kochab": ["β Ursae Minoris", "Petite Ourse", "Kochab"], "Pherkad": ["γ Ursae Minoris", "Petite Ourse", "Pherkad"], "Yildun": ["δ Ursae Minoris", "Petite Ourse", "Yildun"], "Mirfak": ["α Persei", "Persée", "Mirfak"], "Schedar": ["α Cassiopeiae", "Cassiopée", "Schedar"], "Caph": ["β Cassiopeiae", "Cassiopée", "Caph"], "Gamma Cassiopeiae": ["γ Cassiopeiae", "Cassiopée", "Gamma Cassiopeiae"], "Ruchbah": ["δ Cassiopeiae", "Cassiopée", "Ruchbah"], "Segin": ["ε Cassiopeiae", "Cassiopée", "Segin"], "Hamal": ["α Arietis", "Bélier", "Hamal"], "Elnath": ["β Tauri", "Taureau", "Elnath"], "Alhena": ["γ Geminorum", "Gémeaux", "Alhena"], "Porrima": ["γ Virginis", "Vierge", "Porrima"], "Vindemiatrix": ["ε Virginis", "Vierge", "Vindemiatrix"], "Shaula": ["λ Scorpii", "Scorpion", "Shaula"], "Kaus Australis": ["ε Sagittarii", "Sagittaire", "Kaus Australis"], "Nunki": ["σ Sagittarii", "Sagittaire", "Nunki"], "Alrescha": ["α Piscium", "Poissons", "Alrescha"], "Rasalhague": ["α Ophiuchi", "Ophiuchus", "Rasalhague"], "Alcyone": ["η Tauri", "Pléiades", "Alcyone"], "Atlas": ["27 Tauri", "Pléiades", "Atlas (étoile)"], "Electra": ["17 Tauri", "Pléiades", "Électre (étoile)"], "Maia": ["20 Tauri", "Pléiades", "Maïa (étoile)"], "Merope": ["23 Tauri", "Pléiades", "Mérope (étoile)"], "Taygeta": ["19 Tauri", "Pléiades", "Taygète (étoile)"], "Pleione": ["28 Tauri", "Pléiades", "Pléione (étoile)"]}}}};
+  /* Contenu par défaut, intégré pour fonctionner sans connexion. Dans la version installable, il est remplacé par
+     content.json lorsque ce fichier est disponible. */
+  const DEFAULT_CONTENT = {"schema": 1, "version": "2026-09-19.7", "updated": "2026-09-19", "sources": {"wikipedia": {"name": "Wikipédia (français)", "constellations": [{"t": "Figure d’origine mésopotamienne, d’abord « le Travailleur journalier », épithète de Dumuzi (Tammuz), berger et amant d’Ishtar. Les Grecs y voient Chrysomallos, le bélier volant à la toison d’or, chevauché par Phrixos et Hellé : selon Apollodore, Hermès l’envoie les sauver d’un sacrifice, à la demande de leur mère Néphélé. Cette toison inspirera l’expédition de Jason et des Argonautes.", "u": "https://fr.wikipedia.org/wiki/B%C3%A9lier_(constellation)", "a": "Bélier (constellation)"}, {"t": "Constellation très ancienne. En Mésopotamie, c’est le Taureau céleste que le dieu Anu envoie ravager Uruk, à la demande d’Ishtar, dans l’épopée de Gilgamesh. Chez les Grecs, il représente soit Zeus changé en taureau pour enlever Europe, soit le taureau blanc envoyé par Poséidon au roi Minos.", "u": "https://fr.wikipedia.org/wiki/Taureau_(constellation)", "a": "Taureau (constellation)"}, {"t": "Selon Ératosthène, ce sont Castor et Pollux, les Dioscures, fils de Léda et frères d’Hélène de Troie. Séduite par Zeus changé en cygne, Léda pondit deux œufs : de l’un, fécondé par son époux Tyndare, naquirent Castor et Clytemnestre, mortels ; de l’autre, Pollux et Hélène, divins. Protecteurs des marins et des athlètes, ils héritent d’une figure mésopotamienne plus ancienne.", "u": "https://fr.wikipedia.org/wiki/G%C3%A9meaux", "a": "Gémeaux"}, {"t": "Chez les Grecs, c’est le crabe envoyé par Héra pour gêner Héraclès pendant son combat contre l’Hydre de Lerne ; le héros l’écrase. Selon les versions, Héra le place ensuite au ciel. En Mésopotamie, la figure s’appelait déjà « le Crabe ».", "u": "https://fr.wikipedia.org/wiki/Cancer_(constellation)", "a": "Cancer (constellation)"}, {"t": "Le lion de Némée, monstre à la peau invulnérable, est tué par Héraclès lors du premier de ses douze travaux : les flèches rebondissent sur son cuir, le héros l’affronte donc à la massue, puis l’étouffe. Zeus place ensuite le fauve parmi les constellations.", "u": "https://fr.wikipedia.org/wiki/Lion_de_N%C3%A9m%C3%A9e", "a": "Lion de Némée"}, {"t": "Figure très ancienne à l’identité incertaine : déesse à l’épi d’orge en Mésopotamie, puis Isis, Déméter, Perséphone… Chez les Grecs, c’est souvent Astrée (ou Thémis), déesse de la Justice, qui aurait quitté la Terre par dégoût de la brutalité des hommes, d’où l’épi et la Balance qui l’accompagnent. Autre version : Érigone, que Zeus place au ciel pour sa piété filiale après la mort de son père Icarios.", "u": "https://fr.wikipedia.org/wiki/Vierge_(constellation)", "a": "Vierge (constellation)"}, {"t": "Longtemps considérée comme les pinces du Scorpion, elle devient une constellation à part entière à l’époque romaine. Dans la mythologie classique, c’est la balance d’Astrée, déesse de la Justice, figurée par la Vierge voisine. En Mésopotamie, la balance symbolisait Kittu et Mišāru, ministres du dieu-soleil Šamaš : le Droit et l’Équité.", "u": "https://fr.wikipedia.org/wiki/Balance_(constellation)", "a": "Balance (constellation)"}, {"t": "Constellation d’origine mésopotamienne, liée à Išḫara, « la Dame des régions inhabitées ». Chez les Grecs, c’est le scorpion que les dieux (Artémis, Apollon, Héra ou Gaïa selon les sources) envoient contre le chasseur Orion. Les deux sont placés aux extrémités opposées du ciel : quand le Scorpion se lève, Orion se couche.", "u": "https://fr.wikipedia.org/wiki/Scorpion_(constellation)", "a": "Scorpion (constellation)"}, {"t": "Le « porteur de serpent » représenterait Asclépios, élève du centaure Chiron et médecin : selon la légende, il aurait tué un serpent, puis vu un autre serpent le ranimer avec des herbes. Le Soleil le traverse du 29 novembre au 18 décembre, mais il ne fait pas partie des douze signes du zodiaque.", "u": "https://fr.wikipedia.org/wiki/Ophiuchus", "a": "Ophiuchus"}, {"t": "Il prolonge Pabilsag, archer-centaure ailé de Mésopotamie, à deux visages. Ératosthène y voit Crotos, fils d’Euphémé, à qui les Muses apprirent à tirer à l’arc pour se nourrir des bêtes sauvages ; d’autres traditions grecques y reconnaissent un centaure, sans qu’on s’accorde sur son identité.", "u": "https://fr.wikipedia.org/wiki/Sagittaire_(constellation)", "a": "Sagittaire (constellation)"}, {"t": "Depuis la Mésopotamie, c’est un hybride de chèvre et de poisson (« la Carpe-chèvre »), emblème du dieu Enki. Les Grecs y voient parfois Amalthée, la chèvre qui nourrit Zeus enfant, ou Pan (ou Dionysos) fuyant le monstre Typhon : changé en chèvre, il plonge dans l’eau, mais seul l’arrière de son corps devient poisson.", "u": "https://fr.wikipedia.org/wiki/Capricorne_(constellation)", "a": "Capricorne (constellation)"}, {"t": "Appelé « le Géant » en Mésopotamie. Le mythe grec le plus courant y voit Ganymède, jeune berger que Zeus, changé en aigle, enlève pour qu’il devienne l’échanson des dieux à la place d’Hébé, ce qui provoque la jalousie d’Héra. Zeus l’élève ensuite au ciel.", "u": "https://fr.wikipedia.org/wiki/Verseau", "a": "Verseau"}, {"t": "Création mésopotamienne, liée à des déesses tutélaires du Tigre et de l’Euphrate. Chez les Grecs, ce sont Aphrodite et Éros (ou Thétis et Thérys selon les versions) qui, poursuivis par le monstre Typhon, se transforment en poissons pour s’enfuir dans un fleuve.", "u": "https://fr.wikipedia.org/wiki/Poissons_(constellation)", "a": "Poissons (constellation)"}, {"t": "Chasseur géant de la mythologie grecque, réputé pour sa beauté et sa violence. La légende raconte que Zeus le change en constellation. Chez Homère, Sirius est son chien ; chez Hésiode, il poursuit les Pléiades. Dans l’une des versions rapportées par Hygin, il meurt piqué par un scorpion : le Scorpion est alors placé lui aussi au ciel, à l’opposé d’Orion.", "u": "https://fr.wikipedia.org/wiki/Orion_(mythologie)", "a": "Orion (mythologie)"}, {"t": "Reine d’Éthiopie, épouse de Céphée et mère d’Andromède, dans le mythe de Persée et d’Andromède. Vaniteuse, elle se vante de sa beauté ; sa fille est exposée à un monstre marin avant d’être sauvée par Persée. Pour punir son orgueil, les dieux la condamnent à tourner autour du pôle Nord, enchaînée à son trône, parfois la tête en bas.", "u": "https://fr.wikipedia.org/wiki/Cassiop%C3%A9e_(constellation)", "a": "Cassiopée (constellation)"}, {"t": "Amas d’étoiles du Taureau. Pour les Grecs, ce sont sept sœurs, filles du Titan Atlas et de Pléioné : Astérope, Mérope, Électre, Maïa, Taygète, Célaéno et Alcyone. Dans le mythe d’Orion, elles fuient le chasseur qui les poursuit ; changées en étoiles, elles restent poursuivies par Orion dans le ciel. Leur lever et leur coucher réglaient la moisson, le labour et la navigation. On n’en distingue souvent que six à l’œil nu.", "u": "https://fr.wikipedia.org/wiki/Pl%C3%A9iades_(astronomie)", "a": "Pléiades (astronomie)"}, {"t": "Selon Ératosthène, c’est Callisto, nymphe d’Arcadie, fille de Lycaon et compagne d’Artémis. Aimée de Zeus, elle est changée en ourse (par Artémis ou par Héra selon les versions) et met au monde Arcas. Pour les soustraire aux chasseurs, Zeus les transforme en constellations : Callisto en Grande Ourse, Arcas en Petite Ourse, qui tournent sans fin autour du pôle sans jamais se reposer sous la mer.", "u": "https://fr.wikipedia.org/wiki/Grande_Ourse", "a": "Grande Ourse"}, {"t": "Dans la tradition rapportée par Ératosthène, c’est Arcas, fils de Callisto, changé en constellation avec sa mère pour échapper aux chasseurs ; les deux Ourses tournent autour du pôle Nord. Les Grecs l’appelaient aussi Cynosura, « la queue du chien », et les marins phéniciens s’en servaient pour se guider. Polaris en marque aujourd’hui l’extrémité.", "u": "https://fr.wikipedia.org/wiki/Petite_Ourse", "a": "Petite Ourse"}], "planets": [{"t": "Les Grecs le personnifient en Hélios, Titan fils d’Hypérion et de Théia, frère de Séléné (la Lune) et d’Éos (l’Aurore). Chaque jour, il traverse le ciel sur son char ; son fils mortel Phaéton, qui voulut le conduire, est resté célèbre. À Rome, son équivalent est Sol, et Hélios a peu à peu été assimilé à Apollon.", "l": ["Hélios", "Soleil"]}, {"t": "Séléné, fille des Titans Hypérion et Théia et sœur d’Hélios, personnifie la Lune elle-même. On la lie souvent à Artémis et à Hécate : ensemble, elles forment une triade (pleine lune, croissant, nouvelle lune). Son mythe le plus célèbre est son amour pour le berger Endymion, à qui Zeus accorde de dormir sans fin, éternellement jeune. Les Romains l’appelaient Luna.", "l": ["Séléné", "Lune"]}, {"t": "Chez les Romains, Mercure est le dieu du commerce, assimilé à l’Hermès grec : messager des dieux, protecteur des voyageurs et des voleurs, il conduit aussi les âmes aux Enfers. La planète porte son nom pour la vitesse de son déplacement dans le ciel, et son symbole évoque le caducée d’Hermès. Les Babyloniens y voyaient Nabû, dieu du savoir.", "l": ["Mercure (planète)", "Mercure (mythologie)"]}, {"t": "Déesse romaine de l’amour, de la séduction et de la beauté, assimilée très tôt à l’Aphrodite grecque. Fille d’Ouranos chez Hésiode, elle passe à Rome pour la fille de Jupiter et de Dioné ; elle est la mère de Cupidon, qu’elle a eu avec Mars, et d’Hermaphrodite, avec Mercure. La planète, la plus brillante du ciel, lui doit sans doute son nom.", "l": ["Vénus (planète)", "Vénus (mythologie)"]}, {"t": "Dieu romain de la guerre, identifié à l’Arès grec et membre de la triade précapitoline avec Jupiter et Quirinus ; la légende en fait le père de Romulus et Rémus. Arès, fils de Zeus et d’Héra, combat avec Éris, Déimos (la Terreur) et Phobos (la Crainte) : les deux noms donnés aux lunes de la planète. Sa teinte rouge l’a associée à la guerre.", "l": ["Mars (planète)", "Mars (mythologie)"]}, {"t": "Roi des dieux et dieu du ciel dans la religion romaine ; son nom vient d’un « Père du Ciel » indo-européen et ses attributs sont la foudre et l’aigle. Les Romains l’ont assimilé au Zeus grec, dont il a repris les mythes : fils de Saturne, il le détrône. La plus grosse planète du Système solaire porte le nom du chef du panthéon, et l’Union astronomique internationale nomme ses lunes d’après les amours et les descendants du dieu.", "l": ["Jupiter (planète)", "Jupiter (mythologie)"]}, {"t": "Dieu romain du temps, des semailles et des Saturnales, fêtes du solstice d’hiver, assimilé très tôt au Titan Cronos. Dans le mythe grec, Cronos détrône son père Ouranos ; averti qu’un de ses fils le renversera, il dévore ses enfants, jusqu’à ce que Zeus, sauvé, le détrône à son tour. La planète, la plus lointaine connue des Anciens, porte son nom, et son symbole évoque la faucille du dieu.", "l": ["Saturne (planète)", "Saturne (mythologie)"]}, {"t": "Ouranos, le Ciel, est la divinité primordiale grecque qui, unie à Gaïa (la Terre), engendre la première génération des Titans ; il est le père de Cronos (Saturne) et le grand-père de Zeus (Jupiter). La planète, découverte par William Herschel le 13 mars 1781, fut d’abord baptisée par lui Georgium Sidus ; Johann Bode proposa Uranus, pour rester dans la mythologie comme les autres planètes.", "l": ["Uranus (planète)", "Ouranos (mythologie)"]}, {"t": "Neptune est le dieu romain de la mer, l’équivalent du Poséidon grec. La planète a été trouvée par le calcul : Urbain Le Verrier prédit sa position, et Johann Galle l’observe à Berlin le 23 septembre 1846 (John Couch Adams avait fait de son côté des calculs indépendants). Galle suggéra d’abord le nom de Janus ; celui de Neptune fut finalement retenu, dans la tradition des autres planètes.", "l": ["Neptune (planète)", "Neptune (mythologie)"]}, {"t": "Pluton est le dieu romain des Enfers, équivalent du Hadès grec. Découverte le 18 février 1930 par Clyde Tombaugh, la planète a reçu son nom d’une fillette de onze ans d’Oxford, Venetia Burney, passionnée de mythologie ; il plut aussi parce que ses deux premières lettres sont les initiales de Percival Lowell. Elle est classée planète naine depuis 2006.", "l": ["Pluton (planète naine)", "Hadès"]}], "stars": {"Sirius": ["α Canis Majoris", "Grand Chien", "Sirius"], "Canopus": ["α Carinae", "Carène", "Canopus (étoile)"], "Alpha Centauri": ["α Centauri", "Centaure", "Alpha Centauri"], "Arcturus": ["α Boötis", "Bouvier", "Arcturus"], "Véga": ["α Lyrae", "Lyre", "Véga"], "Capella": ["α Aurigae", "Cocher", "Capella (étoile)"], "Rigel": ["β Orionis", "Orion", "Rigel"], "Procyon": ["α Canis Minoris", "Petit Chien", "Procyon"], "Achernar": ["α Eridani", "Éridan", "Achernar"], "Bételgeuse": ["α Orionis", "Orion", "Bételgeuse"], "Altaïr": ["α Aquilae", "Aigle", "Altaïr"], "Aldébaran": ["α Tauri", "Taureau", "Aldébaran"], "Spica": ["α Virginis", "Vierge", "Spica"], "Antarès": ["α Scorpii", "Scorpion", "Antarès"], "Pollux": ["β Geminorum", "Gémeaux", "Pollux (étoile)"], "Fomalhaut": ["α Piscis Austrini", "Poisson austral", "Fomalhaut"], "Deneb": ["α Cygni", "Cygne", "Deneb"], "Régulus": ["α Leonis", "Lion", "Regulus"], "Castor": ["α Geminorum", "Gémeaux", "Castor (étoile)"], "Bellatrix": ["γ Orionis", "Orion", "Bellatrix"], "Alnilam": ["ε Orionis", "Orion", "Alnilam"], "Alnitak": ["ζ Orionis", "Orion", "Alnitak"], "Mintaka": ["δ Orionis", "Orion", "Mintaka"], "Meissa": ["λ Orionis", "Orion", "Meissa"], "Saiph": ["κ Orionis", "Orion", "Saiph"], "Alioth": ["ε Ursae Majoris", "Grande Ourse", "Alioth"], "Dubhe": ["α Ursae Majoris", "Grande Ourse", "Dubhe"], "Alkaid": ["η Ursae Majoris", "Grande Ourse", "Alkaid"], "Mizar": ["ζ Ursae Majoris", "Grande Ourse", "Mizar"], "Merak": ["β Ursae Majoris", "Grande Ourse", "Merak"], "Phecda": ["γ Ursae Majoris", "Grande Ourse", "Phecda"], "Megrez": ["δ Ursae Majoris", "Grande Ourse", "Megrez"], "Polaris": ["α Ursae Minoris", "Petite Ourse", "Étoile polaire"], "Kochab": ["β Ursae Minoris", "Petite Ourse", "Kochab"], "Pherkad": ["γ Ursae Minoris", "Petite Ourse", "Pherkad"], "Yildun": ["δ Ursae Minoris", "Petite Ourse", "Yildun"], "Mirfak": ["α Persei", "Persée", "Mirfak"], "Schedar": ["α Cassiopeiae", "Cassiopée", "Schedar"], "Caph": ["β Cassiopeiae", "Cassiopée", "Caph"], "Gamma Cassiopeiae": ["γ Cassiopeiae", "Cassiopée", "Gamma Cassiopeiae"], "Ruchbah": ["δ Cassiopeiae", "Cassiopée", "Ruchbah"], "Segin": ["ε Cassiopeiae", "Cassiopée", "Segin"], "Hamal": ["α Arietis", "Bélier", "Hamal"], "Elnath": ["β Tauri", "Taureau", "Elnath"], "Alhena": ["γ Geminorum", "Gémeaux", "Alhena"], "Porrima": ["γ Virginis", "Vierge", "Porrima"], "Vindemiatrix": ["ε Virginis", "Vierge", "Vindemiatrix"], "Shaula": ["λ Scorpii", "Scorpion", "Shaula"], "Kaus Australis": ["ε Sagittarii", "Sagittaire", "Kaus Australis"], "Nunki": ["σ Sagittarii", "Sagittaire", "Nunki"], "Alrescha": ["α Piscium", "Poissons", "Alrescha"], "Rasalhague": ["α Ophiuchi", "Ophiuchus", "Rasalhague"], "Alcyone": ["η Tauri", "Pléiades", "Alcyone"], "Atlas": ["27 Tauri", "Pléiades", "Atlas (étoile)"], "Electra": ["17 Tauri", "Pléiades", "Électre (étoile)"], "Maia": ["20 Tauri", "Pléiades", "Maïa (étoile)"], "Merope": ["23 Tauri", "Pléiades", "Mérope (étoile)"], "Taygeta": ["19 Tauri", "Pléiades", "Taygète (étoile)"], "Pleione": ["28 Tauri", "Pléiades", "Pléione (étoile)"], "Hadar": ["β Centauri", "Centaure", "Bêta Centauri"], "Acrux": ["α Crucis", "Croix du Sud", "Acrux"], "Mimosa": ["β Crucis", "Croix du Sud", "Mimosa (étoile)"], "Adhara": ["ε Canis Majoris", "Grand Chien", "Adhara"], "Gacrux": ["γ Crucis", "Croix du Sud", "Gacrux"], "Miaplacidus": ["β Carinae", "Carène", "Miaplacidus"], "Alnair": ["α Gruis", "Grue", "Alnair"], "Wezen": ["δ Canis Majoris", "Grand Chien", "Wezen"], "Regor": ["γ² Velorum", "Voiles", "Gamma Velorum"], "Avior": ["ε Carinae", "Carène", "Avior"], "Menkalinan": ["β Aurigae", "Cocher", "Menkalinan"], "Atria": ["α Trianguli Australis", "Triangle austral", "Atria"], "Peacock": ["α Pavonis", "Paon", "Peacock (étoile)"], "Alsephina": ["δ Velorum", "Voiles", "Alsephina"], "Mirzam": ["β Canis Majoris", "Grand Chien", "Mirzam"], "Alphard": ["α Hydrae", "Hydre", "Alphard"], "Diphda": ["β Ceti", "Baleine", "Diphda"], "Menkent": ["θ Centauri", "Centaure", "Menkent"], "Alpheratz": ["α Andromedae", "Andromède", "Alpheratz"], "Mirach": ["β Andromedae", "Andromède", "Mirach"], "Algol": ["β Persei", "Persée", "Algol"], "Tiaki": ["β Gruis", "Grue", "Bêta Gruis"], "Muhlifain": ["γ Centauri", "Centaure", "Muhlifain"], "Aspidiske": ["ι Carinae", "Carène", "Aspidiske"], "Suhail": ["λ Velorum", "Voiles", "Lambda Velorum"], "Alphecca": ["α Coronae Borealis", "Couronne boréale", "Alphecca"], "Sadr": ["γ Cygni", "Cygne", "Sadr"], "Eltanin": ["γ Draconis", "Dragon", "Eltanin"], "Naos": ["ζ Puppis", "Poupe", "Naos"], "Almach": ["γ Andromedae", "Andromède", "Almach"], "Izar": ["ε Boötis", "Bouvier", "Izar"], "Uridim": ["α Lupi", "Loup", "Alpha Lupi"], "ε Centauri": ["ε Centauri", "Centaure", "Epsilon Centauri"], "η Centauri": ["η Centauri", "Centaure", "Eta Centauri"], "Ankaa": ["α Phoenicis", "Phénix", "Ankaa"], "Enif": ["ε Pegasi", "Pégase", "Enif"], "Scheat": ["β Pegasi", "Pégase", "Scheat"], "Aludra": ["η Canis Majoris", "Grand Chien", "Aludra"], "Alderamin": ["α Cephei", "Céphée", "Alderamin"], "Markeb": ["κ Velorum", "Voiles", "Markeb"], "Markab": ["α Pegasi", "Pégase", "Markab"], "Aljanah": ["ε Cygni", "Cygne", "Epsilon Cygni"], "Acrab": ["β Scorpii", "Scorpion", "Acrab"], "Algieba": ["γ Leonis", "Lion", "Algieba"], "Zosma": ["δ Leonis", "Lion", "Zosma"], "Dschubba": ["δ Scorpii", "Scorpion", "Dschubba"], "Larawag": ["ε Scorpii", "Scorpion", "Larawag"], "Sargas": ["θ Scorpii", "Scorpion", "Sargas"], "Girtab": ["κ Scorpii", "Scorpion", "Girtab"], "Ascella": ["ζ Sagittarii", "Sagittaire", "Ascella"], "Sabik": ["η Ophiuchi", "Ophiuchus", "Sabik"], "Han": ["ζ Ophiuchi", "Ophiuchus", "Zeta Ophiuchi"]}, "signs": [{"t": "Signe de feu et cardinal : il ouvre le printemps (hémisphère nord) et le zodiaque. Attributs cités : combativité, spontanéité, instinct ; il symbolise l’impulsion, l’énergie, l’indépendance et le courage. Complémentaire de la Balance ; on y voit le principal signe de Mars.", "l": ["Bélier (astrologie)", "Signe du zodiaque"]}, {"t": "Signe de terre et fixe, au milieu du printemps. Attributs cités : possessivité, lenteur, entêtement ; il symbolise une grande puissance de travail, l’instinct de conservation, la sensualité et le goût des plaisirs. Complémentaire du Scorpion.", "l": ["Taureau (astrologie)", "Signe du zodiaque"]}, {"t": "Signe d’air et mutable, qui achève le printemps. Attributs cités : curiosité, adaptabilité, versatilité ; symbole double des contacts humains, des transports et des communications, du goût du jeu et de l’envol de l’intelligence. On y voit le principal signe de Mercure. Complémentaire du Sagittaire.", "l": ["Gémeaux (astrologie)", "Signe du zodiaque"]}, {"t": "Signe d’eau et cardinal, qui ouvre l’été. Attributs cités : esprit maternel et familial, imagination ; signe lunaire, il exprime le retrait sur soi, la sensibilité, la timidité et la ténacité. Complémentaire du Capricorne.", "l": ["Cancer (astrologie)", "Signe du zodiaque"]}, {"t": "Signe de feu et fixe, au cœur de l’été. Attributs cités : vitalité, ambition, noblesse ; il exprime la joie de vivre et l’orgueil, mais aussi l’autoritarisme ou le commandement : « l’œuvre d’un seul ». Complémentaire du Verseau.", "l": ["Lion (astrologie)", "Signe du zodiaque"]}, {"t": "Signe de terre et mutable, qui achève l’été. Attributs cités : intelligence analytique, méthode, sens pratique ; il symbolise la moisson, le travail, la minutie et la dextérité manuelle, avec un caractère réservé et méthodique. Complémentaire des Poissons.", "l": ["Vierge (astrologie)", "Signe du zodiaque"]}, {"t": "Signe d’air et cardinal, qui ouvre l’automne. Attributs cités : sens de la justice, raffinement, sociabilité, mais aussi indécision ; il symbolise l’équilibre entre l’élan et la retenue, la spontanéité et la réflexion. Complémentaire du Bélier.", "l": ["Balance (astrologie)", "Signe du zodiaque"]}, {"t": "Signe d’eau et fixe, au cœur de l’automne. Attributs cités : résistance, sensualité, magnétisme ; il symbolise à la fois la résistance, la fermentation et la mort, le dynamisme, la dureté et les luttes. Complémentaire du Taureau.", "l": ["Scorpion (astrologie)", "Signe du zodiaque"]}, {"t": "Signe de feu et mutable, qui achève l’automne. Attributs cités : sagesse, goût des voyages et du risque ; il symbolise le mouvement, les instincts nomades, l’indépendance et les réflexes vifs. Complémentaire des Gémeaux.", "l": ["Sagittaire (astrologie)", "Signe du zodiaque"]}, {"t": "Signe de terre et cardinal, qui ouvre l’hiver. Attributs cités : concentration, devoir, rigorisme ; il exprime la patience, la persévérance, la prudence, la réalisation et le sens du devoir. Complémentaire du Cancer.", "l": ["Capricorne (astrologie)", "Signe du zodiaque"]}, {"t": "Signe d’air et fixe, au cœur de l’hiver. Attributs cités : originalité, esprit d’avant-garde, mais aussi excentricité ; il symbolise la solidarité collective, la coopération, la fraternité et le détachement des choses matérielles, avec une facette « uranienne » : progrès, émancipation, aventure. Complémentaire du Lion.", "l": ["Verseau (astrologie)", "Signe du zodiaque"]}, {"t": "Signe d’eau et mutable, qui achève l’hiver. Attributs cités : dévouement, compassion, sensiblerie ; ils symbolisent le psychisme, la réceptivité et l’impressionnabilité, la fusion dans une totalité et l’effacement des particularismes. Complémentaires de la Vierge.", "l": ["Poissons (astrologie)", "Signe du zodiaque"]}], "houses": [{"t": "Maison de l’ego : la façon de se manifester et de vivre le quotidien, ce que l’on montre aux autres, le caractère inné. Sa pointe est l’Ascendant. On l’associe au Bélier, « l’Être », le commencement. Maison angulaire.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Maison de l’avoir : les résultats matériels de l’activité personnelle, la gestion de sa propre valeur, les moyens d’existence. On l’associe au Taureau : la construction, le travail à long terme. Maison succédente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Maison de la pensée concrète : les études, l’entourage proche (frères et sœurs, voisins), les brefs déplacements et les échanges. Maison cadente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les bases de la vie : les racines, les parents, l’enfance, le foyer et la sphère privée. Sa pointe est le Fond du Ciel. Maison angulaire.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les joies personnelles : la création individuelle, les enfants, les divertissements et le jeu. Maison succédente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les contingences du quotidien : la santé, les maladies aiguës, les obligations et les servitudes, le travail comme devoir. Maison cadente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les relations avec les autres : unions et associations, contrats, ennemis déclarés. Sa pointe est le Descendant, opposé à l’Ascendant. Maison angulaire.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les pertes et les transformations (mort et renaissance) : ce dont on se débarrasse, l’argent venu des autres, les héritages, les crises. Maison succédente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "La pensée abstraite et l’élargissement du champ de conscience : idéal philosophique ou religieux, pays étrangers, longs voyages. Maison cadente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Le sommet de la vie : le moi social, la vie publique, le travail comme vocation, la notoriété. Sa pointe est le Milieu du Ciel. Maison angulaire.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les joies collectives : la création sociale, les amis, les soutiens, les projets et les espoirs partagés. Maison succédente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}, {"t": "Les épreuves et les ennemis cachés, les maladies chroniques, la dépossession de l’ego face à l’universel, les lieux isolés et la solitude propice à la vie intérieure ; par opposition à la maison VI, aussi la disponibilité et le bénévolat. Maison cadente.", "l": ["Maison (astrologie)", "Symbolisme astrologique"]}], "astro": [{"t": "Dans les correspondances psychologiques admises, le Soleil représente la conscience et le moi : la vie, la chaleur et la lumière, la volonté, l’idéal, la discipline, la conscience morale et la vocation.", "l": ["Symbolisme astrologique"]}, {"t": "Astre de la matière et de la fécondité, de la vie animale, végétative et inconsciente : l’instinct, l’imagination, la spontanéité et le rêve.", "l": ["Symbolisme astrologique"]}, {"t": "La fonction du raisonnement, de la communication et de l’adaptation à l’environnement : la manière dont on échange des idées.", "l": ["Symbolisme astrologique"]}, {"t": "Les relations affectives (la façon d’aimer et d’attirer l’amour), la beauté, l’harmonie et les plaisirs de la vie, l’esthétique et le confort.", "l": ["Symbolisme astrologique"]}, {"t": "La force impulsive : les pulsions (parfois agressives ou destructrices), la tension, le désir, la conquête et la passion.", "l": ["Symbolisme astrologique"]}, {"t": "La force d’expansion, d’affirmation et d’épanouissement : l’aisance, la richesse, la confiance, le profit ; l’éducation supérieure, la religion et la loi.", "l": ["Symbolisme astrologique"]}, {"t": "La force d’inhibition, de concentration, de dépouillement et d’abstraction : le doute, le détachement. La tradition en fait généralement une planète négative (limites, renoncement, épreuves) ; les lectures modernes en valorisent la concentration, la résistance et le recul.", "l": ["Symbolisme astrologique"]}, {"t": "La force d’individualisation, de singularisation et de dépassement : l’indépendance, la révolte, l’aventure. Planète lente : beaucoup d’astrologues y lisent surtout un thème de génération.", "l": ["Symbolisme astrologique"]}, {"t": "La force de « collectivisation » : l’intégration au milieu, l’assimilation et la fusion avec l’ambiance. Planète lente, souvent lue à l’échelle d’une génération.", "l": ["Symbolisme astrologique"]}, {"t": "La force des puissances de la vie intérieure et du dépassement de soi : tendances agressives, changements, transformation. Planète lente, souvent lue à l’échelle d’une génération.", "l": ["Symbolisme astrologique"]}]}}};
   let content = DEFAULT_CONTENT;
 
   /* Étoiles pouvant être survolées : la liste est figée par le code ; les textes viennent du contenu. */
   const STAR_INFO = DEFAULT_CONTENT.sources.wikipedia.stars;
   const NAMES = CONST.map(c => c[0]).concat(XFIGS.map(f => f.n));
+  const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+  const COMPLETE = 2.5;   /* magnitude jusqu'à laquelle la liste d'étoiles est complète */
   const ALLFIGS = FIGS.concat(XFIGS);
   const STAR_MAG = {};
   STARS.forEach(t => { STAR_MAG[t.name] = t.mag; });
@@ -710,6 +762,7 @@ function houseOf(lon, cusps) {
     compass: false,
     figures: true,
     houses: 'placidus',
+    magLimit: 2.5,
     zoom: 1,
     panX: 0,
     panY: 0,
@@ -728,6 +781,9 @@ function houseOf(lon, cusps) {
   let dragging = false;
 
   const numFr = v => String(v).replace('.', ',').replace('-', '−');
+  const magLim = document.getElementById('magLim');
+  const magLabel = document.getElementById('magLabel');
+  const magCount = document.getElementById('magCount');
   const wikiGo = t => 'https://fr.wikipedia.org/w/index.php?title=Sp%C3%A9cial:Recherche&go=Go&search=' + encodeURIComponent(t);
   function setHi(key, on) { (hiTargets.get(key) || []).forEach(el => el.classList.toggle('on', on)); }
   function placeTip(x, y) {
@@ -743,6 +799,7 @@ function houseOf(lon, cusps) {
   const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const safeUrl = u => (/^https?:\/\//i.test(String(u)) ? String(u) : '#');
   const linkHTML = (label, url) => '<a href="' + esc(safeUrl(url)) + '" target="_blank" rel="noopener noreferrer">' + esc(label) + '</a>';
+  const linksHTML = list => list.map(x => (typeof x === 'string' ? linkHTML('Article « ' + x + ' »', wikiGo(x)) : linkHTML(x.label || 'Lire la source', x.url))).join('<br>');
   function tipHTML(key, pinned) {
     const sc = content.sources[state.myth];
     if (typeof key === 'number') {
@@ -751,13 +808,26 @@ function houseOf(lon, cusps) {
       return '<h3>' + esc(NAMES[key]) + '</h3><p class="src">Mythe · ' + esc(sc.name) + '</p><p>' + esc(m.t) + '</p>' +
         (pinned && m.u ? '<p class="lk">' + linkHTML(m.a ? 'Article « ' + m.a + ' »' : 'Lire la source', m.u) + '</p>' : '');
     }
+    let m = null, title = '', kind = '', astro = false;
     if (/^p\d+$/.test(key)) {
       const i = Number(key.slice(1));
-      const m = sc.planets && sc.planets[i];
-      if (!m) return '<h3>' + esc(BODIES[i].n) + '</h3><p class="src">' + esc(sc.name) + '</p><p>Pas de fiche pour cet astre dans cette source.</p>';
-      const links = (m.l || []).map(x => (typeof x === 'string' ? linkHTML('Article « ' + x + ' »', wikiGo(x)) : linkHTML(x.label || 'Lire la source', x.url)));
-      return '<h3>' + esc(BODIES[i].n) + '</h3><p class="src">Mythe · ' + esc(sc.name) + '</p><p>' + esc(m.t) + '</p>' +
-        (pinned ? '<p class="lk">' + links.join('<br>') + '</p>' : '<p class="src" style="margin-top:6px">Cliquez pour afficher les liens.</p>');
+      title = BODIES[i].n;
+      if (state.view === 'wheel' && sc.astro && sc.astro[i]) { m = sc.astro[i]; kind = 'Interprétation astrologique'; astro = true; }
+      else { m = sc.planets && sc.planets[i]; kind = 'Mythe'; }
+    } else if (/^s\d+$/.test(key)) {
+      const i = Number(key.slice(1));
+      title = 'Signe : ' + SIGNS[i][0];
+      m = sc.signs && sc.signs[i]; kind = 'Interprétation astrologique'; astro = true;
+    } else if (/^h\d+$/.test(key)) {
+      const i = Number(key.slice(1));
+      title = 'Maison ' + ROMAN[i];
+      m = sc.houses && sc.houses[i]; kind = 'Interprétation astrologique'; astro = true;
+    }
+    if (kind) {
+      if (!m) return '<h3>' + esc(title) + '</h3><p class="src">' + esc(sc.name) + '</p><p>Pas de fiche pour cet élément dans cette source.</p>';
+      return '<h3>' + esc(title) + '</h3><p class="src">' + esc(kind) + ' · ' + esc(sc.name) + '</p><p>' + esc(m.t) + '</p>' +
+        (pinned ? '<p class="lk">' + linksHTML(m.l || []) + '</p>' : '<p class="src" style="margin-top:6px">Cliquez pour afficher les liens.</p>') +
+        (astro ? '<p class="src" style="margin-top:8px">L’astrologie est un système symbolique, non une science.</p>' : '');
     }
     const inf = (sc.stars && sc.stars[key]) || STAR_INFO[key];
     return '<h3>' + esc(key) + '</h3><p class="src">Étoile · ' + esc(inf[0]) + ' · ' + esc(inf[1]) + '</p>' +
@@ -884,11 +954,35 @@ function houseOf(lon, cusps) {
     const t = make(wheel, 'text', { x: f1(p[0]), y: f1(p[1]), class: 'sign sym' });
     t.textContent = SIGNS[s][1];
   }
+  /* Secteur d'un anneau (contour fermé) entre deux longitudes et deux rayons */
+  function wedge(a0, a1, r0, r1) {
+    const n = Math.max(2, Math.ceil(Math.abs(a1 - a0) / 2));
+    const o = [], q = [];
+    for (let k = 0; k <= n; k++) {
+      const l = a0 + (a1 - a0) * k / n;
+      o.push(pt(l, r1));
+      q.push(pt(l, r0));
+    }
+    return 'M' + o.concat(q.reverse()).map(u => f1(u[0]) + ' ' + f1(u[1])).join('L') + 'Z';
+  }
+  for (let s = 0; s < 12; s++) {
+    const h = make(wheel, 'path', { d: wedge(30 * s, 30 * s + 30, 250, 300), class: 'hit' });
+    addTarget('s' + s, h);
+    bindHit(h, 's' + s);
+  }
   make(wheel, 'circle', { cx: C, cy: C, r: 3, class: 'earth' });
 
 
-  /* Maisons : lignes, repères AS / MC / DS / FC et numéros (positions mises à jour à chaque rendu) */
+  /* Maisons : anneau extérieur (numéros et secteurs sensibles), lignes des pointes et repères AS / FC / DS / MC.
+     Les positions sont mises à jour à chaque rendu. */
   const houseG = make(wheel, 'g', {});
+  make(wheel, 'circle', { cx: C, cy: C, r: 326, class: 'ln' }, houseG);
+  const houseHits = Array.from({ length: 12 }, (_, i) => {
+    const h = make(wheel, 'path', { d: '', class: 'hit' }, houseG);
+    addTarget('h' + i, h);
+    bindHit(h, 'h' + i);
+    return h;
+  });
   const houseLines = make(wheel, 'path', { d: '', class: 'hl' }, houseG);
   const houseAxes = make(wheel, 'path', { d: '', class: 'hla' }, houseG);
   const houseAng = ['AS', 'FC', 'DS', 'MC'].map(t => {
@@ -898,7 +992,7 @@ function houseOf(lon, cusps) {
   });
   const houseNums = Array.from({ length: 12 }, (_, i) => {
     const e = make(wheel, 'text', { x: 0, y: 0, class: 'hn' }, houseG);
-    e.textContent = String(i + 1);
+    e.textContent = ROMAN[i];
     return e;
   });
 
@@ -1010,14 +1104,14 @@ function houseOf(lon, cusps) {
     const r = Math.max(1.1, 3.2 - 0.8 * st.mag);
     const dot = make(sky, 'circle', { cx: 0, cy: 0, r: r.toFixed(2), class: 'fs', display: 'none' });
     if (st.name) addTarget(st.name, dot);
-    const label = (st.name && st.mag <= 2.1) ? starLabel(st.name) : null;
+    const label = (st.name && st.mag <= COMPLETE) ? starLabel(st.name) : null;
     return { dot: dot, label: label, r: r, name: st.name, hit: st.name ? starHit(st.name) : null };
   }));
   const starDots = STARS.map(s => {
     const r = Math.max(1.3, 3.6 - 0.9 * s.mag);
     const dot = make(sky, 'circle', { cx: 0, cy: 0, r: r.toFixed(2), class: 'st', display: 'none' });
     addTarget(s.name, dot);
-    const label = (s.mag < 1.4 || s.name === 'Polaris') ? starLabel(s.name) : null;
+    const label = (s.mag <= COMPLETE) ? starLabel(s.name) : null;
     return { dot: dot, label: label, r: r, hit: starHit(s.name) };
   });
   const skyGroups = BODIES.map((b, i) => {
@@ -1096,18 +1190,18 @@ function houseOf(lon, cusps) {
       H = houseCusps(gmst(jd) + place.lon, all.obl, place.lat, state.houses);
       let dl = '';
       H.cusps.forEach(c => {
-        const a = pt(c, 42), b = pt(c, 250);
-        dl += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
+        const a = pt(c, 42), b = pt(c, 250), u = pt(c, 300), v = pt(c, 326);
+        dl += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]) + 'M' + f1(u[0]) + ' ' + f1(u[1]) + 'L' + f1(v[0]) + ' ' + f1(v[1]);
       });
       houseLines.setAttribute('d', dl);
       let da = '';
       [H.asc, H.asc + 180, H.mc, H.mc + 180].forEach(c => {
-        const a = pt(c, 42), b = pt(c, 300);
+        const a = pt(c, 42), b = pt(c, 326);
         da += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
       });
       houseAxes.setAttribute('d', da);
       [H.asc, H.asc + 180, H.mc, H.mc + 180].forEach((c, k) => {
-        const q = pt(c, 314);
+        const q = pt(c, 341);
         houseAng[[0, 2, 3, 1][k]].setAttribute('x', f1(q[0]));
         houseAng[[0, 2, 3, 1][k]].setAttribute('y', f1(q[1]));
       });
@@ -1115,9 +1209,10 @@ function houseOf(lon, cusps) {
         const a = H.cusps[i], b = H.cusps[(i + 1) % 12];
         let span = rev(b - a);
         if (span === 0) span = 360;
-        const q = pt(a + span / 2, 30);
+        const q = pt(a + span / 2, 313);
         t.setAttribute('x', f1(q[0]));
         t.setAttribute('y', f1(q[1]));
+        houseHits[i].setAttribute('d', wedge(a, a + span, 300, 326));
       });
     }
     houseG.setAttribute('display', H ? 'inline' : 'none');
@@ -1200,22 +1295,37 @@ function houseOf(lon, cusps) {
         hit.setAttribute('display', 'none');
       }
     };
+    /* magnitude limite : au-delà de COMPLETE, seules les étoiles des figures s'affichent (avec les figures) */
+    const shown = mag => (mag <= COMPLETE ? mag <= state.magLimit : state.figures);
+    const labelMax = Math.min(COMPLETE, 1.5 + 0.7 * Math.log2(Math.max(1, state.zoom)));
+    const labelOn = (mag, name) => name === 'Polaris' || (mag <= COMPLETE && mag <= state.magLimit && mag <= labelMax);
+    let nList = 0, nUp = 0;
     STARS.forEach((s, i) => {
-      const h = horiz(rev(s.lon0 + prec), s.lat, all.obl, lst, phi);
       const sd = starDots[i];
-      if (h.alt >= 0) {
-        const p = proj(h.alt, h.az);
+      const vis = shown(s.mag);
+      if (vis && s.mag <= COMPLETE) nList++;
+      let p = null;
+      if (vis) {
+        const h = horiz(rev(s.lon0 + prec), s.lat, all.obl, lst, phi);
+        if (h.alt >= 0) p = proj(h.alt, h.az);
+      }
+      if (p) {
+        if (s.mag <= COMPLETE) nUp++;
         sd.dot.setAttribute('cx', f1(p[0]));
         sd.dot.setAttribute('cy', f1(p[1]));
         sd.dot.setAttribute('display', 'inline');
         placeHit(sd.hit, p, true);
         if (sd.label) {
-          const w = s.name.length * 6.2;
-          const left = p[0] + sd.r + 4 + w > 634;
-          sd.label.setAttribute('x', f1(left ? p[0] - sd.r - 4 : p[0] + sd.r + 4));
-          sd.label.setAttribute('text-anchor', left ? 'end' : 'start');
-          sd.label.setAttribute('y', f1(p[1]));
-          sd.label.setAttribute('display', 'inline');
+          if (labelOn(s.mag, s.name)) {
+            const w = s.name.length * 6.2;
+            const left = p[0] + sd.r + 4 + w > 634;
+            sd.label.setAttribute('x', f1(left ? p[0] - sd.r - 4 : p[0] + sd.r + 4));
+            sd.label.setAttribute('text-anchor', left ? 'end' : 'start');
+            sd.label.setAttribute('y', f1(p[1]));
+            sd.label.setAttribute('display', 'inline');
+          } else {
+            sd.label.setAttribute('display', 'none');
+          }
         }
       } else {
         sd.dot.setAttribute('display', 'none');
@@ -1226,11 +1336,11 @@ function houseOf(lon, cusps) {
 
     ALLFIGS.forEach((f, fi) => {
       let df = '', dh = '';
-      const pos = f.s.map(st => {
-        if (!state.figures) return null;
+      const posAll = f.s.map(st => {
         const h = horiz(rev(st.lon0 + prec), st.lat, all.obl, lst, phi);
         return h.alt >= 0 ? proj(h.alt, h.az) : null;
       });
+      const pos = state.figures ? posAll : posAll.map(() => null);
       f.l.forEach(seg => {
         const a = pos[seg[0]], b = pos[seg[1]];
         if (a && b) df += 'M' + f1(a[0]) + ' ' + f1(a[1]) + 'L' + f1(b[0]) + ' ' + f1(b[1]);
@@ -1240,24 +1350,32 @@ function houseOf(lon, cusps) {
       f.s.forEach((st, si) => {
         const fd = figDots[fi][si];
         if (!fd) return;
-        const p = pos[si];
+        const vis = shown(st.mag);
+        if (vis && st.mag <= COMPLETE) nList++;
+        const p = vis ? posAll[si] : null;
         placeHit(fd.hit, p, !!p);
         if (p) {
+          if (st.mag <= COMPLETE) nUp++;
           fd.dot.setAttribute('cx', f1(p[0]));
           fd.dot.setAttribute('cy', f1(p[1]));
           fd.dot.setAttribute('display', 'inline');
           if (fd.label) {
-            const left = p[0] + fd.r + 4 + fd.name.length * 6.2 > 634;
-            fd.label.setAttribute('x', f1(left ? p[0] - fd.r - 4 : p[0] + fd.r + 4));
-            fd.label.setAttribute('text-anchor', left ? 'end' : 'start');
-            fd.label.setAttribute('y', f1(p[1]));
-            fd.label.setAttribute('display', 'inline');
+            if (labelOn(st.mag, fd.name)) {
+              const left = p[0] + fd.r + 4 + fd.name.length * 6.2 > 634;
+              fd.label.setAttribute('x', f1(left ? p[0] - fd.r - 4 : p[0] + fd.r + 4));
+              fd.label.setAttribute('text-anchor', left ? 'end' : 'start');
+              fd.label.setAttribute('y', f1(p[1]));
+              fd.label.setAttribute('display', 'inline');
+            } else {
+              fd.label.setAttribute('display', 'none');
+            }
           }
         } else {
           fd.dot.setAttribute('display', 'none');
           if (fd.label) fd.label.setAttribute('display', 'none');
         }
       });
+      if (fi === ALLFIGS.length - 1) magCount.textContent = nList + (nList > 1 ? ' étoiles dans la liste, dont ' : ' étoile dans la liste, dont ') + nUp + ' au-dessus de l’horizon.';
       figPaths[fi].setAttribute('d', df);
       figHits[fi].setAttribute('d', dh);
       if (fi >= CONST.length) {
@@ -1391,6 +1509,7 @@ function houseOf(lon, cusps) {
 
   placeSel.addEventListener('change', () => { state.place = Number(placeSel.value); render(); });
   document.getElementById('housesSel').addEventListener('change', e => { state.houses = e.target.value; render(); });
+  magLim.addEventListener('input', () => { state.magLimit = Number(magLim.value) / 10; magLabel.textContent = '≤ ' + numFr(state.magLimit.toFixed(1)); render(); });
   timeSlider.addEventListener('input', () => {
     state.minutes = Number(timeSlider.value);
     render();
@@ -1661,7 +1780,7 @@ function houseOf(lon, cusps) {
   });
 
   /* ---------- Hors connexion : contenu mis à jour et service worker ---------- */
-  const APP_VERSION = '2026-09-19.5';
+  const APP_VERSION = '2026-09-19.7';
   const hosted = /^https?:$/.test(location.protocol);
   const offGrp = document.getElementById('offGrp');
   const offMsg = document.getElementById('offMsg');
@@ -1679,6 +1798,9 @@ function houseOf(lon, cusps) {
       if (!sc || typeof sc.name !== 'string') return false;
       if (sc.constellations && (!Array.isArray(sc.constellations) || sc.constellations.length > NAMES.length || !sc.constellations.every(m => !m || typeof m.t === 'string'))) return false;
       if (sc.planets && (!Array.isArray(sc.planets) || sc.planets.length > BODIES.length || !sc.planets.every(m => !m || typeof m.t === 'string'))) return false;
+      if (sc.signs && (!Array.isArray(sc.signs) || sc.signs.length > 12 || !sc.signs.every(m => !m || typeof m.t === 'string'))) return false;
+      if (sc.houses && (!Array.isArray(sc.houses) || sc.houses.length > 12 || !sc.houses.every(m => !m || typeof m.t === 'string'))) return false;
+      if (sc.astro && (!Array.isArray(sc.astro) || sc.astro.length > BODIES.length || !sc.astro.every(m => !m || typeof m.t === 'string'))) return false;
       if (sc.stars && (typeof sc.stars !== 'object' || !Object.keys(sc.stars).every(k => Array.isArray(sc.stars[k]) && sc.stars[k].length >= 3))) return false;
       return true;
     });
