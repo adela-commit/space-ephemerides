@@ -51,6 +51,20 @@ Pour Jupiter et Saturne, JPL indique lui-même une erreur nominale de 0,11° et 
 
 **Ce qui serait meilleur** : des éphémérides de JPL (DE440), disponibles via le système Horizons, donneraient une précision de l'ordre de la seconde d'arc. Ce n'est pas accessible depuis l'environnement où l'application a été développée (pas d'accès réseau) et l'écart, de l'ordre de la minute d'arc, est imperceptible au dessin (un degré occupe environ trois pixels au zoom 1).
 
+## Interactions (constellations et fiches)
+
+- **Un clic ou un toucher** sur une étoile, un tracé, un signe ou une maison ouvre sa fiche et, si elle appartient à une constellation pas encore affichée, la fait apparaître durablement. Cliquer sur un autre élément de la même constellation change seulement la fiche affichée : la constellation reste en place, pour pouvoir lire plusieurs fiches de suite sans la perdre.
+- **Un second clic sur l'élément déjà pointé** referme juste la fiche.
+- **Un double clic ou un double toucher rapproché** (moins de 400 ms) sur le même élément fait disparaître la constellation.
+- **La croix** en haut à droite d'une fiche épinglée la referme, sans toucher à la constellation affichée.
+
+## Lisibilité et code visuel
+
+- **Bouton « Aa »** (vue horizon) : trois tailles pour les noms d'étoiles et de constellations sur la carte (×0,85, ×1, ×1,2).
+- **Soleil et Lune** : teinte ambrée (`--lum`, #B8862E en clair, #E0A845 en sombre) et gras, sur la roue, l'horizon et la liste des positions. Aucun autre astre ne porte cette teinte.
+- **Constellations** : noms en petites capitales espacées (`letter-spacing`), sans couleur ajoutée.
+- **Étoiles** : noms en couleur pleine (encre du thème) au lieu d'un gris atténué.
+
 ## Mythes et origines des constellations
 
 Les 17 premières constellations (zodiaque, Orion, Cassiopée, Grande et Petite Ourse) ont des fiches rédigées à partir d'articles de Wikipédia en français. Les 71 autres ont une fiche dont la source est indiquée en tête :
